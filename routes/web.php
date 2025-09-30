@@ -7,8 +7,8 @@ use App\Http\Controllers\PaginaController;
 use App\Http\Controllers\GlobalController;
 
 
-Route::get('/', [PageController::class, 'showEnglish'])->name('home');
-Route::get('/welcome', function () {
+Route::get('/showEnglish', [PageController::class, 'showEnglish'])->name('home');
+Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 

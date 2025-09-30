@@ -6,24 +6,266 @@
     .video-wrapper {
         border-radius: 20px;
         overflow: hidden;
-        box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        box-shadow: 0 8px 20px rgba(240, 85, 165, 0.2);
         border: 3px solid #F055A5;
         background: #000;
-        width: 350px; /* 👈 Ancho fijo */
-        height: 600px; /* 👈 Alto fijo (relación 16:9) */
+        width: 350px;
+        height: 600px;
         margin: 0 auto;
     }
 
     .custom-video {
         width: 100%;
         height: 100%;
-        object-fit: cover; /* 👈 Mantiene proporciones */
+        object-fit: cover;
+    }
+
+    /* Hero Section con pantalla completa */
+    .hero-slide {
+        height: 100vh;
+        min-height: 100vh;
+        background-size: cover;
+        background-position: center;
+        position: relative;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+    }
+
+    .hero-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, 
+            rgba(240, 85, 165, 0.3) 0%, 
+            rgba(0, 0, 0, 0.5) 100%);
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 10;
+        color: white;
+        animation: slideInLeft 0.8s ease-out;
+    }
+
+    @keyframes slideInLeft {
+        from {
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    .hero-content h1 {
+        font-size: 3.5rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        line-height: 1.2;
+        position: relative;
+    }
+
+    .hero-content h1::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 0;
+        width: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #F055A5, #7A88FE);
+        border-radius: 2px;
+        animation: expandLine 1s ease-out 0.5s forwards;
+    }
+
+    @keyframes expandLine {
+        to {
+            width: 120px;
+        }
+    }
+
+    .hero-content .lead {
+        font-size: 1.3rem;
+        font-weight: 400;
+        margin-bottom: 2rem;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+        max-width: 500px;
+        animation: fadeIn 0.8s ease-out 0.3s both;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    .hero-content .btn-primary {
+        padding: 15px 35px;
+        font-weight: 600;
+        border-radius: 25px;
+        font-size: 1.1rem;
+        background: linear-gradient(135deg, #F055A5 0%, #D1477A 100%);
+        border: none;
+        transition: all 0.3s ease;
+        animation: pulse 2s infinite;
+        position: relative;
+        overflow: hidden;
+    }
+
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.02); }
+    }
+
+    .hero-content .btn-primary:hover {
+        background: linear-gradient(135deg, #D1477A 0%, #F055A5 100%);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(240, 85, 165, 0.4);
+        animation: none;
+    }
+
+    .hero-content .btn-primary::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        transition: left 0.6s;
+    }
+
+    .hero-content .btn-primary:hover::before {
+        left: 100%;
+    }
+
+    /* Partículas fitness sutiles */
+    .hero-slide::before {
+        content: '💪 ⭐ 💖 🔥';
+        position: absolute;
+        top: 20%;
+        right: 10%;
+        font-size: 1.5rem;
+        opacity: 0.1;
+        animation: floatFitness 8s ease-in-out infinite;
+        z-index: 1;
+        pointer-events: none;
+    }
+
+    @keyframes floatFitness {
+        0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.1; }
+        50% { transform: translateY(-20px) rotate(5deg); opacity: 0.2; }
+    }
+
+    /* Indicadores simples */
+    .carousel-indicators [data-bs-target] {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.5);
+        border: none;
+        margin: 0 5px;
+    }
+
+    .carousel-indicators .active {
+        background: #F055A5;
+    }
+
+    /* Controles del carrusel mejorados */
+    .carousel-control-prev,
+    .carousel-control-next {
+        width: 5%;
+        opacity: 1;
+        z-index: 15;
+    }
+
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        width: 55px;
+        height: 55px;
+        background: rgba(240, 85, 165, 0.9);
+        border-radius: 50%;
+        background-size: 40%;
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(240, 85, 165, 0.3);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .carousel-control-prev-icon {
+        margin-left: 20px;
+    }
+
+    .carousel-control-next-icon {
+        margin-right: 20px;
+    }
+
+    .carousel-control-prev:hover .carousel-control-prev-icon,
+    .carousel-control-next:hover .carousel-control-next-icon {
+        background: #F055A5;
+        transform: scale(1.1);
+        box-shadow: 0 6px 20px rgba(240, 85, 165, 0.5);
+        border-color: rgba(255, 255, 255, 0.4);
+    }
+
+    /* Animación de los controles al cargar */
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        animation: slideControls 1s ease-out 1.5s both;
+    }
+
+    @keyframes slideControls {
+        from {
+            opacity: 0;
+            transform: translateX(50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    .carousel-control-prev .carousel-control-prev-icon {
+        animation: slideControlsLeft 1s ease-out 1.5s both;
+    }
+
+    @keyframes slideControlsLeft {
+        from {
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .hero-slide {
+            height: 70vh;
+        }
+        
+        .hero-content h1 {
+            font-size: 2.5rem;
+        }
+        
+        .hero-content .lead {
+            font-size: 1.1rem;
+        }
+
+        .video-wrapper {
+            width: 280px;
+            height: 480px;
+        }
     }
 </style>
 
 <!-- Hero Section -->
 <section id="inicio" class="hero-carousel">
-    <!-- Carrusel de Bootstrap más simple y robusto -->
     <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
         <!-- Indicadores -->
         <div class="carousel-indicators">
@@ -41,7 +283,7 @@
                         <div class="row">
                             <div class="col-lg-8 ps-lg-5">
                                 <h1>MOVE Challenge con Anabelle Ibalu</h1>
-                                <p class="lead mb-4">30 días para moverte, agradecer y transformar tu energía.</p>
+                                <p class="lead">30 días para moverte, agradecer y transformar tu energía.</p>
                                 <a target="_blank" href="https://wa.link/nq2ezt" class="btn btn-primary btn-lg">
                                     Inscríbete ahora
                                 </a>
@@ -59,7 +301,7 @@
                         <div class="row">
                             <div class="col-lg-8 ps-lg-5">
                                 <h1>Una comunidad que irradia luz</h1>
-                                <p class="lead mb-4">Contenido real, hábitos saludables y apoyo constante en cada paso.</p>
+                                <p class="lead">Contenido real, hábitos saludables y apoyo constante en cada paso.</p>
                                 <a href="#testimonios" class="btn btn-primary btn-lg">Conoce la comunidad</a>
                             </div>
                         </div>
@@ -77,6 +319,7 @@
         </button>
     </div>
 </section>
+
 
 <!-- Sobre mí -->
 <section id="nosotros" class="py-5">
