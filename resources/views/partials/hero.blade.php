@@ -27,7 +27,7 @@
             </div>
 
             <!-- Slide 2: Comunidad -->
-            <div class="carousel-item">
+            {{-- <div class="carousel-item">
                 <div class="hero-slide" style="background-image: url('{{ asset('images/banner2.png') }}');">
                     <div class="hero-overlay"></div>
                     <div class="hero-content container">
@@ -40,7 +40,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
 
         <!-- Controles -->
