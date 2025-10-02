@@ -8,9 +8,15 @@ use App\Http\Controllers\GlobalController;
 
 
 Route::get('/showEnglish', [PageController::class, 'showEnglish'])->name('home');
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
+// Route::get('/', function () {
+//     return view('welcome');
+// })->name('welcome');
+
+Route::get('/',               [PageController::class, 'home'])->name('welcome');
+Route::get('/sobre-mi',       [PageController::class, 'about'])->name('about');
+Route::get('/move-challenge', [PageController::class, 'move'])->name('move');
+Route::get('/comunidad',      [PageController::class, 'community'])->name('community');
+Route::get('/contacto',       [PageController::class, 'contact'])->name('contact');
 
 
 Route::get('/dashboard', function () {
