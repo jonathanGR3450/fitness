@@ -23,11 +23,27 @@
             --steel-pink-dark: #B8437D;   /* Steel Pink 50% más oscuro para detalles */
         }
         
-        body {
-            font-family: 'Open Sans', 'Poppins', sans-serif;
-            color: var(--text-color);
-            background: linear-gradient(135deg, rgba(240, 85, 165, 0.03) 0%, rgba(122, 136, 254, 0.03) 100%);
-        }
+body {
+    position: relative;
+    background-image: url('/images/animal.jpg');
+    background-repeat: repeat;
+    background-size: 300px;
+    background-attachment: fixed;
+}
+
+/* Overlay semitransparente para suavizar */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.38);  /* ⬅️ Ajusta el último valor */
+    z-index: -1;
+    pointer-events: none;
+}
+
         
         .navbar {
             background: rgba(255, 255, 255, 0.95);
@@ -486,8 +502,6 @@ background: linear-gradient(135deg, #2D3748 0%, #1A202C 100%);
         .cta-top {
         position: absolute;
         right: 12px;
-        top: 50%;
-        transform: translateY(-50%);
         white-space: nowrap;
         }
 
