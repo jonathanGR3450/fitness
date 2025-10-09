@@ -14,24 +14,24 @@
     <!-- Custom CSS -->
     <style>
         :root {
-            --primary-color: #F055A5;     /* Steel Pink - color principal de la marca */
+            --primary-color: #F055A5;     /* Steel Pink */
             --secondary-color: #7A88FE;   /* Tropical Indigo */
             --text-color: #333333;
             --light-color: #F8F9FA;
             --accent-orange: #FF9B28;     /* Princeton Orange */
-            --accent-green: #CCD537;      /* Pear */
-            --steel-pink-dark: #B8437D;   /* Steel Pink 50% más oscuro para detalles */
+            --accent-green: #CCD537;      /* Pear - Verde del manual */
+            --steel-pink-dark: #B8437D;   /* Steel Pink 50% más oscuro */
         }
         
 body {
     position: relative;
-    background-image: url('/images/animal.jpg');
-    background-repeat: repeat;
-    background-size: 300px;
+    background-image: url('/images/2.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
     background-attachment: fixed;
 }
 
-/* Overlay semitransparente para suavizar */
 body::before {
     content: '';
     position: fixed;
@@ -39,7 +39,7 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(255, 255, 255, 0.38);  /* ⬅️ Ajusta el último valor */
+    background: rgba(255, 255, 255, 0.38);
     z-index: -1;
     pointer-events: none;
 }
@@ -49,47 +49,87 @@ body::before {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             box-shadow: 0 4px 20px rgba(240, 85, 165, 0.1);
-            position: fixed;
-            left: 0;
-            right: 0;
-            z-index: 1030;
-            transition: all 0.3s ease;
-        }
-        
-        .navbar.show {
-            top: 0; /* Visible cuando tiene la clase 'show' */
+            padding: 0.75rem 0;
         }
         
         .navbar-brand img {
             height: 60px;
+            transition: transform 0.3s ease;
+        }
+
+        .navbar-brand:hover img {
+            transform: scale(1.05);
         }
         
         .nav-link {
-            font-weight: 500;
+            font-weight: 600;
             color: var(--text-color);
-            margin: 0 10px;
+            margin: 0 0.5rem;
+            padding: 0.85rem 1rem;
+            transition: color 0.3s ease;
+            position: relative;
         }
         
         .nav-link:hover {
             color: var(--primary-color);
         }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--steel-pink-dark) 100%);
-            border: none;
-            padding: 12px 24px;
-            font-weight: 600;
-            border-radius: 25px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(240, 85, 165, 0.3);
+
+        /* Subrayado animado */
+        .nav-link::after {
+            content: "";
+            position: absolute;
+            left: 12%;
+            right: 12%;
+            bottom: 0.35rem;
+            height: 4px;
+             background: #B8437D;
+            border-radius: 4px;
+            transform: scaleX(0);
+            transform-origin: center;
+            transition: transform 0.25s ease;
         }
+
+        .nav-link:hover::after,
+        .nav-link:focus::after,
+        .nav-link.active::after {
+            transform: scaleX(1);
+        }
+
+        /* Botón CTA VERDE según manual de marca */
+    .btn-primary {
+        display: inline-block;
+        padding: 16px 40px;
+        background: var(--green);  /* Verde del manual */
+        color: #333;
+        text-decoration: none;
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 4px 15px rgba(204, 213, 55, 0.3);
+    }
         
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(240, 85, 165, 0.4);
-            background: linear-gradient(135deg, var(--steel-pink-dark) 0%, var(--primary-color) 100%);
+            box-shadow: 0 8px 25px rgba(204, 213, 55, 0.5);
+            background: linear-gradient(135deg, #A8B030 0%, var(--accent-green) 100%);
+            color: #222 !important;
+        }
+
+        /* Botón toggler personalizado */
+        .navbar-toggler {
+            border: 2px solid var(--primary-color);
+            padding: 0.5rem 0.75rem;
+        }
+
+        .navbar-toggler:focus {
+            box-shadow: 0 0 0 0.25rem rgba(240, 85, 165, 0.25);
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgb(240, 85, 165)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
         }
         
         .language-buttons {
@@ -134,7 +174,7 @@ body::before {
         }
         
         footer {
-background: linear-gradient(135deg, #2D3748 0%, #1A202C 100%);
+            background: linear-gradient(135deg, #2D3748 0%, #1A202C 100%);
             color: white;
             padding: 4rem 0 2rem;
             position: relative;
@@ -251,9 +291,25 @@ background: linear-gradient(135deg, #2D3748 0%, #1A202C 100%);
                 justify-content: center;
                 margin-top: 1rem;
             }
+
+            .navbar-collapse {
+                margin-top: 1rem;
+                padding: 1rem 0;
+                border-top: 1px solid rgba(0, 0, 0, 0.1);
+            }
+
+            .navbar-nav {
+                text-align: center;
+                margin-bottom: 1rem;
+            }
+
+            .btn-primary {
+                width: 100%;
+                text-align: center;
+            }
         }
 
-        /* Estilos para el contenido de las vistas */
+        /* Hero Section */
         .hero {
             background-size: cover;
             background-position: center;
@@ -323,576 +379,197 @@ background: linear-gradient(135deg, #2D3748 0%, #1A202C 100%);
             color: var(--primary-color);
         }
         
-        .portfolio-item {
+        .video-wrapper {
+            border-radius: 20px;
             overflow: hidden;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            position: relative;
+            box-shadow: 0 8px 20px rgba(240, 85, 165, 0.2);
+            border: 3px solid #F055A5;
+            background: #000;
+            width: 350px;
+            height: 600px;
+            margin: 0 auto;
         }
-        
-        .portfolio-item img {
-            transition: transform 0.4s ease;
+
+        .custom-video {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
-        
-        .portfolio-item:hover img {
-            transform: scale(1.05);
-        }
-        
-        .testimonial-card {
-            background: #fff;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            margin: 1rem;
-        }
-        
-        .testimonial-avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 1rem;
-        }
-        
-        .cta-section {
-            background-color: var(--primary-color);
-            padding: 5rem 0;
-            color: white;
-        }
-        
-        .contact-form {
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        
-        .whatsapp-btn {
-            background-color: #25D366;
-            color: white;
-            border-radius: 50px;
-            padding: 10px 20px;
-            display: inline-flex;
-            align-items: center;
-            font-weight: 600;
-            text-decoration: none;
-        }
-        
-        .whatsapp-btn i {
-            margin-right: 8px;
-        }
 
-        /* Estilos del carrusel hero */
-        .hero-carousel {
-            position: relative;
-        }
-
-        #heroCarousel {
-            position: relative;
-        }
-
+        /* Hero carousel styles */
         .hero-slide {
-            height: 80vh;
+            height: 100vh;
+            min-height: 100vh;
             background-size: cover;
             background-position: center;
             position: relative;
             display: flex;
             align-items: center;
+            overflow: hidden;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, 
+                rgba(240, 85, 165, 0.3) 0%, 
+                rgba(0, 0, 0, 0.5) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            color: white;
+            animation: slideInLeft 0.8s ease-out;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         .hero-content h1 {
-            font-size: 3rem;
+            font-size: 3.5rem;
             font-weight: 700;
-            margin-bottom: 1rem;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            line-height: 1.2;
         }
 
         .hero-content .lead {
-            font-size: 1.25rem;
+            font-size: 1.3rem;
             font-weight: 400;
-            margin-bottom: 1.5rem;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+            max-width: 500px;
         }
 
-        .hero-content .btn-primary {
-            padding: 0.75rem 1.5rem;
-            font-weight: 600;
-            border-radius: 30px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Controles del carrusel */
+        /* Controles del carrusel mejorados con verde */
         .carousel-control-prev,
         .carousel-control-next {
-            width: 10%;
+            width: 5%;
             opacity: 1;
+            z-index: 15;
         }
 
         .carousel-control-prev-icon,
         .carousel-control-next-icon {
-            width: 40px;
-            height: 40px;
-            background-color: rgba(0, 0, 0, 0.5);
+            width: 55px;
+            height: 55px;
+            background: rgba(204, 213, 55, 0.9); /* Verde del manual */
             border-radius: 50%;
-            background-size: 50%;
-            padding: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            background-size: 40%;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(204, 213, 55, 0.4);
+            border: 2px solid rgba(255, 255, 255, 0.2);
         }
 
         .carousel-control-prev:hover .carousel-control-prev-icon,
         .carousel-control-next:hover .carousel-control-next-icon {
-            background-color: var(--primary-color);
+            background: var(--accent-green);
             transform: scale(1.1);
-            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(204, 213, 55, 0.6);
         }
 
-        @media (max-width: 992px) {
-            .language-buttons {
-                margin: 15px 0;
-                justify-content: center;
-            }
+        /* Indicadores */
+        .carousel-indicators [data-bs-target] {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            border: none;
+            margin: 0 5px;
         }
 
-        /* Ajustes para móviles */
+        .carousel-indicators .active {
+            background: var(--accent-green); /* Verde del manual */
+        }
+
         @media (max-width: 768px) {
             .hero-slide {
-                height: 60vh;
+                height: 70vh;
             }
             
             .hero-content h1 {
-                font-size: 2rem;
+                font-size: 2.5rem;
             }
             
             .hero-content .lead {
-                font-size: 1rem;
+                font-size: 1.1rem;
             }
-            
-            .hero-content .btn-primary {
-                padding: 0.5rem 1rem;
-                font-size: 0.9rem;
+
+            .video-wrapper {
+                width: 280px;
+                height: 480px;
             }
         }
-
-        /* Contenedor general del header */
-        .site-header {
-        background: rgba(255,255,255,0.95);
-        backdrop-filter: blur(10px);
-        box-shadow: 0 4px 20px rgba(240, 85, 165, 0.08);
-        z-index: 1030;
-        }
-
-        /* Fila superior */
-        .nav-top {
-        min-height: 72px;
-        }
-        .brand-center {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%,-50%);
-        display: inline-block;
-        }
-        .cta-top {
-        position: absolute;
-        right: 12px;
-        white-space: nowrap;
-        }
-
-        /* Fila inferior (menú) */
-        .nav-bottom {
-        background: rgba(255,255,255,0.95);
-        border-top: 1px solid rgba(0,0,0,0.04);
-        }
-        .navbar-nav .nav-link {
-        font-weight: 600;
-        color: var(--text-color);
-        padding: 0.85rem 1rem;
-        }
-
-        /* Subrayado grueso en hover/activo con color de la paleta */
-        .underline-fat {
-        position: relative;
-        }
-        .underline-fat::after {
-        content: "";
-        position: absolute;
-        left: 12%;
-        right: 12%;
-        bottom: 0.35rem;
-        height: 4px;                 /* grosor de la línea */
-        background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-        border-radius: 4px;
-        transform: scaleX(0);
-        transform-origin: center;
-        transition: transform .25s ease;
-        }
-        .underline-fat:hover::after,
-        .underline-fat:focus::after {
-        transform: scaleX(1);
-        }
-
-        /* Opcional: estado "activo" si quieres marcar la sección actual */
-        .navbar-nav .nav-link.active::after {
-        transform: scaleX(1);
-        }
-
-        /* Ajustes móviles */
-        @media (max-width: 991.98px) {
-        .cta-top {                 /* ocultamos CTA grande en pantallas pequeñas */
-            display: none !important;
-        }
-        .nav-bottom .navbar-collapse {
-            padding: 0.5rem 0;
-        }
-        .navbar-nav .nav-link {
-            text-align: center;
-        }
-        }
-
-        
-.video-wrapper {
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 8px 20px rgba(240, 85, 165, 0.2);
-    border: 3px solid #F055A5;
-    background: #000;
-    width: 350px;
-    height: 600px;
-    margin: 0 auto;
-}
-
-.custom-video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-/* Hero Section con pantalla completa */
-.hero-slide {
-    height: 100vh;
-    min-height: 100vh;
-    background-size: cover;
-    background-position: center;
-    position: relative;
-    display: flex;
-    align-items: center;
-    overflow: hidden;
-}
-
-.hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, 
-        rgba(240, 85, 165, 0.3) 0%, 
-        rgba(0, 0, 0, 0.5) 100%);
-}
-
-.hero-content {
-    position: relative;
-    z-index: 10;
-    color: white;
-    animation: slideInLeft 0.8s ease-out;
-}
-
-@keyframes slideInLeft {
-    from {
-        opacity: 0;
-        transform: translateX(-50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-.hero-content h1 {
-    font-size: 3.5rem;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-    line-height: 1.2;
-    position: relative;
-}
-
-.hero-content h1::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 0;
-    width: 0;
-    height: 4px;
-    background: linear-gradient(90deg, #F055A5, #7A88FE);
-    border-radius: 2px;
-    animation: expandLine 1s ease-out 0.5s forwards;
-}
-
-@keyframes expandLine {
-    to {
-        width: 120px;
-    }
-}
-
-.hero-content .lead {
-    font-size: 1.3rem;
-    font-weight: 400;
-    margin-bottom: 2rem;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
-    max-width: 500px;
-    animation: fadeIn 0.8s ease-out 0.3s both;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-.hero-content .btn-primary {
-    padding: 15px 35px;
-    font-weight: 600;
-    border-radius: 25px;
-    font-size: 1.1rem;
-    background: linear-gradient(135deg, #F055A5 0%, #D1477A 100%);
-    border: none;
-    transition: all 0.3s ease;
-    animation: pulse 2s infinite;
-    position: relative;
-    overflow: hidden;
-}
-
-@keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.02); }
-}
-
-.hero-content .btn-primary:hover {
-    background: linear-gradient(135deg, #D1477A 0%, #F055A5 100%);
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(240, 85, 165, 0.4);
-    animation: none;
-}
-
-.hero-content .btn-primary::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-    transition: left 0.6s;
-}
-
-.hero-content .btn-primary:hover::before {
-    left: 100%;
-}
-
-/* Partículas fitness sutiles */
-.hero-slide::before {
-    content: '💪 ⭐ 💖 🔥';
-    position: absolute;
-    top: 20%;
-    right: 10%;
-    font-size: 1.5rem;
-    opacity: 0.1;
-    animation: floatFitness 8s ease-in-out infinite;
-    z-index: 1;
-    pointer-events: none;
-}
-
-@keyframes floatFitness {
-    0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.1; }
-    50% { transform: translateY(-20px) rotate(5deg); opacity: 0.2; }
-}
-
-/* Indicadores simples */
-.carousel-indicators [data-bs-target] {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.5);
-    border: none;
-    margin: 0 5px;
-}
-
-.carousel-indicators .active {
-    background: #F055A5;
-}
-
-/* Controles del carrusel mejorados */
-.carousel-control-prev,
-.carousel-control-next {
-    width: 5%;
-    opacity: 1;
-    z-index: 15;
-}
-
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-    width: 55px;
-    height: 55px;
-    background: rgba(240, 85, 165, 0.9);
-    border-radius: 50%;
-    background-size: 40%;
-    backdrop-filter: blur(10px);
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(240, 85, 165, 0.3);
-    border: 2px solid rgba(255, 255, 255, 0.2);
-}
-
-.carousel-control-prev-icon {
-    margin-left: 20px;
-}
-
-.carousel-control-next-icon {
-    margin-right: 20px;
-}
-
-.carousel-control-prev:hover .carousel-control-prev-icon,
-.carousel-control-next:hover .carousel-control-next-icon {
-    background: #F055A5;
-    transform: scale(1.1);
-    box-shadow: 0 6px 20px rgba(240, 85, 165, 0.5);
-    border-color: rgba(255, 255, 255, 0.4);
-}
-
-/* Animación de los controles al cargar */
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-    animation: slideControls 1s ease-out 1.5s both;
-}
-
-@keyframes slideControls {
-    from {
-        opacity: 0;
-        transform: translateX(50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-.carousel-control-prev .carousel-control-prev-icon {
-    animation: slideControlsLeft 1s ease-out 1.5s both;
-}
-
-@keyframes slideControlsLeft {
-    from {
-        opacity: 0;
-        transform: translateX(-50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .hero-slide {
-        height: 70vh;
-    }
-    
-    .hero-content h1 {
-        font-size: 2.5rem;
-    }
-    
-    .hero-content .lead {
-        font-size: 1.1rem;
-    }
-
-    .video-wrapper {
-        width: 280px;
-        height: 480px;
-    }
-}
-
     </style>
 </head>
 
-<header class="site-header sticky-top">
-  <!-- Fila superior: logo centrado + CTA arriba derecha -->
-  <div class="nav-top container position-relative py-2">
-    <a class="brand-center" href="#">
-      <img src="{{ asset('images/logo.png') }}" alt="{{ env('APP_NAME') }}" height="60">
-    </a>
-
-    <a href="#contacto" class="btn btn-primary cta-top d-none d-md-inline-flex">
-      ÚNETE AL CHALLENGE
-    </a>
-
-    <!-- Toggler para móviles (abre/cierra el menú de la fila inferior) -->
-    <button class="navbar-toggler d-lg-none position-absolute end-0 top-50 translate-middle-y"
-            type="button" data-bs-toggle="collapse" data-bs-target="#mainMenu"
-            aria-controls="mainMenu" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-  </div>
-
-  <!-- Fila inferior: menú centrado -->
-  <nav class="navbar navbar-expand-lg nav-bottom">
-    <div class="container">
-      <div class="collapse navbar-collapse justify-content-center" id="mainMenu">
-        <ul class="navbar-nav gap-lg-2">
-            <a class="nav-link underline-fat {{ request()->routeIs('welcome') ? 'active' : '' }}" href="{{ route('welcome') }}">Inicio</a>
-            <a class="nav-link underline-fat {{ request()->routeIs('about') ? 'active' : '' }}" href="{{ route('about') }}">Sobre mí</a>
-            <a class="nav-link underline-fat {{ request()->routeIs('move') ? 'active' : '' }}" href="{{ route('move') }}">MOVE Challenge</a>
-            <a class="nav-link underline-fat {{ request()->routeIs('community') ? 'active' : '' }}" href="{{ route('community') }}">Comunidad</a>
-            <a class="nav-link underline-fat {{ request()->routeIs('contact') ? 'active' : '' }}" href="{{ route('contact') }}">Contacto</a>
-            {{-- <li class="nav-item"><a class="nav-link underline-fat" href="#inicio">Inicio</a></li>
-          <li class="nav-item"><a class="nav-link underline-fat" href="#nosotros">Sobre mí</a></li>
-          <li class="nav-item"><a class="nav-link underline-fat" href="#servicios">MOVE Challenge</a></li>
-          <li class="nav-item"><a class="nav-link underline-fat" href="#testimonios">Comunidad</a></li>
-          <li class="nav-item"><a class="nav-link underline-fat" href="#contacto">Contacto</a></li> --}}
-        </ul>
-      </div>
-    </div>
-  </nav>
-</header>
-
-
 <body>
-    {{-- <nav class="navbar navbar-expand-lg sticky-top show">
-        <div class="container">
-            <a class="navbar-brand" href="#">
-                <img src="{{ asset('images/logo.png') }}" alt="{{ env('APP_NAME') }}" height="60">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#inicio">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#nosotros">Sobre mí</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#servicios">MOVE Challenge</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#testimonios">Comunidad</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#contacto">Contacto</a>
-                    </li>
-                </ul>
-                
-                <a href="#contacto" class="btn btn-primary ms-3">Únete al Challenge</a>
+    <!-- NAVBAR LINEAL: Logo izquierda, Menú centro, Botón derecha -->
+    <header class="site-header sticky-top">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <!-- Logo a la izquierda -->
+                <a class="navbar-brand" href="{{ route('welcome') }}">
+                    <img src="{{ asset('images/logo.png') }}" alt="{{ env('APP_NAME') }}">
+                </a>
+
+                <!-- Botón hamburguesa para móviles -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainMenu"
+                        aria-controls="mainMenu" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Menú central y botón derecho -->
+                <div class="collapse navbar-collapse" id="mainMenu">
+                    <!-- Menú centrado -->
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('welcome') ? 'active' : '' }}" 
+                               href="{{ route('welcome') }}">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('about') ? 'active' : '' }}" 
+                               href="{{ route('about') }}">Sobre mí</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('move') ? 'active' : '' }}" 
+                               href="{{ route('move') }}">MOVE Challenge</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('community') ? 'active' : '' }}" 
+                               href="{{ route('community') }}">Programas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('blog') ? 'active' : '' }}" 
+                               href="{{ route('blog') }}">Blog</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('contact') ? 'active' : '' }}" 
+                               href="{{ route('contact') }}">Contacto</a>
+                        </li>
+                    </ul>
+
+                    <!-- Botón CTA VERDE a la derecha -->
+                    <a href="{{ route('contact') }}" class="btn btn-primary ms-lg-3">
+                        ÚNETE AL CHALLENGE
+                    </a>
+                </div>
             </div>
-        </div>
-    </nav> --}}
+        </nav>
+    </header>
 
     <!-- Page Content -->
     <main>
@@ -910,11 +587,11 @@ background: linear-gradient(135deg, #2D3748 0%, #1A202C 100%);
                     <div class="footer-links">
                         <h5>Enlaces rápidos</h5>
                         <div class="footer-menu">
-                            <a href="#inicio">Inicio</a>
-                            <a href="#nosotros">Sobre mí</a>
-                            <a href="#servicios">MOVE Challenge</a>
-                            <a href="#testimonios">Comunidad</a>
-                            <a href="#contacto">Contacto</a>
+                            <a href="{{ route('welcome') }}">Inicio</a>
+                            <a href="{{ route('about') }}">Sobre mí</a>
+                            <a href="{{ route('move') }}">MOVE Challenge</a>
+                            <a href="{{ route('community') }}">Programas</a>
+                            <a href="{{ route('contact') }}">Contacto</a>
                         </div>
                     </div>
                 </div>

@@ -1,722 +1,616 @@
 @extends('layouts.app')
 @section('content')
 
-{{-- Hero único para comunidad - Sin carrusel --}}
-<section class="community-hero position-relative overflow-hidden" style="min-height: 60vh; background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);">
-    
-    {{-- Patrón de círculos flotantes --}}
-    <div class="circles-pattern">
-        <div class="circle" style="top: 10%; left: 10%; width: 100px; height: 100px; background: #CCD537; opacity: 0.15;"></div>
-        <div class="circle" style="top: 60%; left: 5%; width: 150px; height: 150px; background: #F055A5; opacity: 0.1;"></div>
-        <div class="circle" style="top: 20%; right: 15%; width: 120px; height: 120px; background: #7A88FE; opacity: 0.12;"></div>
-        <div class="circle" style="bottom: 15%; right: 8%; width: 90px; height: 90px; background: #FF9B28; opacity: 0.15;"></div>
-    </div>
-
-    <div class="container position-relative" style="z-index: 2; padding-top: 5rem; padding-bottom: 3rem;">
-        <div class="row align-items-center">
-            <div class="col-lg-10 mx-auto text-center">
-                {{-- Icono animado --}}
-                <div class="hero-icon-pulse mb-4">
-                    <i class="fas fa-users" style="font-size: 3rem; color: #CCD537;"></i>
-                </div>
-                
-                <h1 class="display-3 fw-bold text-white mb-3">
-                    Nuestra 
-                    <span style="background: linear-gradient(135deg, #CCD537, #F055A5); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
-                        Comunidad
-                    </span>
-                </h1>
-                
-                <p class="lead text-white mb-4" style="opacity: 0.9; max-width: 700px; margin: 0 auto; font-size: 1.3rem;">
-                    Más de <strong style="color: #CCD537;">128,000 personas</strong> transformando sus vidas juntas. 
-                    Historias reales, resultados reales, apoyo real.
-                </p>
-
-                {{-- Mini stats en línea --}}
-                <div class="d-flex gap-4 justify-content-center flex-wrap mb-4">
-                    <div class="mini-stat">
-                        <div class="mini-stat-number" style="color: #CCD537;">128K+</div>
-                        <div class="mini-stat-label">Seguidores</div>
-                    </div>
-                    <div class="mini-stat">
-                        <div class="mini-stat-number" style="color: #F055A5;">500+</div>
-                        <div class="mini-stat-label">Participantes Activos</div>
-                    </div>
-                    <div class="mini-stat">
-                        <div class="mini-stat-number" style="color: #7A88FE;">525+</div>
-                        <div class="mini-stat-label">Posts Inspiradores</div>
-                    </div>
-                </div>
-
-                <a href="https://www.instagram.com/anabelleibalu/" target="_blank" 
-                   class="btn btn-lg rounded-pill px-5 py-3 fw-bold"
-                   style="background: linear-gradient(135deg, #CCD537, #F055A5); color: white; border: none;">
-                    <i class="fab fa-instagram me-2"></i>
-                    Únete en Instagram
-                </a>
-            </div>
-        </div>
-    </div>
-</section>
-
-{{-- Sección de Comunidad con diseño único tipo social media --}}
-<section id="testimonios" class="py-5 position-relative" style="background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);">
-    
-    {{-- Header de la comunidad --}}
-    <div class="container mb-5">
-        <div class="row align-items-center">
-            <div class="col-lg-8 mx-auto text-center">
-                <div class="community-badge mb-3">
-                    <i class="fas fa-users me-2"></i>
-                    <span>NUESTRA COMUNIDAD</span>
-                </div>
-                <h2 class="display-4 fw-bold mb-3" style="color: #2c3e50;">
-                    Lo que dice la 
-                    <span style="color: #CCD537;">comunidad</span>
-                </h2>
-                <p class="lead text-secondary mb-4">
-                    Historias reales de personas que transformaron su vida con el Move Challenge
-                </p>
-                
-                {{-- Stats de comunidad --}}
-                <div class="row g-3 justify-content-center">
-                    <div class="col-auto">
-                        <div class="community-stat">
-                            <div class="stat-icon" style="background: rgba(204, 213, 55, 0.15);">
-                                <i class="fas fa-heart" style="color: #CCD537;"></i>
-                            </div>
-                            <div class="stat-info">
-                                <div class="stat-value" style="color: #CCD537;">500+</div>
-                                <div class="stat-label">Participantes</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-auto">
-                        <div class="community-stat">
-                            <div class="stat-icon" style="background: rgba(240, 85, 165, 0.15);">
-                                <i class="fas fa-fire" style="color: #F055A5;"></i>
-                            </div>
-                            <div class="stat-info">
-                                <div class="stat-value" style="color: #F055A5;">1000+</div>
-                                <div class="stat-label">Historias</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-auto">
-                        <div class="community-stat">
-                            <div class="stat-icon" style="background: rgba(122, 136, 254, 0.15);">
-                                <i class="fas fa-star" style="color: #7A88FE;"></i>
-                            </div>
-                            <div class="stat-info">
-                                <div class="stat-value" style="color: #7A88FE;">4.9/5</div>
-                                <div class="stat-label">Valoración</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    {{-- Grid de testimonios estilo masonry --}}
-    <div class="container">
-        <div class="testimonials-masonry">
-            {{-- Testimonio 1 - Card verde --}}
-            <div class="testimonial-card-modern card-green">
-                <div class="card-pattern"></div>
-                <div class="card-content">
-                    <div class="quote-icon">
-                        <i class="fas fa-quote-left"></i>
-                    </div>
-                    <p class="testimonial-text">
-                        "En 30 días recuperé mi energía. Las rutinas son realistas y la comunidad te sostiene. 
-                        No solo cambió mi cuerpo, cambió mi mentalidad."
-                    </p>
-                    <div class="testimonial-author">
-                        <img src="{{ asset('images/testimonial-1.jpg') }}" 
-                             alt="María G." 
-                             class="author-avatar"
-                             onerror="this.src='{{ asset('images/user.png') }}'">
-                        <div class="author-info">
-                            <h5 class="mb-0">María G.</h5>
-                            <p class="mb-0">
-                                <i class="fas fa-trophy me-1"></i>
-                                Move Challenge Enero 2025
-                            </p>
-                        </div>
-                    </div>
-                    <div class="card-badges">
-                        <span class="badge-pill">
-                            <i class="fas fa-dumbbell me-1"></i>
-                            Fitness
-                        </span>
-                        <span class="badge-pill">
-                            <i class="fas fa-apple-alt me-1"></i>
-                            Nutrición
-                        </span>
-                    </div>
-                </div>
-            </div>
-
-            {{-- Testimonio 2 - Card rosa --}}
-            <div class="testimonial-card-modern card-pink">
-                <div class="card-pattern"></div>
-                <div class="card-content">
-                    <div class="quote-icon">
-                        <i class="fas fa-quote-left"></i>
-                    </div>
-                    <p class="testimonial-text">
-                        "La mezcla de ejercicio y gratitud diaria me cambió el chip. ¡Super recomendado! 
-                        Ahora tengo hábitos que se quedaron para siempre."
-                    </p>
-                    <div class="testimonial-author">
-                        <img src="{{ asset('images/testimonial-2.jpg') }}" 
-                             alt="Carlos R." 
-                             class="author-avatar"
-                             onerror="this.src='{{ asset('images/user.png') }}'">
-                        <div class="author-info">
-                            <h5 class="mb-0">Carlos R.</h5>
-                            <p class="mb-0">
-                                <i class="fas fa-trophy me-1"></i>
-                                Move Challenge Diciembre 2024
-                            </p>
-                        </div>
-                    </div>
-                    <div class="card-badges">
-                        <span class="badge-pill">
-                            <i class="fas fa-heart me-1"></i>
-                            Mindfulness
-                        </span>
-                        <span class="badge-pill">
-                            <i class="fas fa-smile me-1"></i>
-                            Bienestar
-                        </span>
-                    </div>
-                </div>
-            </div>
-
-            {{-- Testimonio 3 - Card azul --}}
-            <div class="testimonial-card-modern card-blue">
-                <div class="card-pattern"></div>
-                <div class="card-content">
-                    <div class="quote-icon">
-                        <i class="fas fa-quote-left"></i>
-                    </div>
-                    <p class="testimonial-text">
-                        "Me sentí acompañada todo el tiempo. Aprendí a moverme y a comer sin culpa. 
-                        La comunidad es increíble y el apoyo es real."
-                    </p>
-                    <div class="testimonial-author">
-                        <img src="{{ asset('images/testimonial-3.jpg') }}" 
-                             alt="Ana M." 
-                             class="author-avatar"
-                             onerror="this.src='{{ asset('images/user.png') }}'">
-                        <div class="author-info">
-                            <h5 class="mb-0">Ana M.</h5>
-                            <p class="mb-0">
-                                <i class="fas fa-trophy me-1"></i>
-                                Move Challenge Noviembre 2024
-                            </p>
-                        </div>
-                    </div>
-                    <div class="card-badges">
-                        <span class="badge-pill">
-                            <i class="fas fa-users me-1"></i>
-                            Comunidad
-                        </span>
-                        <span class="badge-pill">
-                            <i class="fas fa-utensils me-1"></i>
-                            Alimentación
-                        </span>
-                    </div>
-                </div>
-            </div>
-
-            {{-- Card de Instagram feed real --}}
-            <div class="instagram-feed-card">
-                <div class="instagram-header-real">
-                    <div class="instagram-profile">
-                        <div class="instagram-avatar">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div>
-                            <div class="instagram-username">
-                                <i class="fab fa-instagram"></i>
-                                <span>@anabelleibalu</span>
-                                <i class="fas fa-check-circle verified-badge"></i>
-                            </div>
-                            <div class="instagram-bio">🏊‍♀️ Open Water Swimmer | 🇨🇴</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="instagram-stats mb-3">
-                    <div class="stat-item">
-                        <strong>525</strong>
-                        <span>Posts</span>
-                    </div>
-                    <div class="stat-item">
-                        <strong>128K</strong>
-                        <span>Seguidores</span>
-                    </div>
-                    <div class="stat-item">
-                        <strong>2.4K</strong>
-                        <span>Siguiendo</span>
-                    </div>
-                </div>
-
-                <div class="instagram-description mb-3">
-                    <p class="mb-2">
-                        <strong>30 días para transformar tu vida en MOVIMIENTO 🚀</strong>
-                    </p>
-                    <p class="text-muted small mb-0">
-                        Creadora del @movechallengeoficial
-                    </p>
-                </div>
-
-                <a href="https://www.instagram.com/anabelleibalu/" target="_blank" class="btn btn-instagram-follow w-100">
-                    <i class="fab fa-instagram me-2"></i>
-                    Seguir en Instagram
-                </a>
-                
-                <p class="text-center text-muted small mt-3 mb-0">
-                    <i class="fas fa-heart me-1" style="color: #F055A5;"></i>
-                    Únete a nuestra comunidad de 128K+
-                </p>
-            </div>
-
-            {{-- Card de estadísticas destacadas --}}
-            <div class="stats-highlight-card">
-                <div class="stats-content">
-                    <div class="stats-number" style="color: #CCD537;">98%</div>
-                    <p class="stats-description">
-                        De los participantes completan el reto y logran sus objetivos
-                    </p>
-                    <div class="stats-stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                </div>
-            </div>
-
-            {{-- Card de CTA para unirse --}}
-            <div class="cta-join-card">
-                <h3 class="fw-bold mb-3">¿Lista para ser parte?</h3>
-                <p class="mb-4">Únete a nuestra comunidad y comienza tu transformación hoy</p>
-                <a href="#" class="btn btn-cta">
-                    Únete Ahora
-                    <i class="fas fa-arrow-right ms-2"></i>
-                </a>
-            </div>
-        </div>
-    </div>
-
-    {{-- CTA final de comunidad --}}
-    <div class="container mt-5">
-        <div class="community-cta-final">
-            <div class="row align-items-center">
-                <div class="col-lg-8 mx-auto text-center">
-                    <h3 class="fw-bold mb-3" style="color: #2c3e50;">
-                        Comparte tu historia
-                    </h3>
-                    <p class="lead text-secondary mb-4">
-                        ¿Ya completaste el reto? Cuéntanos tu experiencia y sé parte de nuestra galería de éxitos
-                    </p>
-                    <div class="d-flex gap-3 justify-content-center flex-wrap">
-                        <a href="#" class="btn btn-lg rounded-pill px-5" style="background: #CCD537; color: #2c3e50; font-weight: bold;">
-                            Compartir mi historia
-                        </a>
-                        <a href="#" class="btn btn-outline-dark btn-lg rounded-pill px-5">
-                            Ver más testimonios
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
 <style>
-/* Hero de comunidad único */
-.community-hero {
-    position: relative;
-}
-
-.circles-pattern .circle {
-    position: absolute;
-    border-radius: 50%;
-    animation: float-circle 20s ease-in-out infinite;
-}
-
-@keyframes float-circle {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    33% { transform: translate(30px, -30px) scale(1.1); }
-    66% { transform: translate(-20px, 20px) scale(0.9); }
-}
-
-.hero-icon-pulse {
-    animation: pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse {
-    0%, 100% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.1); opacity: 0.8; }
-}
-
-.mini-stat {
-    text-align: center;
-}
-
-.mini-stat-number {
-    font-size: 2rem;
-    font-weight: bold;
-    line-height: 1;
-    margin-bottom: 0.25rem;
-}
-
-.mini-stat-label {
-    color: rgba(255, 255, 255, 0.8);
-    font-size: 0.85rem;
-}
-
-/* Badge de comunidad */
-.community-badge {
-    display: inline-block;
-    padding: 0.75rem 1.5rem;
-    background: linear-gradient(135deg, #CCD537, #F055A5);
-    color: white;
-    border-radius: 50px;
-    font-weight: bold;
-    font-size: 0.9rem;
-}
-
-/* Stats de comunidad */
-.community-stat {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 1rem 1.5rem;
-    background: white;
-    border-radius: 16px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-}
-
-.stat-icon {
-    width: 50px;
-    height: 50px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-}
-
-.stat-value {
-    font-size: 1.5rem;
-    font-weight: bold;
-    line-height: 1;
-    margin-bottom: 0.25rem;
-}
-
-.stat-label {
-    font-size: 0.85rem;
-    color: #6c757d;
-    margin: 0;
-}
-
-/* Grid masonry de testimonios */
-.testimonials-masonry {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 2rem;
-    align-items: start;
-}
-
-/* Tarjetas modernas de testimonios */
-.testimonial-card-modern {
-    position: relative;
-    padding: 2.5rem;
-    border-radius: 24px;
-    overflow: hidden;
-    transition: all 0.4s ease;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-}
-
-.testimonial-card-modern:hover {
-    transform: translateY(-10px) rotate(-1deg);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
-}
-
-.card-green {
-    background: linear-gradient(135deg, #CCD537 0%, rgba(204, 213, 55, 0.8) 100%);
-    color: #2c3e50;
-}
-
-.card-pink {
-    background: linear-gradient(135deg, #F055A5 0%, rgba(240, 85, 165, 0.8) 100%);
-    color: white;
-}
-
-.card-blue {
-    background: linear-gradient(135deg, #7A88FE 0%, rgba(122, 136, 254, 0.8) 100%);
-    color: white;
-}
-
-/* Patrón decorativo */
-.card-pattern {
-    position: absolute;
-    top: -50%;
-    right: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
-    background-size: 20px 20px;
-    transform: rotate(45deg);
-    pointer-events: none;
-}
-
-.card-content {
-    position: relative;
-    z-index: 1;
-}
-
-.quote-icon {
-    font-size: 2rem;
-    opacity: 0.3;
-    margin-bottom: 1rem;
-}
-
-.testimonial-text {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    margin-bottom: 1.5rem;
-    font-weight: 500;
-}
-
-.testimonial-author {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 1rem;
-}
-
-.author-avatar {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    border: 3px solid rgba(255, 255, 255, 0.5);
-    object-fit: cover;
-}
-
-.author-info h5 {
-    font-weight: bold;
-    margin-bottom: 0.25rem;
-}
-
-.author-info p {
-    font-size: 0.9rem;
-    opacity: 0.9;
-}
-
-.card-badges {
-    display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-}
-
-.badge-pill {
-    padding: 0.5rem 1rem;
-    background: rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(10px);
-    border-radius: 50px;
-    font-size: 0.85rem;
-    font-weight: 600;
-}
-
-/* Card de Instagram real */
-.instagram-feed-card {
-    background: white;
-    padding: 2rem;
-    border-radius: 24px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-}
-
-.instagram-header-real {
-    margin-bottom: 1.5rem;
-}
-
-.instagram-profile {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-.instagram-avatar {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #F055A5, #7A88FE);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 1.5rem;
-}
-
-.instagram-username {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-weight: bold;
-    font-size: 1.1rem;
-    color: #2c3e50;
-}
-
-.instagram-username i.fab {
-    color: #E4405F;
-}
-
-.verified-badge {
-    color: #1DA1F2;
-    font-size: 0.9rem;
-}
-
-.instagram-bio {
-    color: #6c757d;
-    font-size: 0.9rem;
-}
-
-.instagram-stats {
-    display: flex;
-    justify-content: space-around;
-    padding: 1rem 0;
-    border-top: 1px solid #e9ecef;
-    border-bottom: 1px solid #e9ecef;
-}
-
-.stat-item {
-    text-align: center;
-}
-
-.stat-item strong {
-    display: block;
-    font-size: 1.2rem;
-    color: #2c3e50;
-}
-
-.stat-item span {
-    font-size: 0.85rem;
-    color: #6c757d;
-}
-
-.instagram-description {
-    font-size: 0.95rem;
-    color: #2c3e50;
-}
-
-.btn-instagram-follow {
-    background: linear-gradient(135deg, #F055A5, #7A88FE);
-    color: white;
-    border: none;
-    padding: 0.75rem 2rem;
-    border-radius: 12px;
-    font-weight: bold;
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
-
-.btn-instagram-follow:hover {
-    transform: scale(1.02);
-    color: white;
-    box-shadow: 0 8px 20px rgba(240, 85, 165, 0.3);
-}
-
-/* Card de estadísticas destacadas */
-.stats-highlight-card {
-    background: linear-gradient(135deg, rgba(204, 213, 55, 0.1), rgba(240, 85, 165, 0.1));
-    padding: 3rem 2rem;
-    border-radius: 24px;
-    text-align: center;
-    border: 2px solid rgba(204, 213, 55, 0.3);
-}
-
-.stats-number {
-    font-size: 4rem;
-    font-weight: bold;
-    line-height: 1;
-    margin-bottom: 1rem;
-}
-
-.stats-description {
-    font-size: 1.1rem;
-    color: #2c3e50;
-    font-weight: 500;
-    margin-bottom: 1rem;
-}
-
-.stats-stars {
-    color: #FF9B28;
-    font-size: 1.5rem;
-}
-
-/* Card CTA */
-.cta-join-card {
-    background: linear-gradient(135deg, #F055A5, #7A88FE);
-    color: white;
-    padding: 3rem 2rem;
-    border-radius: 24px;
-    text-align: center;
-}
-
-.btn-cta {
-    background: white;
-    color: #F055A5;
-    border: none;
-    padding: 1rem 2.5rem;
-    border-radius: 50px;
-    font-weight: bold;
-    transition: all 0.3s ease;
-}
-
-.btn-cta:hover {
-    transform: scale(1.05);
-    color: #F055A5;
-}
-
-/* CTA final */
-.community-cta-final {
-    padding: 4rem 2rem;
-    background: linear-gradient(135deg, rgba(204, 213, 55, 0.05), rgba(122, 136, 254, 0.05));
-    border-radius: 24px;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .testimonials-masonry {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap');
     
-    .community-stat {
-        flex-direction: column;
+    :root {
+        --princeton-orange: #F6DC43;
+        --steel-pink: #FF2DF1;
+        --tropical-indigo: #A5158C;
+        --pear: #CCD537;
+        --dark-purple: #410445;
+        --neutral-light: #FAF9F7;
+        --neutral-cream: #F5F2ED;
+        --neutral-sand: #E8E2D5;
+        --neutral-white: #FFFFFF;
+        --dark-text: #410445;
+        --medium-text: #6C757D;
+        --light-text: #9CA3AF;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    /* Programs Hero Section */
+    .programs-hero {
+        min-height: 70vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        background: rgba(165, 21, 140, 0.05);
+        padding: 180px 0 80px;
         text-align: center;
-    }
-    
-    .stats-number {
-        font-size: 3rem;
+        overflow: hidden;
     }
 
-    .mini-stat-number {
-        font-size: 1.5rem;
+    /* Formas orgánicas de fondo */
+    .programs-hero::before {
+        content: '';
+        position: absolute;
+        top: 10%;
+        left: -5%;
+        width: 400px;
+        height: 400px;
+        background: var(--pear);
+        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+        opacity: 0.08;
+        animation: morph 15s ease-in-out infinite;
+        z-index: 1;
     }
 
-    .display-3 {
+    .programs-hero::after {
+        content: '';
+        position: absolute;
+        bottom: 10%;
+        right: -8%;
+        width: 350px;
+        height: 350px;
+        background: var(--steel-pink);
+        border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+        opacity: 0.06;
+        animation: morph 12s ease-in-out infinite reverse;
+        z-index: 1;
+    }
+
+    @keyframes morph {
+        0%, 100% {
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+            transform: rotate(0deg);
+        }
+        50% {
+            border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+            transform: rotate(180deg);
+        }
+    }
+
+    .programs-hero-content {
+        position: relative;
+        z-index: 2;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .hero-badge {
+        display: inline-block;
+        padding: 12px 32px;
+        background: var(--dark-purple);
+        color: white;
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        margin-bottom: 24px;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        animation: fadeInDown 0.8s ease-out;
+    }
+
+    @keyframes fadeInDown {
+        from {
+            opacity: 0;
+            transform: translateY(-30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .programs-hero h1 {
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        font-weight: 700;
+        color: var(--dark-text);
+        margin-bottom: 24px;
+        line-height: 1.2;
+        animation: fadeInUp 0.8s ease-out 0.2s both;
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .programs-hero .highlight {
+        color: var(--steel-pink);
+    }
+
+    .programs-hero p {
+        font-size: 1.25rem;
+        color: var(--medium-text);
+        line-height: 1.7;
+        margin-bottom: 40px;
+        animation: fadeInUp 0.8s ease-out 0.4s both;
+    }
+
+    /* Programs Grid Section */
+    .programs-section {
+        padding: 120px 0;
+        background: rgba(250, 249, 247, 0.7);
+        position: relative;
+    }
+
+    .programs-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 40px;
+        margin-top: 60px;
+    }
+
+    /* Program Card - Estilo Silvy */
+    .program-card {
+        position: relative;
+        height: 500px;
+        border-radius: 20px;
+        overflow: hidden;
+        cursor: pointer;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+        transition: all 0.4s ease;
+        opacity: 0;
+        transform: translateY(50px);
+    }
+
+    /* Animación de aparición */
+    .program-card.animate-in {
+        animation: cardSlideIn 0.8s ease-out forwards;
+    }
+
+    @keyframes cardSlideIn {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .program-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+    }
+
+    /* Imagen de fondo */
+    .program-card-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s ease;
+    }
+
+    .program-card:hover .program-card-image {
+        transform: scale(1.1);
+    }
+
+    /* Overlay oscuro */
+    .program-card-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to bottom, rgba(65, 4, 69, 0.2) 0%, rgba(65, 4, 69, 0.6) 100%);
+        z-index: 1;
+        transition: all 0.4s ease;
+    }
+
+    .program-card:hover .program-card-overlay {
+        background: linear-gradient(to bottom, rgba(65, 4, 69, 0.3) 0%, rgba(65, 4, 69, 0.7) 100%);
+    }
+
+    /* Contenido superpuesto */
+    .program-card-content {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 40px 30px;
+        z-index: 2;
+        color: white;
+    }
+
+    .program-card-title {
         font-size: 2.5rem;
+        font-weight: 700;
+        color: white;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+        line-height: 1.1;
     }
-}
+
+    .program-card-description {
+        font-size: 1rem;
+        color: rgba(255, 255, 255, 0.9);
+        margin-bottom: 24px;
+        line-height: 1.6;
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition: all 0.4s ease;
+    }
+
+    .program-card:hover .program-card-description {
+        max-height: 100px;
+        opacity: 1;
+    }
+
+    /* Botón DESCÚBRELO */
+    .btn-discover {
+        display: inline-block;
+        padding: 14px 36px;
+        background: var(--pear);
+        color: var(--dark-purple);
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 0.95rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: all 0.3s ease;
+        border: 2px solid var(--pear);
+    }
+
+    .btn-discover:hover {
+        background: white;
+        color: var(--dark-purple);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(204, 213, 55, 0.5);
+    }
+
+    /* Variantes de color para cada card */
+    .program-card:nth-child(1) .btn-discover {
+        background: var(--pear);
+        border-color: var(--pear);
+        color: var(--dark-purple);
+    }
+
+    .program-card:nth-child(1) .btn-discover:hover {
+        background: white;
+        color: var(--pear);
+    }
+
+    .program-card:nth-child(2) .btn-discover {
+        background: var(--tropical-indigo);
+        border-color: var(--tropical-indigo);
+        color: white;
+    }
+
+    .program-card:nth-child(2) .btn-discover:hover {
+        background: white;
+        color: var(--tropical-indigo);
+    }
+
+    .program-card:nth-child(3) .btn-discover {
+        background: var(--pear);
+        border-color: var(--pear);
+        color: var(--dark-text);
+    }
+
+    .program-card:nth-child(3) .btn-discover:hover {
+        background: white;
+        color: var(--pear);
+    }
+
+    .program-card:nth-child(4) .btn-discover {
+        background: var(--princeton-orange);
+        border-color: var(--princeton-orange);
+        color: var(--dark-purple);
+    }
+
+    .program-card:nth-child(4) .btn-discover:hover {
+        background: white;
+        color: var(--princeton-orange);
+    }
+
+    .program-card:nth-child(5) .btn-discover {
+        background: var(--steel-pink);
+        border-color: var(--steel-pink);
+        color: white;
+    }
+
+    .program-card:nth-child(5) .btn-discover:hover {
+        background: white;
+        color: var(--steel-pink);
+    }
+
+    .program-card:nth-child(6) .btn-discover {
+        background: var(--pear);
+        border-color: var(--pear);
+        color: var(--dark-purple);
+    }
+
+    .program-card:nth-child(6) .btn-discover:hover {
+        background: white;
+        color: var(--pear);
+    }
+
+    /* CTA Section */
+    .cta-programs-section {
+        padding: 100px 0;
+        background: rgba(245, 242, 237, 0.7);
+        position: relative;
+        text-align: center;
+        overflow: hidden;
+    }
+
+    .cta-programs-content {
+        position: relative;
+        z-index: 2;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    .cta-programs-content h2 {
+        font-size: 2.5rem;
+        font-weight: 600;
+        color: var(--dark-text);
+        margin-bottom: 24px;
+    }
+
+    .cta-programs-content p {
+        font-size: 1.25rem;
+        color: var(--medium-text);
+        margin-bottom: 40px;
+        line-height: 1.7;
+    }
+
+    .btn-cta-primary {
+        display: inline-block;
+        padding: 18px 48px;
+        background: var(--pear);
+        color: var(--dark-purple);
+        text-decoration: none;
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+    }
+
+    .btn-cta-primary:hover {
+        background: #b8c230;
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(204, 213, 55, 0.4);
+        color: var(--dark-purple);
+    }
+
+    /* Responsive */
+    @media (max-width: 968px) {
+        .programs-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .program-card {
+            height: 450px;
+        }
+
+        .program-card-title {
+            font-size: 2rem;
+        }
+    }
+
+    @media (max-width: 640px) {
+        .programs-hero {
+            padding-top: 140px;
+        }
+
+        .programs-grid {
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        .program-card {
+            height: 100vh;
+            max-height: 600px;
+            border-radius: 0;
+        }
+
+        .program-card-title {
+            font-size: 2.5rem;
+        }
+
+        .program-card-content {
+            padding: 30px 20px;
+        }
+
+        .cta-programs-content h2 {
+            font-size: 2rem;
+        }
+    }
 </style>
+
+<!-- Programs Hero Section -->
+<section class="programs-hero">
+    <div class="container">
+        <div class="programs-hero-content">
+            <span class="hero-badge">
+                <i class="fas fa-dumbbell me-2"></i>
+                Nuestros Programas
+            </span>
+            <h1>
+                Encuentra tu
+                <span class="highlight d-block">Programa Ideal</span>
+            </h1>
+            <p>
+                Programas diseñados para cada objetivo y nivel de condición física. 
+                Descubre el que mejor se adapta a ti y comienza tu transformación hoy.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Programs Grid Section -->
+<section class="programs-section">
+    <div class="container">
+        <div class="programs-grid">
+            <!-- Program Card 1 -->
+            <div class="program-card" data-index="0">
+                <img src="{{ asset('images/ana1.png') }}" alt="MOVE Challenge" class="program-card-image">
+                <div class="program-card-overlay"></div>
+                <div class="program-card-content">
+                    <h3 class="program-card-title">MOVE Challenge</h3>
+                    <p class="program-card-description">
+                        30 días de transformación integral con movimiento consciente, nutrición y mindfulness.
+                    </p>
+                    <a href="{{ route('move') }}" class="btn-discover">
+                        Descúbrelo
+                    </a>
+                </div>
+            </div>
+
+            <!-- Program Card 2 -->
+            <div class="program-card" data-index="1">
+                <img src="{{ asset('images/ana2.png') }}" alt="YOGA Flow" class="program-card-image">
+                <div class="program-card-overlay"></div>
+                <div class="program-card-content">
+                    <h3 class="program-card-title">YOGA Flow</h3>
+                    <p class="program-card-description">
+                        Conecta cuerpo y mente con secuencias de yoga diseñadas para todos los niveles.
+                    </p>
+                    <a href="#" class="btn-discover">
+                        Descúbrelo
+                    </a>
+                </div>
+            </div>
+
+            <!-- Program Card 3 -->
+            <div class="program-card" data-index="2">
+                <img src="{{ asset('images/ana3.png') }}" alt="HIIT Power" class="program-card-image">
+                <div class="program-card-overlay"></div>
+                <div class="program-card-content">
+                    <h3 class="program-card-title">HIIT Power</h3>
+                    <p class="program-card-description">
+                        Entrenamientos de alta intensidad para quemar calorías y ganar fuerza rápidamente.
+                    </p>
+                    <a href="#" class="btn-discover">
+                        Descúbrelo
+                    </a>
+                </div>
+            </div>
+
+            <!-- Program Card 4 -->
+            <div class="program-card" data-index="3">
+                <img src="{{ asset('images/ana4.png') }}" alt="Dance Fit" class="program-card-image">
+                <div class="program-card-overlay"></div>
+                <div class="program-card-content">
+                    <h3 class="program-card-title">Dance Fit</h3>
+                    <p class="program-card-description">
+                        Baila, diviértete y quema calorías al ritmo de la mejor música.
+                    </p>
+                    <a href="#" class="btn-discover">
+                        Descúbrelo
+                    </a>
+                </div>
+            </div>
+
+            <!-- Program Card 5 -->
+            <div class="program-card" data-index="4">
+                <img src="{{ asset('images/ana5.png') }}" alt="Wellness 360" class="program-card-image">
+                <div class="program-card-overlay"></div>
+                <div class="program-card-content">
+                    <h3 class="program-card-title">Wellness 360</h3>
+                    <p class="program-card-description">
+                        Programa integral de bienestar que incluye ejercicio, nutrición y salud mental.
+                    </p>
+                    <a href="#" class="btn-discover">
+                        Descúbrelo
+                    </a>
+                </div>
+            </div>
+
+            <!-- Program Card 6 -->
+            <div class="program-card" data-index="5">
+                <img src="{{ asset('images/ana6.png') }}" alt="Strong Body" class="program-card-image">
+                <div class="program-card-overlay"></div>
+                <div class="program-card-content">
+                    <h3 class="program-card-title">Strong Body</h3>
+                    <p class="program-card-description">
+                        Desarrolla fuerza y resistencia con entrenamientos de fuerza funcional.
+                    </p>
+                    <a href="#" class="btn-discover">
+                        Descúbrelo
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-programs-section">
+    <div class="container">
+        <div class="cta-programs-content">
+            <h2>¿No sabes cuál elegir?</h2>
+            <p>
+                Contáctame y te ayudaré a encontrar el programa perfecto para ti según tus objetivos y nivel actual.
+            </p>
+            <a href="{{ route('contact') }}" class="btn-cta-primary">
+                Habla Conmigo
+                <i class="fas fa-arrow-right ms-2"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Font Awesome Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<!-- JavaScript para animación en scroll -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const cards = document.querySelectorAll('.program-card');
+    
+    // Intersection Observer para animar cards al hacer scroll
+    const observerOptions = {
+        threshold: 0.2,
+        rootMargin: '0px 0px -100px 0px'
+    };
+    
+    const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const delay = parseInt(entry.target.dataset.index) * 150; // Delay escalonado
+                setTimeout(() => {
+                    entry.target.classList.add('animate-in');
+                }, delay);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+    
+    cards.forEach(card => {
+        observer.observe(card);
+    });
+});
+</script>
 
 @endsection

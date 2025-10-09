@@ -5,10 +5,11 @@
     @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap');
     
     :root {
-        --princeton-orange: #FF9B28;
-        --steel-pink: #F055A5;
-        --tropical-indigo: #7A88FE;
-        --pear: #CCD537;
+        --purple-dark: #410445;      /* Púrpura oscuro */
+        --purple-medium: #A5158C;    /* Púrpura medio */
+        --pink-bright: #FF2DF1;      /* Fucsia brillante */
+        --yellow: #F6DC43;           /* Amarillo */
+        --green: #CCD537;            /* Verde (Pear del manual) */
         --neutral-light: #FAF9F7;
         --neutral-cream: #F5F2ED;
         --neutral-sand: #E8E2D5;
@@ -22,7 +23,10 @@
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        
+    }
+
+    body {
+        font-family: 'Open Sans', sans-serif;
     }
 
     .container {
@@ -65,7 +69,7 @@
         display: flex;
         align-items: center;
         position: relative;
-    background: rgba(250, 249, 247, 0.7) !important; /* ⬅️ Semi-transparente */
+        background: rgba(250, 249, 247, 0.7);
         padding: 80px 0;
     }
 
@@ -132,12 +136,12 @@
         z-index: 2;
     }
 
-    /* Buttons */
+    /* Buttons - SOLO con colores correctos */
     .btn-primary {
         display: inline-block;
         padding: 16px 40px;
-        background: var(--princeton-orange);
-        color: white;
+        background: var(--green);  /* Verde del manual */
+        color: #333;
         text-decoration: none;
         border-radius: 50px;
         font-weight: 600;
@@ -145,44 +149,50 @@
         transition: all 0.3s ease;
         border: none;
         cursor: pointer;
+        box-shadow: 0 4px 15px rgba(204, 213, 55, 0.3);
     }
 
     .btn-primary:hover {
-        background: #ff8500;
-        color: white;
+        background: #B8BE30;
+        color: #222;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(204, 213, 55, 0.5);
     }
 
     .btn-secondary {
         display: inline-block;
         padding: 16px 40px;
         background: transparent;
-        color: var(--tropical-indigo);
+        color: var(--purple-dark);
         text-decoration: none;
         border-radius: 50px;
         font-weight: 600;
         font-size: 1rem;
         transition: all 0.3s ease;
-        border: 2px solid var(--tropical-indigo);
+        border: 2px solid var(--purple-dark);
         cursor: pointer;
     }
 
     .btn-secondary:hover {
-        background: var(--tropical-indigo);
+        background: var(--purple-dark);
         color: white;
     }
 
     .btn-pink {
-        background: var(--steel-pink);
+        background: var(--green);
+        color: white;
+        box-shadow: 0 4px 15px rgba(255, 45, 241, 0.3);
     }
 
     .btn-pink:hover {
-        background: #e0479a;
+        background: var(--green);
+        box-shadow: 0 6px 20px rgba(165, 21, 140, 0.4);
     }
 
     /* Features Section */
     .features-section {
         padding: 120px 0;
-        background: rgba(255, 255, 255, 0.75) !important;
+        background: rgba(255, 255, 255, 0.75);
         position: relative;
         overflow: hidden;
     }
@@ -285,10 +295,11 @@
         transform: translateY(-5px);
     }
 
+    /* Feature Icons - SOLO colores correctos */
     .feature-icon {
         width: 60px;
         height: 60px;
-        background: var(--pear);
+        background: var(--purple-dark);
         border-radius: 50%;
         display: flex;
         align-items: center;
@@ -299,15 +310,21 @@
     }
 
     .feature-card:nth-child(2n) .feature-icon {
-        background: var(--steel-pink);
+        background: var(--pink-bright);
     }
 
     .feature-card:nth-child(3n) .feature-icon {
-        background: var(--tropical-indigo);
+        background: var(--purple-medium);
     }
 
     .feature-card:nth-child(4n) .feature-icon {
-        background: var(--princeton-orange);
+        background: var(--yellow);
+        color: #333;
+    }
+
+    .feature-card:nth-child(5n) .feature-icon {
+        background: var(--green);
+        color: #333;
     }
 
     .feature-title {
@@ -325,7 +342,7 @@
     /* About Section with Video */
     .about-section {
         padding: 120px 0 180px;
-background: rgba(245, 242, 237, 0.7) !important; 
+        background: rgba(245, 242, 237, 0.7);
         position: relative;
     }
 
@@ -406,13 +423,13 @@ background: rgba(245, 242, 237, 0.7) !important;
         align-items: center;
         justify-content: center;
         margin-right: 16px;
-        color: var(--tropical-indigo);
+        color: var(--purple-dark);
     }
 
     /* Gallery Section */
     .gallery-section {
         padding: 120px 0;
-background: rgba(255, 255, 255, 0.75) !important;
+        background: rgba(255, 255, 255, 0.75);
         position: relative;
         overflow: hidden;
     }
@@ -485,10 +502,10 @@ background: rgba(255, 255, 255, 0.75) !important;
         box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
     }
 
-    /* Inspirational Quote Section */
+    /* Quote Section */
     .quote-section {
         padding: 100px 0;
-        background: var(--neutral-light);
+        background: rgba(250, 249, 247, 0.8);
         position: relative;
         text-align: center;
         overflow: hidden;
@@ -528,7 +545,7 @@ background: rgba(255, 255, 255, 0.75) !important;
     .quote-text::after {
         content: '"';
         font-size: 4rem;
-        color: var(--steel-pink);
+        color: var(--pink-bright);
         opacity: 0.3;
         position: absolute;
     }
@@ -548,242 +565,139 @@ background: rgba(255, 255, 255, 0.75) !important;
         color: var(--medium-text);
         font-style: italic;
     }
-/* Pricing Section - Minimalista Wellness Style según Manual de Marca */
-.pricing-section {
-    padding: 120px 0;
-    background: rgba(250, 249, 247, 0.75); /* Fondo semi-transparente para ver el animal print */
-    position: relative;
-    overflow: hidden;
-}
 
-/* Formas orgánicas sutiles de fondo - según manual */
-.pricing-section::before {
-    content: '';
-    position: absolute;
-    top: 8%;
-    right: -60px;
-    width: 320px;
-    height: 320px;
-    background: rgba(245, 242, 237, 0.6);
-    border-radius: 45% 55% 50% 50%; /* Formas orgánicas suaves */
-    z-index: 0;
-}
-
-.pricing-section::after {
-    content: '';
-    position: absolute;
-    bottom: 12%;
-    left: -50px;
-    width: 280px;
-    height: 280px;
-    background: rgba(235, 231, 223, 0.5);
-    border-radius: 55% 45% 60% 40%;
-    z-index: 0;
-}
-
-.section-header {
-    position: relative;
-    z-index: 2;
-}
-
-.section-title {
-    font-size: 2.5rem;
-    font-weight: 400; /* Más ligero, estilo yoga */
-    color: var(--dark-text);
-    margin-bottom: 16px;
-    letter-spacing: 0.3px;
-}
-
-.section-subtitle {
-    font-size: 1.125rem;
-    color: var(--medium-text);
-    line-height: 1.6;
-    font-weight: 300;
-}
-
-.pricing-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 32px;
-    margin-top: 60px;
-    position: relative;
-    z-index: 2;
-}
-
-/* Cards minimalistas - fondo blanco sólido */
-.pricing-card {
-    position: relative;
-    background: rgba(255, 255, 255, 0.95); /* Semi-transparente para el animal print */
-    border-radius: 24px; /* Bordes suaves pero simples */
-    padding: 48px 36px;
-    text-align: center;
-    transition: all 0.4s ease;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
-    border: 1px solid rgba(232, 226, 213, 0.4);
-}
-
-.pricing-card::before {
-    display: none; /* Eliminar formas complejas según especificaciones */
-}
-
-/* Card destacada - más sutil y elegante */
-.pricing-card.featured {
-    transform: scale(1.02);
-    box-shadow: 0 8px 24px rgba(240, 85, 165, 0.08);
-    border: 2px solid #F055A5; /* Steel Pink sólido */
-    background: rgba(255, 255, 255, 0.98);
-}
-
-.pricing-card.featured::after {
-    content: 'MÁS ELEGIDO';
-    position: absolute;
-    top: -14px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #F055A5; /* Color sólido sin degradado */
-    color: white;
-    padding: 6px 28px;
-    border-radius: 20px;
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 1.5px;
-}
-
-.pricing-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
-}
-
-.pricing-card.featured:hover {
-    transform: scale(1.02) translateY(-6px);
-}
-
-.plan-name {
-    font-size: 1.5rem;
-    font-weight: 400; /* Ligero, elegante */
-    color: var(--dark-text);
-    margin-bottom: 24px;
-    letter-spacing: 0.8px;
-    text-transform: uppercase;
-    font-size: 0.95rem;
-}
-
-.plan-price {
-    font-size: 3.5rem;
-    font-weight: 300; /* Peso ligero minimalista */
-    color: var(--dark-text);
-    margin-bottom: 8px;
-    line-height: 1;
-}
-
-.plan-period {
-    font-size: 0.9rem;
-    color: var(--medium-text);
-    margin-bottom: 40px;
-    font-weight: 300;
-}
-
-.plan-features {
-    list-style: none;
-    margin-bottom: 40px;
-    text-align: left;
-    padding: 0 8px;
-}
-
-.plan-features li {
-    padding: 16px 0;
-    color: var(--medium-text);
-    display: flex;
-    align-items: flex-start;
-    font-size: 0.95rem;
-    line-height: 1.6;
-    border-bottom: 1px solid rgba(232, 226, 213, 0.3);
-    font-weight: 300;
-}
-
-.plan-features li:last-child {
-    border-bottom: none;
-}
-
-
-/* Botones SIN degradados - colores sólidos según manual */
-.pricing-card .btn-secondary {
-    background: transparent;
-    color: var(--dark-text);
-    border: 1.5px solid var(--dark-text);
-    font-weight: 500;
-    padding: 14px 36px;
-    transition: all 0.3s ease;
-}
-
-.pricing-card .btn-secondary:hover {
-    background: var(--dark-text);
-    color: white;
-}
-
-.pricing-card .btn-pink {
-    background: #F055A5; /* Steel Pink sólido */
-    border: none;
-    font-weight: 500;
-    color: white;
-}
-
-.pricing-card .btn-pink:hover {
-    background: #e0479a; /* Tono más oscuro sólido */
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(240, 85, 165, 0.2);
-}
-
-/* Responsive */
-@media (max-width: 968px) {
-    .pricing-card.featured {
-        transform: scale(1);
+    /* Pricing Section */
+    .pricing-section {
+        padding: 120px 0;
+        background: rgba(250, 249, 247, 0.75);
+        position: relative;
+        overflow: hidden;
     }
-    
+
+    .pricing-section::before {
+        content: '';
+        position: absolute;
+        top: 8%;
+        right: -60px;
+        width: 320px;
+        height: 320px;
+        background: rgba(245, 242, 237, 0.6);
+        border-radius: 45% 55% 50% 50%;
+        z-index: 0;
+    }
+
+    .pricing-section::after {
+        content: '';
+        position: absolute;
+        bottom: 12%;
+        left: -50px;
+        width: 280px;
+        height: 280px;
+        background: rgba(235, 231, 223, 0.5);
+        border-radius: 55% 45% 60% 40%;
+        z-index: 0;
+    }
+
     .pricing-grid {
-        grid-template-columns: 1fr;
-        max-width: 480px;
-        margin-left: auto;
-        margin-right: auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 32px;
+        margin-top: 60px;
+        position: relative;
+        z-index: 2;
     }
-}
+
+    .pricing-card {
+        position: relative;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 24px;
+        padding: 48px 36px;
+        text-align: center;
+        transition: all 0.4s ease;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+        border: 1px solid rgba(232, 226, 213, 0.4);
+    }
+
+    .pricing-card.featured {
+        transform: scale(1.02);
+        box-shadow: 0 8px 24px rgba(255, 45, 241, 0.12);
+        border: 2px solid var(--pink-bright);
+        background: rgba(255, 255, 255, 0.98);
+    }
+
+    .pricing-card.featured::after {
+        content: 'MÁS ELEGIDO';
+        position: absolute;
+        top: -14px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--pink-bright);
+        color: white;
+        padding: 6px 28px;
+        border-radius: 20px;
+        font-size: 0.7rem;
+        font-weight: 600;
+        letter-spacing: 1.5px;
+    }
+
+    .pricing-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+    }
+
+    .pricing-card.featured:hover {
+        transform: scale(1.02) translateY(-6px);
+    }
 
     .plan-name {
-        font-size: 1.75rem;
-        font-weight: 600;
+        font-size: 0.95rem;
+        font-weight: 400;
         color: var(--dark-text);
-        margin-bottom: 16px;
+        margin-bottom: 24px;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
     }
 
     .plan-price {
-        font-size: 3rem;
-        font-weight: 700;
-        color: var(--princeton-orange);
+        font-size: 3.5rem;
+        font-weight: 300;
+        color: var(--dark-text);
         margin-bottom: 8px;
+        line-height: 1;
     }
 
     .plan-period {
-        font-size: 1rem;
+        font-size: 0.9rem;
         color: var(--medium-text);
-        margin-bottom: 32px;
+        margin-bottom: 40px;
+        font-weight: 300;
     }
 
     .plan-features {
         list-style: none;
         margin-bottom: 40px;
         text-align: left;
+        padding: 0 8px;
     }
 
     .plan-features li {
-        padding: 12px 0;
+        padding: 16px 0;
         color: var(--medium-text);
         display: flex;
-        align-items: center;
+        align-items: flex-start;
+        font-size: 0.95rem;
+        line-height: 1.6;
+        border-bottom: 1px solid rgba(232, 226, 213, 0.3);
+        font-weight: 300;
+    }
+
+    .plan-features li:last-child {
+        border-bottom: none;
     }
 
     .plan-features li::before {
         content: '✓';
-        color: var(--pear);
+        color: var(--green);
         font-weight: bold;
         margin-right: 12px;
         font-size: 1.25rem;
@@ -792,7 +706,7 @@ background: rgba(255, 255, 255, 0.75) !important;
     /* Testimonials Section */
     .testimonials-section {
         padding: 120px 0;
-        background: var(--neutral-white);
+        background: rgba(255, 255, 255, 0.85);
         position: relative;
         overflow: hidden;
     }
@@ -816,7 +730,7 @@ background: rgba(255, 255, 255, 0.75) !important;
         left: -10%;
         width: 280px;
         height: 280px;
-        background: radial-gradient(circle, rgba(255, 155, 40, 0.08) 0%, transparent 60%);
+        background: radial-gradient(circle, rgba(255, 45, 241, 0.08) 0%, transparent 60%);
         border-radius: 70% 30% 40% 60%;
         animation: float 20s ease-in-out infinite reverse;
     }
@@ -879,7 +793,7 @@ background: rgba(255, 255, 255, 0.75) !important;
         left: 30px;
         width: 90px;
         height: 90px;
-        background: linear-gradient(135deg, var(--steel-pink) 0%, var(--tropical-indigo) 100%);
+        background: linear-gradient(135deg, var(--pink-bright) 0%, var(--purple-medium) 100%);
         border-radius: 50%;
         opacity: 0.1;
         z-index: 1;
@@ -900,14 +814,14 @@ background: rgba(255, 255, 255, 0.75) !important;
     }
 
     .testimonial-role {
-        color: var(--steel-pink);
+        color: var(--pink-bright);
         font-size: 0.875rem;
     }
 
     /* Contact Section */
     .contact-section {
         padding: 120px 0;
-        background: rgba(245, 242, 237, 0.7) !important;
+        background: rgba(245, 242, 237, 0.7);
         position: relative;
         overflow: hidden;
     }
@@ -977,7 +891,7 @@ background: rgba(255, 255, 255, 0.75) !important;
         align-items: center;
         justify-content: center;
         margin-right: 16px;
-        color: var(--tropical-indigo);
+        color: var(--purple-dark);
     }
 
     .contact-form {
@@ -1033,7 +947,7 @@ background: rgba(255, 255, 255, 0.75) !important;
     .form-group input:focus,
     .form-group textarea:focus {
         outline: none;
-        border-color: var(--tropical-indigo);
+        border-color: var(--purple-dark);
         background: var(--neutral-white);
     }
 
@@ -1048,25 +962,19 @@ background: rgba(255, 255, 255, 0.75) !important;
         font-weight: 600;
         transition: all 0.3s ease;
         margin-top: 24px;
+        box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
     }
 
     .whatsapp-btn:hover {
         background: #20BA5A;
         transform: translateY(-2px);
         color: white;
+        box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
     }
 
     .whatsapp-btn i {
         margin-right: 12px;
         font-size: 1.25rem;
-    }
-
-    /* Footer */
-    .footer {
-        padding: 40px 0;
-        background: var(--dark-text);
-        color: var(--neutral-white);
-        text-align: center;
     }
 
     /* Responsive */
@@ -1092,7 +1000,14 @@ background: rgba(255, 255, 255, 0.75) !important;
         }
 
         .pricing-card.featured {
-            transform: none;
+            transform: scale(1);
+        }
+        
+        .pricing-grid {
+            grid-template-columns: 1fr;
+            max-width: 480px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .quote-text {
@@ -1132,6 +1047,10 @@ background: rgba(255, 255, 255, 0.75) !important;
 
         .pricing-grid {
             grid-template-columns: 1fr;
+        }
+
+        .contact-form {
+            padding: 32px 24px;
         }
     }
 </style>

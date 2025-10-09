@@ -17,6 +17,7 @@ Route::get('/sobre-mi',       [PageController::class, 'about'])->name('about');
 Route::get('/move-challenge', [PageController::class, 'move'])->name('move');
 Route::get('/comunidad',      [PageController::class, 'community'])->name('community');
 Route::get('/contacto',       [PageController::class, 'contact'])->name('contact');
+Route::get('/blog',           [PageController::class, 'blog'])->name('blog');
 
 
 Route::get('/dashboard', function () {

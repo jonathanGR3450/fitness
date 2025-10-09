@@ -137,4 +137,9 @@ class PageController extends Controller
         // Vista individual de “Contacto”
         return view('pages.contact');
     }
+    public function blog()
+    {
+        // Vista individual de “Blog”
+        return view('pages.blog');
+    }
 }
