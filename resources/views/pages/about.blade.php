@@ -60,7 +60,7 @@
         align-items: center;
         justify-content: center;
         position: relative;
-        background: rgba(250, 249, 247, 0.7);
+        background: rgba(250, 249, 247, 0.1);
         padding: 160px 0 100px;
         text-align: center;
     }
@@ -243,7 +243,7 @@
     /* Values Section */
     .values-section {
         padding: 120px 0;
-        background: rgba(245, 242, 237, 0.7);
+        background: rgba(245, 242, 237, 0.1);
         position: relative;
     }
 
@@ -302,23 +302,7 @@
         color: white;
     }
 
-    .value-card:nth-child(2) .value-icon {
-        background: var(--pink-bright);
-    }
-
-    .value-card:nth-child(3) .value-icon {
-        background: var(--green);
-        color: #333;
-    }
-
-    .value-card:nth-child(4) .value-icon {
-        background: var(--yellow);
-        color: #333;
-    }
-
-    .value-card:nth-child(5) .value-icon {
-        background: var(--purple-medium);
-    }
+   
 
     .value-title {
         font-size: 1.5rem;

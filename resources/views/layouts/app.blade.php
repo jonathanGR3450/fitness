@@ -82,7 +82,7 @@ body::before {
             right: 12%;
             bottom: 0.35rem;
             height: 4px;
-             background: #B8437D;
+             background: #410445;
             border-radius: 4px;
             transform: scaleX(0);
             transform-origin: center;
@@ -96,11 +96,11 @@ body::before {
         }
 
         /* Botón CTA VERDE según manual de marca */
-    .btn-primary {
+    .btn-primaryy {
         display: inline-block;
         padding: 16px 40px;
-        background: var(--green);  /* Verde del manual */
-        color: #333;
+        background: #410445;  /* Verde del manual */
+        color: #e4e4e4ff;
         text-decoration: none;
         border-radius: 50px;
         font-weight: 600;
@@ -111,11 +111,11 @@ body::before {
         box-shadow: 0 4px 15px rgba(204, 213, 55, 0.3);
     }
         
-        .btn-primary:hover {
+        .btn-primaryy:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 25px rgba(204, 213, 55, 0.5);
             background: linear-gradient(135deg, #A8B030 0%, var(--accent-green) 100%);
-            color: #222 !important;
+            color: #e4e4e4ff !important;
         }
 
         /* Botón toggler personalizado */
@@ -173,11 +173,12 @@ body::before {
             border-color: transparent;
         }
         
-        footer {
-            background: linear-gradient(135deg, #2D3748 0%, #1A202C 100%);
-            color: white;
+       footer {
+            background: white;
+            color: #333333;
             padding: 4rem 0 2rem;
             position: relative;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.05);
         }
         
         footer::before {
@@ -198,7 +199,7 @@ body::before {
         .footer-description {
             font-size: 1rem;
             line-height: 1.6;
-            opacity: 0.9;
+            color: #666666;
             max-width: 300px;
         }
         
@@ -212,18 +213,19 @@ body::before {
             font-size: 1.2rem;
             margin-bottom: 1rem;
             font-weight: 600;
+            color: #333333;
         }
         
         .footer-menu a {
-            color: rgba(255, 255, 255, 0.8);
+            color: #666666;
             text-decoration: none;
             font-size: 0.95rem;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
             display: block;
         }
         
         .footer-menu a:hover {
-            color: white;
+            color: var(--primary-color);
             transform: translateX(5px);
         }
         
@@ -231,6 +233,7 @@ body::before {
             font-size: 1.2rem;
             margin-bottom: 1rem;
             font-weight: 600;
+            color: #333333;
         }
         
         .social-links {
@@ -245,7 +248,7 @@ body::before {
             justify-content: center;
             width: 45px;
             height: 45px;
-            background: rgba(255, 255, 255, 0.1);
+            background: #410445;
             border-radius: 50%;
             color: white;
             font-size: 1.3rem;
@@ -255,27 +258,32 @@ body::before {
         
         .social-links a:hover {
             background: var(--primary-color);
+            color: white;
             transform: translateY(-3px);
         }
         
         .footer-bottom {
             margin-top: 3rem;
             padding-top: 2rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
             text-align: center;
         }
         
         .footer-bottom p {
             margin-bottom: 1rem;
             font-size: 0.9rem;
-            opacity: 0.8;
+            color: #666666;
         }
         
         .footer-bottom a {
-            color: rgba(255, 255, 255, 0.7);
+            color: #666666;
             text-decoration: none;
             font-size: 0.85rem;
             transition: color 0.3s ease;
+        }
+        
+        .footer-bottom a:hover {
+            color: var(--primary-color);
         }
         
         .footer-bottom a:hover {
@@ -563,7 +571,7 @@ body::before {
                     </ul>
 
                     <!-- Botón CTA VERDE a la derecha -->
-                    <a href="{{ route('contact') }}" class="btn btn-primary ms-lg-3">
+                    <a href="{{ route('contact') }}" class="btn btn-primaryy ms-lg-3">
                         ÚNETE AL CHALLENGE
                     </a>
                 </div>

@@ -151,7 +151,7 @@
     /* Programs Grid Section */
     .programs-section {
         padding: 120px 0;
-        background: rgba(250, 249, 247, 0.7);
+        background: rgba(250, 249, 247, 0.1);
         position: relative;
     }
 
@@ -220,7 +220,7 @@
     }
 
     .program-card:hover .program-card-overlay {
-        background: linear-gradient(to bottom, rgba(65, 4, 69, 0.3) 0%, rgba(65, 4, 69, 0.7) 100%);
+        background: linear-gradient(to bottom, rgba(65, 4, 69, 0.3) 0%, rgba(65, 4, 69, 0.1) 100%);
     }
 
     /* Contenido superpuesto */
@@ -354,7 +354,7 @@
     /* CTA Section */
     .cta-programs-section {
         padding: 100px 0;
-        background: rgba(245, 242, 237, 0.7);
+        background: rgba(245, 242, 237, 0.1);
         position: relative;
         text-align: center;
         overflow: hidden;

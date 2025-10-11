@@ -156,7 +156,7 @@
     /* Blog Posts Section */
     .blog-posts-section {
         padding: 100px 0;
-        background: rgba(250, 249, 247, 0.7);
+        background: rgba(250, 249, 247, 0.1);
         position: relative;
     }
 

@@ -69,7 +69,7 @@
         display: flex;
         align-items: center;
         position: relative;
-        background: rgba(250, 249, 247, 0.7);
+        background: rgba(250, 249, 247, 0.1);
         padding: 80px 0;
     }
 
@@ -309,23 +309,6 @@
         color: white;
     }
 
-    .feature-card:nth-child(2n) .feature-icon {
-        background: var(--pink-bright);
-    }
-
-    .feature-card:nth-child(3n) .feature-icon {
-        background: var(--purple-medium);
-    }
-
-    .feature-card:nth-child(4n) .feature-icon {
-        background: var(--yellow);
-        color: #333;
-    }
-
-    .feature-card:nth-child(5n) .feature-icon {
-        background: var(--green);
-        color: #333;
-    }
 
     .feature-title {
         font-size: 1.25rem;
@@ -342,7 +325,7 @@
     /* About Section with Video */
     .about-section {
         padding: 120px 0 180px;
-        background: rgba(245, 242, 237, 0.7);
+        background: rgba(245, 242, 237, 0.1);
         position: relative;
     }
 
@@ -569,7 +552,7 @@
     /* Pricing Section */
     .pricing-section {
         padding: 120px 0;
-        background: rgba(250, 249, 247, 0.75);
+        background: rgba(250, 249, 247, 0.15);
         position: relative;
         overflow: hidden;
     }

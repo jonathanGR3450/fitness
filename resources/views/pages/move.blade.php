@@ -403,7 +403,7 @@
     /* What Includes Section */
     .includes-section {
         padding: 120px 0;
-        background: rgba(245, 242, 237, 0.7);
+        background: rgba(245, 242, 237, 0.1);
         position: relative;
     }
 
@@ -457,34 +457,11 @@
         margin: 0 auto 24px;
         font-size: 1.8rem;
         color: white;
+                background: var(--purple-dark);
+
     }
 
-    .include-card:nth-child(1) .include-card-icon {
-        background: var(--purple-dark);
-    }
-
-    .include-card:nth-child(2) .include-card-icon {
-        background: var(--pink-bright);
-    }
-
-    .include-card:nth-child(3) .include-card-icon {
-        background: var(--yellow);
-        color: #333;
-    }
-
-    .include-card:nth-child(4) .include-card-icon {
-        background: var(--green);
-        color: #333;
-    }
-
-    .include-card:nth-child(5) .include-card-icon {
-        background: var(--purple-medium);
-    }
-
-    .include-card:nth-child(6) .include-card-icon {
-        background: var(--pink-bright);
-    }
-
+   
     .include-card h4 {
         font-size: 1.25rem;
         font-weight: 600;
@@ -571,7 +548,7 @@
     /* Benefits Section */
     .benefits-section {
         padding: 120px 0;
-        background: rgba(245, 242, 237, 0.7);
+        background: rgba(245, 242, 237, 0.1);
         position: relative;
     }
 
