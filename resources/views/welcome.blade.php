@@ -804,7 +804,7 @@
     /* Contact Section */
     .contact-section {
         padding: 120px 0;
-        background: rgba(245, 242, 237, 0.7);
+        background: rgba(245, 242, 237, 0.1);
         position: relative;
         overflow: hidden;
     }
