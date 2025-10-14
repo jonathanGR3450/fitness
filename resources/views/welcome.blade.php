@@ -1039,17 +1039,25 @@
 </style>
 
 <!-- Hero Section -->
+<!-- Hero Section -->
 <section class="hero-section">
     <div class="container">
         <div class="hero-container">
             <div class="hero-content">
-                <h1 class="hero-title">Transforma tu vida con el Move Challenge</h1>
-                <p class="hero-subtitle">30 días de movimiento consciente, nutrición balanceada y conexión interior. Únete a nuestra comunidad y descubre tu mejor versión.</p>
-                <a href="#contact" class="btn-primary">Quiero mi cupo</a>
+                <h1 class="hero-title">
+                    {{ isset($contenidos['hero']['titulo']) ? $contenidos['hero']['titulo']->valor : 'Transforma tu vida con el Move Challenge' }}
+                </h1>
+                <p class="hero-subtitle">
+                    {{ isset($contenidos['hero']['subtitulo']) ? $contenidos['hero']['subtitulo']->valor : '30 días de movimiento consciente, nutrición balanceada y conexión interior. Únete a nuestra comunidad y descubre tu mejor versión.' }}
+                </p>
+                <a href="{{ isset($contenidos['hero']['boton_url']) ? $contenidos['hero']['boton_url']->valor : '#contact' }}" class="btn-primary">
+                    {{ isset($contenidos['hero']['boton_texto']) ? $contenidos['hero']['boton_texto']->valor : 'Quiero mi cupo' }}
+                </a>
             </div>
             <div class="hero-image">
                 <div class="organic-shape-bg"></div>
-                <img src="{{ asset('images/sinfondo.png') }}" alt="Move Challenge" 
+                <img src="{{ asset(isset($contenidos['hero']['imagen']) ? $contenidos['hero']['imagen']->valor : 'images/sinfondo.png') }}" 
+                     alt="Move Challenge" 
                      onerror="this.style.display='none'">
             </div>
         </div>
