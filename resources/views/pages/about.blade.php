@@ -510,40 +510,56 @@
 </style>
 
 <!-- About Hero Section - DISEÑO CENTRADO VERTICAL -->
+@php
+    $aboutHero = $contenidos->get('about_hero', collect());
+
+    $titulo      = optional($aboutHero->get('titulo'))->valor
+                    ?? 'Hola, soy <span class="highlight">Anabelle Ibalu</span>';
+    $subtitulo   = optional($aboutHero->get('subtitulo'))->valor
+                    ?? 'Coach de bienestar apasionada por el movimiento consciente';
+    $imagen      = optional($aboutHero->get('imagen'))->valor
+                    ?? 'images/anabelle-profile.jpg';
+    $descripcion = optional($aboutHero->get('descripcion'))->valor
+                    ?? 'Mi misión es ayudarte a descubrir tu mejor versión a través de hábitos sostenibles. Creo que el cambio real viene de adentro hacia afuera.';
+
+    $stat1n = optional($aboutHero->get('stat_1_num'))->valor ?? '500+';
+    $stat1l = optional($aboutHero->get('stat_1_lbl'))->valor ?? 'Vidas transformadas';
+    $stat2n = optional($aboutHero->get('stat_2_num'))->valor ?? '5+';
+    $stat2l = optional($aboutHero->get('stat_2_lbl'))->valor ?? 'Años de experiencia';
+    $stat3n = optional($aboutHero->get('stat_3_num'))->valor ?? '30+';
+    $stat3l = optional($aboutHero->get('stat_3_lbl'))->valor ?? 'Challenges realizados';
+@endphp
+
 <section class="about-hero">
     <div class="container">
         <div class="about-hero-wrapper">
-            <!-- Título superior -->
             <div class="about-title-section">
-                <h1>Hola, soy <span class="highlight">Anabelle Ibalu</span></h1>
-                <p class="subtitle">Coach de bienestar apasionada por el movimiento consciente</p>
+                <h1>{!! $titulo !!}</h1>
+                <p class="subtitle">{{ $subtitulo }}</p>
             </div>
 
-            <!-- Imagen circular central -->
             <div class="about-image-wrapper">
                 <div class="circular-organic-shape"></div>
-                <img src="{{ asset('images/anabelle-profile.jpg') }}" alt="Anabelle Ibalu" 
+                <img src="{{ asset($imagen) }}" alt="Anabelle Ibalu"
                      onerror="this.src='{{ asset('images/sinfondo.png') }}'">
             </div>
 
-            <!-- Texto descriptivo -->
             <div class="about-description">
-                <p class="subtitle">Mi misión es ayudarte a descubrir tu mejor versión a través de hábitos sostenibles. Creo que el cambio real viene de adentro hacia afuera.</p>
+                <p class="subtitle">{{ $descripcion }}</p>
             </div>
 
-            <!-- Estadísticas -->
             <div class="stats-row">
                 <div class="stat-item">
-                    <span class="stat-number">500+</span>
-                    <span class="stat-label">Vidas transformadas</span>
+                    <span class="stat-number">{{ $stat1n }}</span>
+                    <span class="stat-label">{{ $stat1l }}</span>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-number">5+</span>
-                    <span class="stat-label">Años de experiencia</span>
+                    <span class="stat-number">{{ $stat2n }}</span>
+                    <span class="stat-label">{{ $stat2l }}</span>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-number">30+</span>
-                    <span class="stat-label">Challenges realizados</span>
+                    <span class="stat-number">{{ $stat3n }}</span>
+                    <span class="stat-label">{{ $stat3l }}</span>
                 </div>
             </div>
         </div>
@@ -555,130 +571,179 @@
     </div>
 </section>
 
+
 <!-- Story Section -->
+@php
+    // Página: sobre-mi | Sección: story
+    $storyTitle = data_get($contenidos, 'story.titulo.valor', 'Mi historia');
+    $p1 = data_get($contenidos, 'story.parrafo_1.valor', 'Mi viaje en el mundo del fitness comenzó como una búsqueda personal de bienestar. Después de años luchando con dietas restrictivas y entrenamientos agotadores, descubrí que el verdadero cambio viene del equilibrio.');
+    $p2 = data_get($contenidos, 'story.parrafo_2.valor', 'Decidí convertirme en entrenadora personal certificada para ayudar a otras personas a evitar los errores que yo cometí. Mi enfoque combina el movimiento consciente con la nutrición balanceada y el mindfulness.');
+    $p3 = data_get($contenidos, 'story.parrafo_3.valor', 'Hoy, mi mayor satisfacción es ver cómo mis clientes no solo transforman sus cuerpos, sino también su mentalidad y su relación con el ejercicio y la comida.');
+@endphp
+
 <section class="story-section">
     <div class="container">
         <div class="story-content">
-            <h2 class="section-title">Mi historia</h2>
-            <p class="story-text">
-                Mi viaje en el mundo del fitness comenzó como una búsqueda personal de bienestar. Después de años luchando con dietas restrictivas y entrenamientos agotadores, descubrí que el verdadero cambio viene del equilibrio.
-            </p>
-            <p class="story-text">
-                Decidí convertirme en entrenadora personal certificada para ayudar a otras personas a evitar los errores que yo cometí. Mi enfoque combina el movimiento consciente con la nutrición balanceada y el mindfulness.
-            </p>
-            <p class="story-text">
-                Hoy, mi mayor satisfacción es ver cómo mis clientes no solo transforman sus cuerpos, sino también su mentalidad y su relación con el ejercicio y la comida.
-            </p>
+            <h2 class="section-title">{{ $storyTitle }}</h2>
+
+            @foreach ([$p1, $p2, $p3] as $p)
+                @if(!empty($p))
+                    <p class="story-text">{{ $p }}</p>
+                @endif
+            @endforeach
         </div>
     </div>
 </section>
 
 <!-- Values Section -->
+@php
+    // Sección: values (sobre-mi)
+    $valuesSec = $contenidos['values'] ?? collect();
+    $val = function ($key, $default = null) use ($valuesSec) {
+        return optional($valuesSec->firstWhere('clave', $key))->valor ?? $default;
+    };
+
+    $valoresTitulo   = $val('titulo_seccion', 'Mis valores');
+    $valoresSubtitulo= $val('subtitulo_seccion', 'Estos son los principios que guían mi trabajo y mi filosofía de vida');
+
+    // Items (4)
+    $items = [];
+    for ($i=1; $i<=4; $i++) {
+        $items[] = [
+            'icono' => $val("value_{$i}_icono",
+                match ($i) {
+                    1 => 'fas fa-heart',
+                    2 => 'fas fa-balance-scale',
+                    3 => 'fas fa-users',
+                    4 => 'fas fa-seedling',
+                }
+            ),
+            'titulo' => $val("value_{$i}_titulo",
+                match ($i) {
+                    1 => 'Autenticidad',
+                    2 => 'Equilibrio',
+                    3 => 'Comunidad',
+                    4 => 'Crecimiento',
+                }
+            ),
+            'descripcion' => $val("value_{$i}_descripcion",
+                match ($i) {
+                    1 => 'Creo en ser real y transparente. No existen los cuerpos perfectos, existen cuerpos sanos y felices.',
+                    2 => 'El bienestar no se trata de extremos. Se trata de encontrar tu punto medio sostenible.',
+                    3 => 'Juntos somos más fuertes. Creo en el poder del apoyo mutuo y la motivación colectiva.',
+                    4 => 'Cada día es una oportunidad para ser 1% mejor. El progreso, no la perfección.',
+                }
+            ),
+        ];
+    }
+@endphp
+
 <section class="values-section">
     <div class="container">
         <div class="story-content">
-            <h2 class="section-title">Mis valores</h2>
+            <h2 class="section-title">{{ $valoresTitulo }}</h2>
             <p class="story-text">
-                Estos son los principios que guían mi trabajo y mi filosofía de vida
+                {{ $valoresSubtitulo }}
             </p>
         </div>
-        
+
         <div class="values-grid">
-            <div class="value-card">
-                <div class="value-icon">
-                    <i class="fas fa-heart"></i>
+            @foreach($items as $item)
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="{{ $item['icono'] }}"></i>
+                    </div>
+                    <h3 class="value-title">{{ $item['titulo'] }}</h3>
+                    <p class="value-description">{{ $item['descripcion'] }}</p>
                 </div>
-                <h3 class="value-title">Autenticidad</h3>
-                <p class="value-description">Creo en ser real y transparente. No existen los cuerpos perfectos, existen cuerpos sanos y felices.</p>
-            </div>
-            
-            <div class="value-card">
-                <div class="value-icon">
-                    <i class="fas fa-balance-scale"></i>
-                </div>
-                <h3 class="value-title">Equilibrio</h3>
-                <p class="value-description">El bienestar no se trata de extremos. Se trata de encontrar tu punto medio sostenible.</p>
-            </div>
-            
-            <div class="value-card">
-                <div class="value-icon">
-                    <i class="fas fa-users"></i>
-                </div>
-                <h3 class="value-title">Comunidad</h3>
-                <p class="value-description">Juntos somos más fuertes. Creo en el poder del apoyo mutuo y la motivación colectiva.</p>
-            </div>
-            
-            <div class="value-card">
-                <div class="value-icon">
-                    <i class="fas fa-seedling"></i>
-                </div>
-                <h3 class="value-title">Crecimiento</h3>
-                <p class="value-description">Cada día es una oportunidad para ser 1% mejor. El progreso, no la perfección.</p>
-            </div>
+            @endforeach
         </div>
     </div>
 </section>
 
 <!-- Credentials Section -->
+@php
+    // Sección: credentials (sobre-mi)
+    $credSec = $contenidos['credentials'] ?? collect();
+    $cv = function ($key, $default = null) use ($credSec) {
+        return optional($credSec->firstWhere('clave',$key))->valor ?? $default;
+    };
+
+    $credTitle = $cv('titulo_seccion', 'Certificaciones y experiencia');
+    $credSubtitle = $cv('subtitulo_seccion', 'Mi formación continua me permite ofrecerte las mejores herramientas');
+
+    $items = [];
+    for ($i=1; $i<=4; $i++) {
+        $items[] = [
+            'icono' => $cv("item_{$i}_icono", match($i){
+                1 => 'fas fa-certificate',
+                2 => 'fas fa-apple-alt',
+                3 => 'fas fa-spa',
+                4 => 'fas fa-dumbbell',
+            }),
+            'titulo' => $cv("item_{$i}_titulo", match($i){
+                1 => 'Entrenadora Personal Certificada',
+                2 => 'Certificación en Nutrición Deportiva',
+                3 => 'Instructora de Yoga & Mindfulness',
+                4 => 'Especialización en Entrenamiento Funcional',
+            }),
+            'descripcion' => $cv("item_{$i}_descripcion", match($i){
+                1 => 'ISSA - International Sports Sciences Association',
+                2 => 'Especializada en planes alimenticios personalizados',
+                3 => '200h Yoga Alliance RYT',
+                4 => 'Movimientos naturales y eficientes',
+            }),
+        ];
+    }
+@endphp
+
 <section class="credentials-section">
     <div class="container">
-        <h2 class="section-title">Certificaciones y experiencia</h2>
-        <p class="story-text">Mi formación continua me permite ofrecerte las mejores herramientas</p>
-        
+        <h2 class="section-title">{{ $credTitle }}</h2>
+        <p class="story-text">{{ $credSubtitle }}</p>
+
         <div class="credentials-list">
-            <div class="credential-item">
-                <div class="credential-icon">
-                    <i class="fas fa-certificate"></i>
+            @foreach($items as $it)
+                <div class="credential-item">
+                    <div class="credential-icon">
+                        <i class="{{ $it['icono'] }}"></i>
+                    </div>
+                    <div class="credential-text">
+                        <h4>{{ $it['titulo'] }}</h4>
+                        <p>{{ $it['descripcion'] }}</p>
+                    </div>
                 </div>
-                <div class="credential-text">
-                    <h4>Entrenadora Personal Certificada</h4>
-                    <p>ISSA - International Sports Sciences Association</p>
-                </div>
-            </div>
-            
-            <div class="credential-item">
-                <div class="credential-icon">
-                    <i class="fas fa-apple-alt"></i>
-                </div>
-                <div class="credential-text">
-                    <h4>Certificación en Nutrición Deportiva</h4>
-                    <p>Especializada en planes alimenticios personalizados</p>
-                </div>
-            </div>
-            
-            <div class="credential-item">
-                <div class="credential-icon">
-                    <i class="fas fa-spa"></i>
-                </div>
-                <div class="credential-text">
-                    <h4>Instructora de Yoga & Mindfulness</h4>
-                    <p>200h Yoga Alliance RYT</p>
-                </div>
-            </div>
-            
-            <div class="credential-item">
-                <div class="credential-icon">
-                    <i class="fas fa-dumbbell"></i>
-                </div>
-                <div class="credential-text">
-                    <h4>Especialización en Entrenamiento Funcional</h4>
-                    <p>Movimientos naturales y eficientes</p>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
 </section>
 
+
 <!-- CTA Section -->
+@php
+    // Sección: cta_about (sobre-mi)
+    $cta = $contenidos['cta_about'] ?? collect();
+    $cv = function ($key, $default = null) use ($cta) {
+        return optional($cta->firstWhere('clave', $key))->valor ?? $default;
+    };
+
+    $ctaTitle   = $cv('titulo', '¿Lista/o para comenzar tu transformación?');
+    $ctaText    = $cv('subtitulo', 'Únete al próximo Move Challenge y descubre todo lo que puedes lograr');
+    $ctaBtnTxt  = $cv('boton_texto', 'Hablemos');
+    // Si no hay URL en BD, caemos al route('contact') o a un #contacto
+    $ctaBtnUrl  = $cv('boton_url', null) ?? (Route::has('contact') ? route('contact') : '#contacto');
+@endphp
+
 <section class="cta-about-section">
     <div class="container">
         <div class="cta-about-content">
-            <h2>¿Lista/o para comenzar tu transformación?</h2>
-            <p>Únete al próximo Move Challenge y descubre todo lo que puedes lograr</p>
-            <a href="{{ route('contact') }}" class="btn-white">Hablemos</a>
+            <h2>{{ $ctaTitle }}</h2>
+            <p>{{ $ctaText }}</p>
+            <a href="{{ $ctaBtnUrl }}" class="btn-white">{{ $ctaBtnTxt }}</a>
         </div>
     </div>
 </section>
+
 
 <!-- Font Awesome Icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">

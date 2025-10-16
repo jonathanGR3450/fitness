@@ -448,138 +448,79 @@
     }
 </style>
 
-<!-- Programs Hero Section -->
+@php
+  $sec = fn($s)=> $contenidos[$s] ?? collect();
+  $v = fn($s,$k,$d=null)=> optional($sec($s)->firstWhere('clave',$k))->valor ?? $d;
+
+  // HERO
+  $badge = $v('programs_hero','badge','Nuestros Programas');
+  $titulo = $v('programs_hero','titulo','Encuentra tu <span class="highlight">Programa Ideal</span>');
+  $sub = $v('programs_hero','subtitulo','Programas diseñados para cada objetivo y nivel de condición física...');
+
+  // GRID defaults
+  $defaults = [
+    1=>['images/ana1.png','MOVE Challenge','30 días de transformación integral...', route('move')],
+    2=>['images/ana2.png','YOGA Flow','Conecta cuerpo y mente...', '#'],
+    3=>['images/ana3.png','HIIT Power','Alta intensidad...', '#'],
+    4=>['images/ana4.png','Dance Fit','Baila y quema calorías...', '#'],
+    5=>['images/ana5.png','Wellness 360','Bienestar integral...', '#'],
+    6=>['images/ana6.png','Strong Body','Fuerza y resistencia...', '#'],
+  ];
+@endphp
+
 <section class="programs-hero">
-    <div class="container">
-        <div class="programs-hero-content">
-            <span class="hero-badge">
-                <i class="fas fa-dumbbell me-2"></i>
-                Nuestros Programas
-            </span>
-            <h1>
-                Encuentra tu
-                <span class="highlight d-block">Programa Ideal</span>
-            </h1>
-            <p>
-                Programas diseñados para cada objetivo y nivel de condición física. 
-                Descubre el que mejor se adapta a ti y comienza tu transformación hoy.
-            </p>
-        </div>
+  <div class="container">
+    <div class="programs-hero-content">
+      <span class="hero-badge"><i class="fas fa-dumbbell me-2"></i>{{ $badge }}</span>
+      <h1>{!! $titulo !!}</h1>
+      <p>{{ $sub }}</p>
     </div>
+  </div>
 </section>
 
-<!-- Programs Grid Section -->
 <section class="programs-section">
-    <div class="container">
-        <div class="programs-grid">
-            <!-- Program Card 1 -->
-            <div class="program-card" data-index="0">
-                <img src="{{ asset('images/ana1.png') }}" alt="MOVE Challenge" class="program-card-image">
-                <div class="program-card-overlay"></div>
-                <div class="program-card-content">
-                    <h3 class="program-card-title">MOVE Challenge</h3>
-                    <p class="program-card-description">
-                        30 días de transformación integral con movimiento consciente, nutrición y mindfulness.
-                    </p>
-                    <a href="{{ route('move') }}" class="btn-discover">
-                        Descúbrelo
-                    </a>
-                </div>
-            </div>
-
-            <!-- Program Card 2 -->
-            <div class="program-card" data-index="1">
-                <img src="{{ asset('images/ana2.png') }}" alt="YOGA Flow" class="program-card-image">
-                <div class="program-card-overlay"></div>
-                <div class="program-card-content">
-                    <h3 class="program-card-title">YOGA Flow</h3>
-                    <p class="program-card-description">
-                        Conecta cuerpo y mente con secuencias de yoga diseñadas para todos los niveles.
-                    </p>
-                    <a href="#" class="btn-discover">
-                        Descúbrelo
-                    </a>
-                </div>
-            </div>
-
-            <!-- Program Card 3 -->
-            <div class="program-card" data-index="2">
-                <img src="{{ asset('images/ana3.png') }}" alt="HIIT Power" class="program-card-image">
-                <div class="program-card-overlay"></div>
-                <div class="program-card-content">
-                    <h3 class="program-card-title">HIIT Power</h3>
-                    <p class="program-card-description">
-                        Entrenamientos de alta intensidad para quemar calorías y ganar fuerza rápidamente.
-                    </p>
-                    <a href="#" class="btn-discover">
-                        Descúbrelo
-                    </a>
-                </div>
-            </div>
-
-            <!-- Program Card 4 -->
-            <div class="program-card" data-index="3">
-                <img src="{{ asset('images/ana4.png') }}" alt="Dance Fit" class="program-card-image">
-                <div class="program-card-overlay"></div>
-                <div class="program-card-content">
-                    <h3 class="program-card-title">Dance Fit</h3>
-                    <p class="program-card-description">
-                        Baila, diviértete y quema calorías al ritmo de la mejor música.
-                    </p>
-                    <a href="#" class="btn-discover">
-                        Descúbrelo
-                    </a>
-                </div>
-            </div>
-
-            <!-- Program Card 5 -->
-            <div class="program-card" data-index="4">
-                <img src="{{ asset('images/ana5.png') }}" alt="Wellness 360" class="program-card-image">
-                <div class="program-card-overlay"></div>
-                <div class="program-card-content">
-                    <h3 class="program-card-title">Wellness 360</h3>
-                    <p class="program-card-description">
-                        Programa integral de bienestar que incluye ejercicio, nutrición y salud mental.
-                    </p>
-                    <a href="#" class="btn-discover">
-                        Descúbrelo
-                    </a>
-                </div>
-            </div>
-
-            <!-- Program Card 6 -->
-            <div class="program-card" data-index="5">
-                <img src="{{ asset('images/ana6.png') }}" alt="Strong Body" class="program-card-image">
-                <div class="program-card-overlay"></div>
-                <div class="program-card-content">
-                    <h3 class="program-card-title">Strong Body</h3>
-                    <p class="program-card-description">
-                        Desarrolla fuerza y resistencia con entrenamientos de fuerza funcional.
-                    </p>
-                    <a href="#" class="btn-discover">
-                        Descúbrelo
-                    </a>
-                </div>
-            </div>
+  <div class="container">
+    <div class="programs-grid">
+      @for($i=1;$i<=6;$i++)
+        @php
+          [$defImg,$defTit,$defDesc,$defUrl] = $defaults[$i];
+          $img  = $v('programs_grid',"prog_{$i}_imagen",$defImg);
+          $tit  = $v('programs_grid',"prog_{$i}_titulo",$defTit);
+          $desc = $v('programs_grid',"prog_{$i}_descripcion",$defDesc);
+          $url  = $v('programs_grid',"prog_{$i}_url",$defUrl);
+        @endphp
+        <div class="program-card" data-index="{{ $i-1 }}">
+          <img src="{{ asset($img) }}" alt="{{ $tit }}" class="program-card-image" onerror="this.src='{{ asset('images/sinfondo.png') }}'">
+          <div class="program-card-overlay"></div>
+          <div class="program-card-content">
+            <h3 class="program-card-title">{{ $tit }}</h3>
+            <p class="program-card-description">{{ $desc }}</p>
+            <a href="{{ $url ?: '#' }}" class="btn-discover">Descúbrelo</a>
+          </div>
         </div>
+      @endfor
     </div>
+  </div>
 </section>
 
-<!-- CTA Section -->
+@php
+  $ctaTitle = $v('programs_cta','titulo','¿No sabes cuál elegir?');
+  $ctaSub   = $v('programs_cta','subtitulo','Contáctame y te ayudaré a encontrar el programa perfecto...');
+  $ctaTxt   = $v('programs_cta','boton_texto','Habla Conmigo');
+  $ctaUrl   = $v('programs_cta','boton_url', (Route::has('contact')?route('contact'):'#'));
+@endphp
 <section class="cta-programs-section">
-    <div class="container">
-        <div class="cta-programs-content">
-            <h2>¿No sabes cuál elegir?</h2>
-            <p>
-                Contáctame y te ayudaré a encontrar el programa perfecto para ti según tus objetivos y nivel actual.
-            </p>
-            <a href="{{ route('contact') }}" class="btn-cta-primary">
-                Habla Conmigo
-                <i class="fas fa-arrow-right ms-2"></i>
-            </a>
-        </div>
+  <div class="container">
+    <div class="cta-programs-content">
+      <h2>{{ $ctaTitle }}</h2>
+      <p>{{ $ctaSub }}</p>
+      <a href="{{ $ctaUrl }}" class="btn-cta-primary">
+        {{ $ctaTxt }} <i class="fas fa-arrow-right ms-2"></i>
+      </a>
     </div>
+  </div>
 </section>
+
 
 <!-- Font Awesome Icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">

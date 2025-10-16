@@ -780,75 +780,96 @@
         }
     }
 </style>
+
+@php
+    // Helpers rápidos
+    $getSec = fn($sec) => $contenidos[$sec] ?? collect();
+    $cv = function($sec, $key, $default = null) use ($getSec) {
+        $secCol = $getSec($sec);
+        if ($secCol instanceof \Illuminate\Support\Collection) {
+            return optional($secCol->get($key))->valor ?? $default;
+        }
+        return $default;
+    };
+@endphp
 <!-- Move Hero Section -->
+@php
+    $sec = 'move_hero';
+    $badge        = $cv($sec, 'badge', '30 Días de Transformación');
+    $badgeIcon    = $cv($sec, 'badge_icono', 'fas fa-fire');
+
+    $titulo1      = $cv($sec, 'titulo_1', 'Descubre el poder del');
+    $titulo2      = $cv($sec, 'titulo_2', 'Move Challenge');
+
+    $descripcion  = $cv($sec, 'descripcion', 'Un programa integral diseñado para transformar tu vida a través del movimiento consciente, nutrición balanceada y conexión interior.');
+
+    $s1n = $cv($sec, 'stat_1_num', '500+');   $s1l = $cv($sec, 'stat_1_lbl', 'Participantes');
+    $s2n = $cv($sec, 'stat_2_num', '30');     $s2l = $cv($sec, 'stat_2_lbl', 'Días de Reto');
+    $s3n = $cv($sec, 'stat_3_num', '100%');   $s3l = $cv($sec, 'stat_3_lbl', 'Resultados');
+
+    $btnTxt      = $cv($sec, 'boton_texto', 'Conoce Más Detalles');
+    $btnUrl      = $cv($sec, 'boton_url', '#nosotros');
+
+    $cardBadge   = $cv($sec, 'card_badge', 'Próximo Reto');
+    $cardBadgeIc = $cv($sec, 'card_badge_icono', 'fas fa-star');
+    $cardTitulo  = $cv($sec, 'card_titulo', '¿Lista/o para el cambio?');
+    $item1 = $cv($sec, 'card_item_1', 'Rutinas personalizadas');
+    $item2 = $cv($sec, 'card_item_2', 'Plan de nutrición completo');
+    $item3 = $cv($sec, 'card_item_3', 'Comunidad de apoyo');
+    $item4 = $cv($sec, 'card_item_4', 'Premios y reconocimientos');
+    $cardBtnTxt  = $cv($sec, 'card_boton_texto', 'Inscríbete Ahora');
+    $cardBtnUrl  = $cv($sec, 'card_boton_url', (Route::has('contact') ? route('contact') : '#contact'));
+    $cardFooter  = $cv($sec, 'card_footer', '12 personas se inscribieron hoy');
+@endphp
+
 <section class="move-hero">
     <div class="container">
         <div class="move-hero-container">
             <div class="move-hero-content">
                 <span class="badge-tag">
-                    <i class="fas fa-fire me-2"></i>30 Días de Transformación
+                    <i class="{{ $badgeIcon }} me-2"></i>{{ $badge }}
                 </span>
                 <h1>
-                    Descubre el poder del
-                    <span class="highlight d-block">Move Challenge</span>
+                    {{ $titulo1 }}
+                    <span class="highlight d-block">{{ $titulo2 }}</span>
                 </h1>
-                <p>
-                    Un programa integral diseñado para transformar tu vida a través del movimiento consciente, 
-                    nutrición balanceada y conexión interior.
-                </p>
+                <p>{{ $descripcion }}</p>
 
-                <!-- Stats inline -->
                 <div class="stats-inline">
                     <div class="stat-inline-item">
-                        <span class="stat-inline-number">500+</span>
-                        <span class="stat-inline-label">Participantes</span>
+                        <span class="stat-inline-number">{{ $s1n }}</span>
+                        <span class="stat-inline-label">{{ $s1l }}</span>
                     </div>
                     <div class="stat-inline-item">
-                        <span class="stat-inline-number">30</span>
-                        <span class="stat-inline-label">Días de Reto</span>
+                        <span class="stat-inline-number">{{ $s2n }}</span>
+                        <span class="stat-inline-label">{{ $s2l }}</span>
                     </div>
                     <div class="stat-inline-item">
-                        <span class="stat-inline-number">100%</span>
-                        <span class="stat-inline-label">Resultados</span>
+                        <span class="stat-inline-number">{{ $s3n }}</span>
+                        <span class="stat-inline-label">{{ $s3l }}</span>
                     </div>
                 </div>
 
-                <a href="#nosotros" class="btn-primary-move" style="max-width: 250px;">
-                    Conoce Más Detalles
-                    <i class="fas fa-arrow-down ms-2"></i>
+                <a href="{{ $btnUrl }}" class="btn-primary-move" style="max-width: 250px;">
+                    {{ $btnTxt }} <i class="fas fa-arrow-down ms-2"></i>
                 </a>
             </div>
 
-            <!-- Tarjeta flotante lateral -->
             <div class="floating-info-card">
                 <span class="card-badge">
-                    <i class="fas fa-star me-1"></i>Próximo Reto
+                    <i class="{{ $cardBadgeIc }} me-1"></i>{{ $cardBadge }}
                 </span>
-                <h3>¿Lista/o para el cambio?</h3>
+                <h3>{{ $cardTitulo }}</h3>
                 <ul>
-                    <li>
-                        <i class="fas fa-check-circle"></i>
-                        <span>Rutinas personalizadas</span>
-                    </li>
-                    <li>
-                        <i class="fas fa-check-circle"></i>
-                        <span>Plan de nutrición completo</span>
-                    </li>
-                    <li>
-                        <i class="fas fa-check-circle"></i>
-                        <span>Comunidad de apoyo</span>
-                    </li>
-                    <li>
-                        <i class="fas fa-check-circle"></i>
-                        <span>Premios y reconocimientos</span>
-                    </li>
+                    @foreach ([$item1, $item2, $item3, $item4] as $it)
+                        @if(!empty($it))
+                            <li><i class="fas fa-check-circle"></i><span>{{ $it }}</span></li>
+                        @endif
+                    @endforeach
                 </ul>
-                <a href="{{ route('contact') }}" class="btn-primary-move">
-                    Inscríbete Ahora
-                </a>
+                <a href="{{ $cardBtnUrl }}" class="btn-primary-move">{{ $cardBtnTxt }}</a>
                 <p class="card-footer-text">
-                    <i class="fas fa-users me-1"></i>
-                    12 personas se inscribieron hoy
+                    <i class="fas fa-users me-1"></i>{{ $cardFooter }}
                 </p>
             </div>
         </div>
@@ -861,47 +882,54 @@
 </section>
 
 <!-- About Move Section -->
+@php
+    $aboutMove = $contenidos['about_move'] ?? collect();
+    $get = fn($k,$d=null)=> optional($aboutMove->get($k))->valor ?? $d;
+
+    $poster   = $get('video_poster','images/banner3.jpeg');
+    $videoW   = $get('video_webm','video/video-promocional.webm'); // SOLO webm
+
+    $badge    = $get('badge','Sobre Annabelle');
+    $titulo   = $get('titulo','Conoce a tu Coach');
+    $p1       = $get('parrafo_1','Annabelle Ibarra irradia luz...');
+    $p2       = $get('parrafo_2','Su filosofía se basa en la gratitud...');
+
+    $vals = [];
+    for($i=1;$i<=4;$i++){
+        $vals[] = [
+            'icon' => $get("value_{$i}_icono", match($i){1=>'fas fa-heart',2=>'fas fa-sun',3=>'fas fa-leaf',4=>'fas fa-hands-helping'}),
+            'tit'  => $get("value_{$i}_titulo", match($i){1=>'Gratitud Diaria',2=>'Energía Positiva',3=>'Vida Consciente',4=>'Empatía'}),
+        ];
+    }
+@endphp
 <section id="nosotros" class="about-move-section">
     <div class="container">
         <div class="about-move-container">
             <div class="video-container-move">
                 <div class="video-organic-shape"></div>
-                <video controls preload="metadata" playsinline poster="{{ asset('images/banner3.jpeg') }}">
-                    <source src="{{ asset('video/video-promocional.mp4') }}" type="video/mp4">
-                    <source src="{{ asset('video/video-promocional.webm') }}" type="video/webm">
+                <video controls preload="metadata" playsinline poster="{{ asset($poster) }}">
+                    @if($videoW)
+                        <source src="{{ asset($videoW) }}" type="video/webm">
+                    @endif
                     Tu navegador no soporta reproducción de video.
                 </video>
             </div>
 
             <div class="about-move-content">
-                <span class="section-badge">Sobre Annabelle</span>
-                <h2>Conoce a tu Coach</h2>
-                <p>
-                    Annabelle Ibarra irradia luz y transforma espacios con su energía. Cree en los gestos sencillos 
-                    como puentes de alegría y empatía.
-                </p>
-                <p>
-                    Su filosofía se basa en la <strong>gratitud diaria</strong>, reflejada auténticamente en sus 
-                    redes sociales, donde la coherencia entre lo digital y lo real es clave.
-                </p>
+                <span class="section-badge">{{ $badge }}</span>
+                <h2>{{ $titulo }}</h2>
+
+                @foreach ([$p1,$p2] as $p)
+                    @if(!empty($p)) <p>{!! nl2br(e($p)) !!}</p> @endif
+                @endforeach
 
                 <div class="values-grid-small">
-                    <div class="value-box-small">
-                        <i class="fas fa-heart"></i>
-                        <h6>Gratitud Diaria</h6>
-                    </div>
-                    <div class="value-box-small">
-                        <i class="fas fa-sun"></i>
-                        <h6>Energía Positiva</h6>
-                    </div>
-                    <div class="value-box-small">
-                        <i class="fas fa-leaf"></i>
-                        <h6>Vida Consciente</h6>
-                    </div>
-                    <div class="value-box-small">
-                        <i class="fas fa-hands-helping"></i>
-                        <h6>Empatía</h6>
-                    </div>
+                    @foreach ($vals as $v)
+                        <div class="value-box-small">
+                            <i class="{{ $v['icon'] }}"></i>
+                            <h6>{{ $v['tit'] }}</h6>
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -909,148 +937,125 @@
 </section>
 
 <!-- What Includes Section -->
+@php
+    $sec = 'includes';
+    $tit = $cv($sec, 'titulo_seccion', '¿Qué incluye el Move Challenge?');
+    $sub = $cv($sec, 'subtitulo_seccion', 'Todo lo que necesitas para crear hábitos sostenibles y transformar tu bienestar');
+
+    $items = [];
+    for ($i=1;$i<=6;$i++){
+        $items[] = [
+            'icon' => $cv($sec, "item_{$i}_icono", match($i){1=>'fas fa-dumbbell',2=>'fas fa-apple-alt',3=>'fas fa-utensils',4=>'fas fa-spa',5=>'fas fa-lightbulb',6=>'fas fa-users'}),
+            'tit'  => $cv($sec, "item_{$i}_titulo",  match($i){1=>'Plan de Entrenamiento',2=>'Nutrición Balanceada',3=>'Recetas Fáciles',4=>'Meditación & Mindfulness',5=>'Conexión Interior',6=>'Comunidad de Apoyo'}),
+            'desc' => $cv($sec, "item_{$i}_descripcion", ''),
+        ];
+    }
+@endphp
+
 <section class="includes-section">
     <div class="container">
-        <h2 class="section-title">¿Qué incluye el Move Challenge?</h2>
-        <p class="section-subtitle">
-            Todo lo que necesitas para crear hábitos sostenibles y transformar tu bienestar
-        </p>
+        <h2 class="section-title">{{ $tit }}</h2>
+        <p class="section-subtitle">{{ $sub }}</p>
 
         <div class="includes-grid">
+            @foreach ($items as $it)
             <div class="include-card">
-                <div class="include-card-icon">
-                    <i class="fas fa-dumbbell"></i>
-                </div>
-                <h4>Plan de Entrenamiento</h4>
-                <p>Rutinas adaptadas para casa o gimnasio, diseñadas según tu nivel y objetivos específicos.</p>
+                <div class="include-card-icon"><i class="{{ $it['icon'] }}"></i></div>
+                <h4>{{ $it['tit'] }}</h4>
+                @if(!empty($it['desc'])) <p>{{ $it['desc'] }}</p> @endif
             </div>
-
-            <div class="include-card">
-                <div class="include-card-icon">
-                    <i class="fas fa-apple-alt"></i>
-                </div>
-                <h4>Nutrición Balanceada</h4>
-                <p>Menús balanceados adaptados a tus requerimientos y gustos, sin restricciones extremas.</p>
-            </div>
-
-            <div class="include-card">
-                <div class="include-card-icon">
-                    <i class="fas fa-utensils"></i>
-                </div>
-                <h4>Recetas Fáciles</h4>
-                <p>Preparaciones simples y nutritivas que se adaptan a tu rutina diaria.</p>
-            </div>
-
-            <div class="include-card">
-                <div class="include-card-icon">
-                    <i class="fas fa-spa"></i>
-                </div>
-                <h4>Meditación & Mindfulness</h4>
-                <p>Técnicas guiadas para conectar cuerpo y mente, reducir estrés y mejorar tu bienestar.</p>
-            </div>
-
-            <div class="include-card">
-                <div class="include-card-icon">
-                    <i class="fas fa-lightbulb"></i>
-                </div>
-                <h4>Conexión Interior</h4>
-                <p>Herramientas prácticas para desarrollar consciencia y mantener la motivación.</p>
-            </div>
-
-            <div class="include-card">
-                <div class="include-card-icon">
-                    <i class="fas fa-users"></i>
-                </div>
-                <h4>Comunidad de Apoyo</h4>
-                <p>Acompañamiento constante de profesionales y compañeros en tu journey.</p>
-            </div>
+            @endforeach
         </div>
     </div>
 </section>
 
+
 <!-- How It Works Section -->
+@php
+    $sec = 'how_works';
+    $tit = $cv($sec, 'titulo_seccion', 'Cómo Funciona');
+    $sub = $cv($sec, 'subtitulo_seccion', 'Tu transformación en 3 simples pasos');
+
+    $steps = [];
+    for ($i=1;$i<=3;$i++){
+        $steps[] = [
+            'n'   => $i,
+            'tit' => $cv($sec, "step_{$i}_titulo",  match($i){1=>'Inscríbete',2=>'Entrena',3=>'Transforma'}),
+            'txt' => $cv($sec, "step_{$i}_descripcion", ''),
+        ];
+    }
+@endphp
+
 <section class="how-works-section">
     <div class="container">
-        <h2 class="section-title">Cómo Funciona</h2>
-        <p class="section-subtitle">
-            Tu transformación en 3 simples pasos
-        </p>
+        <h2 class="section-title">{{ $tit }}</h2>
+        <p class="section-subtitle">{{ $sub }}</p>
 
         <div class="steps-container">
+            @foreach($steps as $s)
             <div class="step-card">
-                <div class="step-number">1</div>
-                <h4>Inscríbete</h4>
-                <p>
-                    Únete al reto y recibe tu plan personalizado adaptado a tus objetivos y nivel de condición física.
-                </p>
+                <div class="step-number">{{ $s['n'] }}</div>
+                <h4>{{ $s['tit'] }}</h4>
+                @if(!empty($s['txt'])) <p>{{ $s['txt'] }}</p> @endif
             </div>
-
-            <div class="step-card">
-                <div class="step-number">2</div>
-                <h4>Entrena</h4>
-                <p>
-                    Sigue tu rutina diaria de ejercicios, nutrición y mindfulness durante 30 días con apoyo constante.
-                </p>
-            </div>
-
-            <div class="step-card">
-                <div class="step-number">3</div>
-                <h4>Transforma</h4>
-                <p>
-                    Observa los cambios en tu cuerpo, mente y estilo de vida. ¡Compite por premios increíbles!
-                </p>
-            </div>
+            @endforeach
         </div>
     </div>
 </section>
 
 <!-- Benefits Section -->
+@php
+    $sec = 'benefits';
+
+    $benefits = [];
+    for ($i=1;$i<=3;$i++){
+        $benefits[] = [
+            'icon' => $cv($sec, "benefit_{$i}_icono", match($i){1=>'fas fa-trophy',2=>'fas fa-heart',3=>'fas fa-gift'}),
+            'tit'  => $cv($sec, "benefit_{$i}_titulo", match($i){1=>'Resultados Reales',2=>'Comunidad de Apoyo',3=>'Premios Increíbles'}),
+            'txt'  => $cv($sec, "benefit_{$i}_descripcion", ''),
+        ];
+    }
+
+    $tText   = $cv($sec, 'testimonial_texto', 'El Move Challenge cambió mi vida completamente. No solo perdí peso, sino que gané confianza, energía y una nueva perspectiva sobre el bienestar integral.');
+    $tAutor  = $cv($sec, 'testimonial_autor', 'María González');
+    $tDet    = $cv($sec, 'testimonial_detalle', 'Move Challenge Enero 2025');
+    $tAvatar = $cv($sec, 'testimonial_avatar', null);
+@endphp
+
 <section class="benefits-section">
     <div class="container">
         <div class="benefits-container">
             <div class="benefits-list">
+                @foreach($benefits as $b)
                 <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-trophy"></i>
-                    </div>
+                    <div class="benefit-icon"><i class="{{ $b['icon'] }}"></i></div>
                     <div class="benefit-text">
-                        <h5>Resultados Reales</h5>
-                        <p>Programa probado con cientos de participantes que han alcanzado sus metas de forma sostenible.</p>
+                        <h5>{{ $b['tit'] }}</h5>
+                        @if(!empty($b['txt'])) <p>{{ $b['txt'] }}</p> @endif
                     </div>
                 </div>
-
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-heart"></i>
-                    </div>
-                    <div class="benefit-text">
-                        <h5>Comunidad de Apoyo</h5>
-                        <p>Conecta con personas que comparten tus objetivos y motivaciones en un ambiente positivo.</p>
-                    </div>
-                </div>
-
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-gift"></i>
-                    </div>
-                    <div class="benefit-text">
-                        <h5>Premios Increíbles</h5>
-                        <p>Los mejores resultados son reconocidos y premiados al finalizar el challenge.</p>
-                    </div>
-                </div>
+                @endforeach
             </div>
 
             <div class="testimonial-card-move">
                 <i class="fas fa-quote-left"></i>
-                <p>
-                    "El Move Challenge cambió mi vida completamente. No solo perdí peso, sino que gané confianza, 
-                    energía y una nueva perspectiva sobre el bienestar integral."
-                </p>
+                <p>{!! nl2br(e($tText)) !!}</p>
+
                 <div class="testimonial-author">
-                    <div class="testimonial-avatar"></div>
+                    <div
+                        class="testimonial-avatar"
+                        style="
+                        width:72px; height:72px; 
+                        border-radius:50%;
+                        background-image:url('{{ $tAvatar ? asset($tAvatar) : asset('images/sinfondo.png') }}');
+                        background-size:cover; 
+                        background-position:center; 
+                        background-repeat:no-repeat;
+                        flex-shrink:0;"
+                    ></div>
                     <div class="testimonial-author-info">
-                        <h6>María González</h6>
-                        <small>Move Challenge Enero 2025</small>
+                        <h6>{{ $tAutor }}</h6>
+                        <small>{{ $tDet }}</small>
                     </div>
                 </div>
             </div>
@@ -1058,21 +1063,41 @@
     </div>
 </section>
 
+
 <!-- CTA Section -->
+@php
+    $sec = 'cta_move';
+    $tit = $cv($sec, 'titulo', '¿Lista/o para comenzar tu transformación?');
+    $sub = $cv($sec, 'subtitulo', 'Únete al próximo Move Challenge y descubre todo lo que puedes lograr en 30 días');
+    $bTx = $cv($sec, 'boton_texto', 'Quiero mi Cupo');
+    $bUrl = $cv($sec, 'boton_url', (Route::has('contact') ? route('contact') : '#contact'));
+@endphp
+
 <section class="cta-move-section">
     <div class="container">
         <div class="cta-move-content">
-            <h2>¿Lista/o para comenzar tu transformación?</h2>
-            <p>Únete al próximo Move Challenge y descubre todo lo que puedes lograr en 30 días</p>
-            <a href="{{ route('contact') }}" class="btn-white-cta">
-                Quiero mi Cupo
-                <i class="fas fa-arrow-right ms-2"></i>
+            <h2>{{ $tit }}</h2>
+            <p>{{ $sub }}</p>
+            <a href="{{ $bUrl }}" class="btn-white-cta">
+                {{ $bTx }} <i class="fas fa-arrow-right ms-2"></i>
             </a>
         </div>
     </div>
 </section>
 
+
 <!-- Font Awesome Icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<style>
+    .testimonial-avatar{
+        width:72px;
+        height:72px;
+        border-radius:50%;
+        background-size:cover;
+        background-position:center;
+        background-repeat:no-repeat;
+        flex-shrink:0;
+    }
+</style>
 
 @endsection

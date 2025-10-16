@@ -484,32 +484,52 @@
     }
 </style>
 
+@php
+    // Carga de contenidos agrupados por seccion desde el controlador
+    // $contenidos: Collection agrupada por seccion -> clave
+    $get = fn($sec,$key,$def=null) => optional(($contenidos[$sec] ?? collect())->firstWhere('clave',$key))->valor ?? $def;
+
+    // --- Sección 1: contact_hero ---
+    $hTitulo    = $get('contact_hero','titulo','Hablemos de tu <span class="highlight">Transformación</span>');
+    $hSubtitulo = $get('contact_hero','subtitulo','Contáctame para conocer todos los detalles del Move Challenge y comenzar tu cambio hoy.');
+    $urlIG      = $get('contact_hero','instagram_url','https://www.instagram.com/anabelleibalu/');
+    $urlTT      = $get('contact_hero','tiktok_url','https://www.tiktok.com/@anabelleibalu');
+    $urlFB      = $get('contact_hero','facebook_url','https://facebook.com/anabelleibalu');
+    $urlTH      = $get('contact_hero','threads_url','https://threads.net/@anabelleibalu');
+
+    // --- Sección 2: contact_form ---
+    $fBadge     = $get('contact_form','badge','Contacto');
+    $fTitulo    = $get('contact_form','titulo','Escríbeme directamente');
+    $fSub       = $get('contact_form','subtitulo','Respondo en menos de 24 horas');
+    $waUrl      = $get('contact_form','whatsapp_url','https://wa.link/nq2ezt');
+    $waText     = $get('contact_form','whatsapp_texto','Escribir por WhatsApp');
+    $formAction = $get('contact_form','form_action','#');
+    $phNombre   = $get('contact_form','placeholder_nombre','Tu nombre completo');
+    $phEmail    = $get('contact_form','placeholder_email','tu@email.com');
+    $phTel      = $get('contact_form','placeholder_telefono','+57');
+    $phMsg      = $get('contact_form','placeholder_mensaje','Cuéntame qué te motivó a buscar un cambio...');
+    $btnEnviar  = $get('contact_form','boton_enviar','Enviar Mensaje');
+
+    // --- Sección 3: contact_info ---
+    $infoEmail      = $get('contact_info','email','hola@anabelleibalu.com');
+    $infoIGHandle   = $get('contact_info','instagram_handle','@anabelleibalu');
+    $infoIGUrl      = $get('contact_info','instagram_url','https://www.instagram.com/anabelleibalu/');
+    $infoRespuesta  = $get('contact_info','tiempo_respuesta','Menos de 24h');
+@endphp
+
 <!-- Contact Hero Section - Minimalista -->
 <section class="contact-hero-minimal">
     <div class="container">
         <div class="hero-content-minimal">
-            <h1>
-                Hablemos de tu
-                <span class="highlight">Transformación</span>
-            </h1>
-            <p>
-                Contáctame para conocer todos los detalles del Move Challenge y comenzar tu cambio hoy.
-            </p>
+            <h1>{!! $hTitulo !!}</h1>
+            <p>{{ $hSubtitulo }}</p>
 
             <!-- Social Icons -->
             <div class="social-inline">
-                <a href="https://www.instagram.com/anabelleibalu/" target="_blank" class="social-btn" title="Instagram">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <a href="https://www.tiktok.com/@anabelleibalu" target="_blank" class="social-btn" title="TikTok">
-                    <i class="fab fa-tiktok"></i>
-                </a>
-                <a href="https://facebook.com/anabelleibalu" target="_blank" class="social-btn" title="Facebook">
-                    <i class="fab fa-facebook-f"></i>
-                </a>
-                <a href="https://threads.net/@anabelleibalu" target="_blank" class="social-btn" title="Threads">
-                    <i class="fas fa-at"></i>
-                </a>
+                <a href="{{ $urlIG }}" target="_blank" class="social-btn" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="{{ $urlTT }}" target="_blank" class="social-btn" title="TikTok"><i class="fab fa-tiktok"></i></a>
+                <a href="{{ $urlFB }}" target="_blank" class="social-btn" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="{{ $urlTH }}" target="_blank" class="social-btn" title="Threads"><i class="fas fa-at"></i></a>
             </div>
         </div>
     </div>
@@ -522,105 +542,69 @@
             <!-- Form Card Flotante -->
             <div class="form-card-floating">
                 <span class="form-badge">
-                    <i class="fas fa-envelope me-2"></i>
-                    Contacto
+                    <i class="fas fa-envelope me-2"></i>{{ $fBadge }}
                 </span>
 
-                <h2>Escríbeme directamente</h2>
-                <p class="subtitle">Respondo en menos de 24 horas</p>
+                <h2>{{ $fTitulo }}</h2>
+                <p class="subtitle">{{ $fSub }}</p>
 
                 <!-- WhatsApp Button -->
-                <a href="https://wa.link/nq2ezt" target="_blank" class="btn-whatsapp-main">
+                <a href="{{ $waUrl }}" target="_blank" class="btn-whatsapp-main">
                     <i class="fab fa-whatsapp" style="font-size: 1.5rem;"></i>
-                    <span>Escribir por WhatsApp</span>
+                    <span>{{ $waText }}</span>
                 </a>
 
                 <!-- Divider -->
-                <div class="form-divider">
-                    <span>o envía un mensaje</span>
-                </div>
+                <div class="form-divider"><span>o envía un mensaje</span></div>
 
                 <!-- Contact Form -->
-                <form action="" method="POST">
+                <form action="{{ $formAction }}" method="POST">
                     @csrf
-                    <!-- Nombre -->
                     <div class="form-group">
                         <label for="name">Nombre completo</label>
-                        <input type="text" id="name" name="name" class="form-input" placeholder="Tu nombre completo" required>
+                        <input type="text" id="name" name="name" class="form-input" placeholder="{{ $phNombre }}" required>
                     </div>
 
-                    <!-- Email y Teléfono -->
                     <div class="form-row-split">
                         <div class="form-group">
                             <label for="email">Correo</label>
-                            <input type="email" id="email" name="email" class="form-input" placeholder="tu@email.com" required>
+                            <input type="email" id="email" name="email" class="form-input" placeholder="{{ $phEmail }}" required>
                         </div>
                         <div class="form-group">
                             <label for="phone">Teléfono</label>
-                            <input type="tel" id="phone" name="phone" class="form-input" placeholder="+57" required>
+                            <input type="tel" id="phone" name="phone" class="form-input" placeholder="{{ $phTel }}" required>
                         </div>
                     </div>
 
-                    <!-- Objetivo -->
                     <div class="form-group">
                         <label for="goal">Tu mensaje</label>
-                        <textarea id="goal" name="goal" class="form-input" placeholder="Cuéntame qué te motivó a buscar un cambio..." required></textarea>
+                        <textarea id="goal" name="goal" class="form-input" placeholder="{{ $phMsg }}" required></textarea>
                     </div>
 
-                    <!-- Intereses -->
-                    <!-- <div class="form-group">
-                        <label>Te interesa</label>
-                        <div class="checkbox-container">
-                            <div class="checkbox-option">
-                                <input type="checkbox" id="entrenamiento" name="interests[]" value="entrenamiento">
-                                <label for="entrenamiento">Entrenamiento</label>
-                            </div>
-                            <div class="checkbox-option">
-                                <input type="checkbox" id="nutricion" name="interests[]" value="nutricion">
-                                <label for="nutricion">Nutrición</label>
-                            </div>
-                            <div class="checkbox-option">
-                                <input type="checkbox" id="mindfulness" name="interests[]" value="mindfulness">
-                                <label for="mindfulness">Mindfulness</label>
-                            </div>
-                        </div>
-                    </div> -->
-
-                    <!-- Submit -->
                     <button type="submit" class="btn-submit-form">
-                        Enviar Mensaje
-                        <i class="fas fa-paper-plane ms-2"></i>
+                        {{ $btnEnviar }} <i class="fas fa-paper-plane ms-2"></i>
                     </button>
                 </form>
             </div>
 
             <!-- Info Cards Horizontales -->
             <div class="info-cards-horizontal">
-                <!-- Email -->
                 <div class="info-card-h">
-                    <div class="info-icon-h">
-                        <i class="fas fa-envelope"></i>
-                    </div>
+                    <div class="info-icon-h"><i class="fas fa-envelope"></i></div>
                     <h6>Email</h6>
-                    <a href="mailto:hola@anabelleibalu.com">hola@anabelleibalu.com</a>
+                    <a href="mailto:{{ $infoEmail }}">{{ $infoEmail }}</a>
                 </div>
 
-                <!-- Instagram -->
                 <div class="info-card-h">
-                    <div class="info-icon-h">
-                        <i class="fab fa-instagram"></i>
-                    </div>
+                    <div class="info-icon-h"><i class="fab fa-instagram"></i></div>
                     <h6>Instagram</h6>
-                    <a href="https://www.instagram.com/anabelleibalu/" target="_blank">@anabelleibalu</a>
+                    <a href="{{ $infoIGUrl }}" target="_blank">{{ $infoIGHandle }}</a>
                 </div>
 
-                <!-- Response Time -->
                 <div class="info-card-h">
-                    <div class="info-icon-h">
-                        <i class="fas fa-clock"></i>
-                    </div>
+                    <div class="info-icon-h"><i class="fas fa-clock"></i></div>
                     <h6>Respuesta</h6>
-                    <p>Menos de 24h</p>
+                    <p>{{ $infoRespuesta }}</p>
                 </div>
             </div>
         </div>

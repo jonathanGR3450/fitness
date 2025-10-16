@@ -1,12 +1,18 @@
 <?php
 
+use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PaginaController;
 use App\Http\Controllers\GlobalController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CommunityController;
+use App\Http\Controllers\ConfiguracionController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\InicioController;
+use App\Http\Controllers\MoveController;
 
 // ========================================
 // RUTAS PÚBLICAS
@@ -55,7 +61,6 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::get('/global', [GlobalController::class, 'index'])->name('global.index');
     Route::post('/global/update', [GlobalController::class, 'update'])->name('global.update');
     
-    Route::get('/configuracion', [AdminController::class, 'configuracion'])->name('admin.configuracion');
     
     // ========================================
     // PÁGINAS - Edición por idioma
@@ -87,11 +92,45 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         // OTRAS PÁGINAS - AdminController
         // ========================================
         
-        Route::get('/sobre-mi', [AdminController::class, 'editSobreMi'])->name('paginas.sobre-mi.edit');
-        Route::get('/move-challenge', [AdminController::class, 'editMoveChallenge'])->name('paginas.move-challenge.edit');
-        Route::get('/programas', [AdminController::class, 'editProgramas'])->name('paginas.programas.edit');
-        Route::get('/blog', [AdminController::class, 'editBlog'])->name('paginas.blog.edit');
-        Route::get('/contacto', [AdminController::class, 'editContacto'])->name('paginas.contacto.edit');
+        Route::get('/sobre-mi', [AboutController::class, 'edit'])->name('paginas.sobre-mi.edit');
+        Route::put('/sobre-mi/hero',        [AboutController::class, 'updateHero'])->name('paginas.sobremi.update.hero');
+        Route::put('/sobre-mi/story',       [AboutController::class, 'updateStory'])->name('paginas.sobremi.update.story');
+        Route::put('/sobre-mi/values',      [AboutController::class, 'updateValues'])->name('paginas.sobremi.update.values');
+        Route::put('/sobre-mi/credentials', [AboutController::class, 'updateCredentials'])->name('paginas.sobremi.update.credentials');
+        Route::put('/sobre-mi/cta',         [AboutController::class, 'updateCta'])->name('paginas.sobremi.update.cta');
+
+
+        Route::get('/move-challenge', [MoveController::class, 'edit'])->name('paginas.move-challenge.edit');
+        Route::prefix('admin/move')->name('paginas.move.')->group(function () {
+            Route::put('/hero',      [MoveController::class, 'updateHero'])->name('update.hero');
+            Route::put('/about',     [MoveController::class, 'updateAbout'])->name('update.about');
+            Route::put('/includes',  [MoveController::class, 'updateIncludes'])->name('update.includes');
+            Route::put('/how',       [MoveController::class, 'updateHow'])->name('update.how');
+            Route::put('/benefits',  [MoveController::class, 'updateBenefits'])->name('update.benefits');
+            Route::put('/cta',       [MoveController::class, 'updateCta'])->name('update.cta');
+        });
+
+
+        Route::get('/programas', [CommunityController::class, 'edit'])->name('paginas.programas.edit');
+        Route::put('/hero',[CommunityController::class,'updateProgramsHero'])->name('paginas.community.update.hero');
+        Route::put('/grid',[CommunityController::class,'updateProgramsGrid'])->name('paginas.community.update.grid');
+        Route::put('/cta',[CommunityController::class,'updateProgramsCta'])->name('paginas.community.update.cta');
+
+        Route::get('/blog', [BlogController::class, 'edit'])->name('paginas.blog.edit');
+        Route::put('/admin/blog/hero',[BlogController::class,'updateHero'])->name('paginas.blog.update.hero');
+        Route::put('/admin/blog/posts',[BlogController::class,'updatePosts'])->name('paginas.blog.update.posts');
+        Route::put('/newsletter', [BlogController::class,'updateBlogNewsletter'])->name('paginas.blog.update.newsletter');
+
+        Route::get('/contacto', [ContactController::class, 'edit'])->name('paginas.contacto.edit');
+        Route::put('/contact/hero', [ContactController::class,'updateContactHero'])->name('paginas.contact.update.hero');
+        Route::put('/contact/form', [ContactController::class,'updateContactForm'])->name('paginas.contact.update.form');
+        Route::put('/contact/info', [ContactController::class,'updateContactInfo'])->name('paginas.contact.update.info');
+
+        Route::get('/configuracion', [ConfiguracionController::class, 'edit'])->name('admin.configuracion');
+        Route::put('/configuracion/header', [ConfiguracionController::class,'updateHeader'])->name('layout.update.header');
+        Route::put('/configuracion/footer', [ConfiguracionController::class,'updateFooter'])->name('layout.update.footer');
+
+
     });
 });
 

@@ -12,13 +12,15 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install pdo_mysql zip gd intl
 
 # ---------- Instalar Node.js ----------
-# Usamos Node 20 (LTS recomendado)
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
     && apt-get install -y nodejs \
     && npm install -g npm@latest
 
 # Instalar Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+# Copiar configuración PHP personalizada
+COPY php.ini /usr/local/etc/php/conf.d/custom.ini
 
 # Establecer directorio de trabajo
 WORKDIR /var/www

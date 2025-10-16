@@ -23,26 +23,26 @@
             --steel-pink-dark: #B8437D;   /* Steel Pink 50% más oscuro */
         }
         
-body {
-    position: relative;
-    background-image: url('/images/2.png');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-}
+        body {
+            position: relative;
+            background-image: url('/images/2.png');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
 
-body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.38);
-    z-index: -1;
-    pointer-events: none;
-}
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.38);
+            z-index: -1;
+            pointer-events: none;
+        }
 
         
         .navbar {
@@ -96,20 +96,20 @@ body::before {
         }
 
         /* Botón CTA VERDE según manual de marca */
-    .btn-primaryy {
-        display: inline-block;
-        padding: 16px 40px;
-        background: #410445;  /* Verde del manual */
-        color: #e4e4e4ff;
-        text-decoration: none;
-        border-radius: 50px;
-        font-weight: 600;
-        font-size: 1rem;
-        transition: all 0.3s ease;
-        border: none;
-        cursor: pointer;
-        box-shadow: 0 4px 15px rgba(204, 213, 55, 0.3);
-    }
+        .btn-primaryy {
+            display: inline-block;
+            padding: 16px 40px;
+            background: #410445;  /* Verde del manual */
+            color: #e4e4e4ff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(204, 213, 55, 0.3);
+        }
         
         .btn-primaryy:hover {
             transform: translateY(-2px);
@@ -526,7 +526,7 @@ body::before {
 
 <body>
     <!-- NAVBAR LINEAL: Logo izquierda, Menú centro, Botón derecha -->
-    <header class="site-header sticky-top">
+    {{-- <header class="site-header sticky-top">
         <nav class="navbar navbar-expand-lg">
             <div class="container">
                 <!-- Logo a la izquierda -->
@@ -577,52 +577,15 @@ body::before {
                 </div>
             </div>
         </nav>
-    </header>
+    </header> --}}
+    @include('partials.header')
 
     <!-- Page Content -->
     <main>
         @yield('content')
     </main>
 
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4 mb-4 mb-lg-0">
-                    <img src="{{ asset('images/logo_blanco.png') }}" alt="{{ env('APP_NAME') }}" class="footer-logo">
-                    <p class="footer-description">Transformando vidas a través del movimiento consciente.</p>
-                </div>
-                <div class="col-lg-4 mb-4 mb-lg-0">
-                    <div class="footer-links">
-                        <h5>Enlaces rápidos</h5>
-                        <div class="footer-menu">
-                            <a href="{{ route('welcome') }}">Inicio</a>
-                            <a href="{{ route('about') }}">Sobre mí</a>
-                            <a href="{{ route('move') }}">MOVE Challenge</a>
-                            <a href="{{ route('community') }}">Programas</a>
-                            <a href="{{ route('contact') }}">Contacto</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="social-section">
-                        <h5>Síguenos</h5>
-                        <div class="social-links">
-                            <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
-                            <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
-                            <a href="#" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>Copyright {{ env('APP_NAME') }} © 2025</p>
-                <div>
-                    <a href="#">Política de privacidad</a> | 
-                    <a href="#">Términos y condiciones</a>
-                </div>
-            </div>
-        </div>
-    </footer>
+    @include('partials.footer')
 
     <!-- Bootstrap JS Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>

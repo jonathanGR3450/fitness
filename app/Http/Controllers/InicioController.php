@@ -211,51 +211,131 @@ public function updateHero(Request $request)
     public function updateAbout(Request $request)
     {
         $validated = $request->validate([
-            'about__titulo' => 'required|string|max:255',
-            'about__descripcion_1' => 'required|string',
-            'about__descripcion_2' => 'nullable|string',
-            'about__video_url' => 'nullable|string|max:255',
-            'about__boton_texto' => 'nullable|string|max:100',
-            'about__boton_url' => 'nullable|string|max:255',
-            'idioma' => 'required|string',
-            'pagina' => 'required|string',
+            'about__titulo'         => 'required|string|max:255',
+            'about__descripcion_1'  => 'required|string',
+            'about__descripcion_2'  => 'nullable|string',
+            // Poster (imagen)
+            'about__poster_url'     => 'nullable|string|max:255',
+            'about__poster_file'    => 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:4096',
+            // Video (solo webm)
+            'about__video_url'      => 'nullable|string|max:255',
+            'about__video_file'     => 'nullable|mimetypes:video/webm|max:51200', // ~50MB
+            'about__boton_texto'    => 'nullable|string|max:100',
+            'about__boton_url'      => 'nullable|string|max:255',
+            'idioma'                => 'required|string',
+            'pagina'                => 'required|string',
+
+            'about__feature_1_icono' => 'nullable|string|max:100',
+            'about__feature_1_texto' => 'nullable|string|max:255',
+            'about__feature_2_icono' => 'nullable|string|max:100',
+            'about__feature_2_texto' => 'nullable|string|max:255',
+            'about__feature_3_icono' => 'nullable|string|max:100',
+            'about__feature_3_texto' => 'nullable|string|max:255',
         ]);
 
         $idioma = $request->input('idioma');
         $pagina = $request->input('pagina');
+
+        // ======================
+        // POSTER (imagen)
+        // ======================
+        $posterValor = null;
+
+        if ($request->hasFile('about__poster_file')) {
+            $file = $request->file('about__poster_file');
+            $filename = 'about_poster_' . time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('images'), $filename);
+            $posterValor = 'images/' . $filename;
+
+            // eliminar anterior
+            $anterior = Contenido::where('pagina',$pagina)->where('seccion','about')->where('clave','poster')->where('idioma',$idioma)->first();
+            if ($anterior && $anterior->valor) {
+                $ruta = public_path($anterior->valor);
+                if (is_file($ruta)) @unlink($ruta);
+            }
+        } elseif ($request->filled('about__poster_url')) {
+            $posterValor = $request->input('about__poster_url');
+        } else {
+            $actual = Contenido::where('pagina',$pagina)->where('seccion','about')->where('clave','poster')->where('idioma',$idioma)->first();
+            $posterValor = $actual?->valor; // mantener
+        }
+
+        // ======================
+        // VIDEO (solo webm)
+        // ======================
+        $videoValor = null;
+
+        if ($request->hasFile('about__video_file')) {
+            $file = $request->file('about__video_file');
+            // forzar .webm
+            $filename = 'about_video_' . time() . '_' . uniqid() . '.webm';
+            $file->move(public_path('video'), $filename);
+            $videoValor = 'video/' . $filename;
+
+            // eliminar anterior
+            $anterior = Contenido::where('pagina',$pagina)->where('seccion','about')->where('clave','video_url')->where('idioma',$idioma)->first();
+            if ($anterior && $anterior->valor) {
+                $ruta = public_path($anterior->valor);
+                if (is_file($ruta)) @unlink($ruta);
+            }
+        } elseif ($request->filled('about__video_url')) {
+            // puedes validar extensión .webm si quieres
+            $videoValor = $request->input('about__video_url');
+        } else {
+            $actual = Contenido::where('pagina',$pagina)->where('seccion','about')->where('clave','video_url')->where('idioma',$idioma)->first();
+            $videoValor = $actual?->valor; // mantener
+        }
+
+        // ======================
+        // GUARDAR
+        // ======================
         $orden = 0;
 
         Contenido::updateOrCreate(
-            ['pagina' => $pagina, 'seccion' => 'about', 'clave' => 'titulo', 'idioma' => $idioma],
-            ['tipo' => 'texto', 'valor' => $request->input('about__titulo'), 'orden' => ++$orden]
+            ['pagina'=>$pagina,'seccion'=>'about','clave'=>'titulo','idioma'=>$idioma],
+            ['tipo'=>'texto','valor'=>$request->input('about__titulo'),'orden'=>++$orden]
         );
-
         Contenido::updateOrCreate(
-            ['pagina' => $pagina, 'seccion' => 'about', 'clave' => 'descripcion_1', 'idioma' => $idioma],
-            ['tipo' => 'texto', 'valor' => $request->input('about__descripcion_1'), 'orden' => ++$orden]
+            ['pagina'=>$pagina,'seccion'=>'about','clave'=>'descripcion_1','idioma'=>$idioma],
+            ['tipo'=>'texto','valor'=>$request->input('about__descripcion_1'),'orden'=>++$orden]
         );
-
         Contenido::updateOrCreate(
-            ['pagina' => $pagina, 'seccion' => 'about', 'clave' => 'descripcion_2', 'idioma' => $idioma],
-            ['tipo' => 'texto', 'valor' => $request->input('about__descripcion_2'), 'orden' => ++$orden]
+            ['pagina'=>$pagina,'seccion'=>'about','clave'=>'descripcion_2','idioma'=>$idioma],
+            ['tipo'=>'texto','valor'=>$request->input('about__descripcion_2'),'orden'=>++$orden]
         );
-
+        // Poster
         Contenido::updateOrCreate(
-            ['pagina' => $pagina, 'seccion' => 'about', 'clave' => 'video_url', 'idioma' => $idioma],
-            ['tipo' => 'video', 'valor' => $request->input('about__video_url'), 'orden' => ++$orden]
+            ['pagina'=>$pagina,'seccion'=>'about','clave'=>'poster','idioma'=>$idioma],
+            ['tipo'=>'imagen','valor'=>$posterValor,'orden'=>++$orden]
         );
-
+        // Video webm
         Contenido::updateOrCreate(
-            ['pagina' => $pagina, 'seccion' => 'about', 'clave' => 'boton_texto', 'idioma' => $idioma],
-            ['tipo' => 'texto', 'valor' => $request->input('about__boton_texto'), 'orden' => ++$orden]
+            ['pagina'=>$pagina,'seccion'=>'about','clave'=>'video_url','idioma'=>$idioma],
+            ['tipo'=>'video','valor'=>$videoValor,'orden'=>++$orden]
         );
-
+        // Botón
         Contenido::updateOrCreate(
-            ['pagina' => $pagina, 'seccion' => 'about', 'clave' => 'boton_url', 'idioma' => $idioma],
-            ['tipo' => 'url', 'valor' => $request->input('about__boton_url'), 'orden' => ++$orden]
+            ['pagina'=>$pagina,'seccion'=>'about','clave'=>'boton_texto','idioma'=>$idioma],
+            ['tipo'=>'texto','valor'=>$request->input('about__boton_texto'),'orden'=>++$orden]
+        );
+        Contenido::updateOrCreate(
+            ['pagina'=>$pagina,'seccion'=>'about','clave'=>'boton_url','idioma'=>$idioma],
+            ['tipo'=>'url','valor'=>$request->input('about__boton_url'),'orden'=>++$orden]
         );
 
-        return redirect()->back()->with('success', '✅ Sección About actualizada correctamente');
+        // Features (3)
+        for ($i = 1; $i <= 3; $i++) {
+            Contenido::updateOrCreate(
+                ['pagina' => $pagina, 'seccion' => 'about', 'clave' => "feature_{$i}_icono", 'idioma' => $idioma],
+                ['tipo' => 'texto', 'valor' => $request->input("about__feature_{$i}_icono"), 'orden' => ++$orden]
+            );
+            Contenido::updateOrCreate(
+                ['pagina' => $pagina, 'seccion' => 'about', 'clave' => "feature_{$i}_texto", 'idioma' => $idioma],
+                ['tipo' => 'texto', 'valor' => $request->input("about__feature_{$i}_texto"), 'orden' => ++$orden]
+            );
+        }
+
+        return redirect()->back()->with('success','✅ Sección About actualizada correctamente');
     }
 
     /**
@@ -264,12 +344,25 @@ public function updateHero(Request $request)
     public function updateGallery(Request $request)
     {
         $validated = $request->validate([
-            'gallery__titulo_seccion' => 'required|string|max:255',
-            'gallery__subtitulo_seccion' => 'nullable|string|max:500',
-            'gallery__imagen_1' => 'nullable|string|max:255',
-            'gallery__imagen_2' => 'nullable|string|max:255',
-            'gallery__imagen_3' => 'nullable|string|max:255',
-            'gallery__imagen_4' => 'nullable|string|max:255',
+            'gallery__titulo_seccion'   => 'required|string|max:255',
+            'gallery__subtitulo_seccion'=> 'nullable|string|max:500',
+
+            // 4 imágenes: archivo ó URL; ambas opcionales
+            'gallery__imagen_1'         => 'nullable|string|max:255',
+            'gallery__imagen_1_file'    => 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:4096',
+            'gallery__imagen_2'         => 'nullable|string|max:255',
+            'gallery__imagen_2_file'    => 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:4096',
+            'gallery__imagen_3'         => 'nullable|string|max:255',
+            'gallery__imagen_3_file'    => 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:4096',
+            'gallery__imagen_4'         => 'nullable|string|max:255',
+            'gallery__imagen_4_file'    => 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:4096',
+
+            // ALT (opcional)
+            'gallery__imagen_1_alt'     => 'nullable|string|max:255',
+            'gallery__imagen_2_alt'     => 'nullable|string|max:255',
+            'gallery__imagen_3_alt'     => 'nullable|string|max:255',
+            'gallery__imagen_4_alt'     => 'nullable|string|max:255',
+
             'idioma' => 'required|string',
             'pagina' => 'required|string',
         ]);
@@ -278,25 +371,60 @@ public function updateHero(Request $request)
         $pagina = $request->input('pagina');
         $orden = 0;
 
+        // Título / subtítulo
         Contenido::updateOrCreate(
-            ['pagina' => $pagina, 'seccion' => 'gallery', 'clave' => 'titulo_seccion', 'idioma' => $idioma],
-            ['tipo' => 'texto', 'valor' => $request->input('gallery__titulo_seccion'), 'orden' => ++$orden]
+            ['pagina'=>$pagina,'seccion'=>'gallery','clave'=>'titulo_seccion','idioma'=>$idioma],
+            ['tipo'=>'texto','valor'=>$request->input('gallery__titulo_seccion'),'orden'=>++$orden]
+        );
+        Contenido::updateOrCreate(
+            ['pagina'=>$pagina,'seccion'=>'gallery','clave'=>'subtitulo_seccion','idioma'=>$idioma],
+            ['tipo'=>'texto','valor'=>$request->input('gallery__subtitulo_seccion'),'orden'=>++$orden]
         );
 
-        Contenido::updateOrCreate(
-            ['pagina' => $pagina, 'seccion' => 'gallery', 'clave' => 'subtitulo_seccion', 'idioma' => $idioma],
-            ['tipo' => 'texto', 'valor' => $request->input('gallery__subtitulo_seccion'), 'orden' => ++$orden]
-        );
-
+        // 4 imágenes
         for ($i = 1; $i <= 4; $i++) {
+            $valor = null;
+
+            // 1) si sube archivo
+            if ($request->hasFile("gallery__imagen_{$i}_file")) {
+                $file = $request->file("gallery__imagen_{$i}_file");
+                $filename = "gallery_{$i}_" . time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('images/gallery'), $filename);
+                $valor = 'images/gallery/' . $filename;
+
+                // eliminar anterior
+                $anterior = Contenido::where('pagina',$pagina)->where('seccion','gallery')->where('clave',"imagen_{$i}")->where('idioma',$idioma)->first();
+                if ($anterior && $anterior->valor) {
+                    $ruta = public_path($anterior->valor);
+                    if (is_file($ruta)) @unlink($ruta);
+                }
+            }
+            // 2) si viene URL manual
+            elseif ($request->filled("gallery__imagen_{$i}")) {
+                $valor = $request->input("gallery__imagen_{$i}");
+            }
+            // 3) mantener la actual
+            else {
+                $actual = Contenido::where('pagina',$pagina)->where('seccion','gallery')->where('clave',"imagen_{$i}")->where('idioma',$idioma)->first();
+                $valor = $actual?->valor;
+            }
+
+            // guardar imagen
             Contenido::updateOrCreate(
-                ['pagina' => $pagina, 'seccion' => 'gallery', 'clave' => "imagen_$i", 'idioma' => $idioma],
-                ['tipo' => 'imagen', 'valor' => $request->input("gallery__imagen_$i"), 'orden' => ++$orden]
+                ['pagina'=>$pagina,'seccion'=>'gallery','clave'=>"imagen_{$i}",'idioma'=>$idioma],
+                ['tipo'=>'imagen','valor'=>$valor,'orden'=>++$orden]
+            );
+
+            // guardar ALT (opcional)
+            Contenido::updateOrCreate(
+                ['pagina'=>$pagina,'seccion'=>'gallery','clave'=>"imagen_{$i}_alt",'idioma'=>$idioma],
+                ['tipo'=>'texto','valor'=>$request->input("gallery__imagen_{$i}_alt"),'orden'=>++$orden]
             );
         }
 
         return redirect()->back()->with('success', '✅ Sección Galería actualizada correctamente');
     }
+
 
     /**
      * Actualizar sección QUOTE
@@ -332,17 +460,57 @@ public function updateHero(Request $request)
     public function updatePricing(Request $request)
     {
         $validated = $request->validate([
-            'pricing__titulo_seccion' => 'required|string|max:255',
+            'pricing__titulo_seccion'    => 'required|string|max:255',
             'pricing__subtitulo_seccion' => 'nullable|string|max:500',
+
+            // 3 planes base
             'pricing__plan_1_nombre' => 'required|string|max:100',
             'pricing__plan_1_precio' => 'required|string|max:50',
-            'pricing__plan_1_periodo' => 'nullable|string|max:100',
+            'pricing__plan_1_periodo'=> 'nullable|string|max:100',
             'pricing__plan_2_nombre' => 'required|string|max:100',
             'pricing__plan_2_precio' => 'required|string|max:50',
-            'pricing__plan_2_periodo' => 'nullable|string|max:100',
+            'pricing__plan_2_periodo'=> 'nullable|string|max:100',
             'pricing__plan_3_nombre' => 'required|string|max:100',
             'pricing__plan_3_precio' => 'required|string|max:50',
-            'pricing__plan_3_periodo' => 'nullable|string|max:100',
+            'pricing__plan_3_periodo'=> 'nullable|string|max:100',
+
+            // CTA + featured
+            'pricing__plan_1_cta_texto' => 'nullable|string|max:100',
+            'pricing__plan_1_cta_url'   => 'nullable|string|max:255',
+            'pricing__plan_2_cta_texto' => 'nullable|string|max:100',
+            'pricing__plan_2_cta_url'   => 'nullable|string|max:255',
+            'pricing__plan_3_cta_texto' => 'nullable|string|max:100',
+            'pricing__plan_3_cta_url'   => 'nullable|string|max:255',
+
+            'pricing__plan_1_featured' => 'nullable|in:1',
+            'pricing__plan_2_featured' => 'nullable|in:1',
+            'pricing__plan_3_featured' => 'nullable|in:1',
+
+            // Features (hasta 7 por plan)
+            'pricing__plan_1_feature_1' => 'nullable|string|max:255',
+            'pricing__plan_1_feature_2' => 'nullable|string|max:255',
+            'pricing__plan_1_feature_3' => 'nullable|string|max:255',
+            'pricing__plan_1_feature_4' => 'nullable|string|max:255',
+            'pricing__plan_1_feature_5' => 'nullable|string|max:255',
+            'pricing__plan_1_feature_6' => 'nullable|string|max:255',
+            'pricing__plan_1_feature_7' => 'nullable|string|max:255',
+
+            'pricing__plan_2_feature_1' => 'nullable|string|max:255',
+            'pricing__plan_2_feature_2' => 'nullable|string|max:255',
+            'pricing__plan_2_feature_3' => 'nullable|string|max:255',
+            'pricing__plan_2_feature_4' => 'nullable|string|max:255',
+            'pricing__plan_2_feature_5' => 'nullable|string|max:255',
+            'pricing__plan_2_feature_6' => 'nullable|string|max:255',
+            'pricing__plan_2_feature_7' => 'nullable|string|max:255',
+
+            'pricing__plan_3_feature_1' => 'nullable|string|max:255',
+            'pricing__plan_3_feature_2' => 'nullable|string|max:255',
+            'pricing__plan_3_feature_3' => 'nullable|string|max:255',
+            'pricing__plan_3_feature_4' => 'nullable|string|max:255',
+            'pricing__plan_3_feature_5' => 'nullable|string|max:255',
+            'pricing__plan_3_feature_6' => 'nullable|string|max:255',
+            'pricing__plan_3_feature_7' => 'nullable|string|max:255',
+
             'idioma' => 'required|string',
             'pagina' => 'required|string',
         ]);
@@ -351,34 +519,58 @@ public function updateHero(Request $request)
         $pagina = $request->input('pagina');
         $orden = 0;
 
+        // Títulos
         Contenido::updateOrCreate(
-            ['pagina' => $pagina, 'seccion' => 'pricing', 'clave' => 'titulo_seccion', 'idioma' => $idioma],
-            ['tipo' => 'texto', 'valor' => $request->input('pricing__titulo_seccion'), 'orden' => ++$orden]
+            ['pagina'=>$pagina,'seccion'=>'pricing','clave'=>'titulo_seccion','idioma'=>$idioma],
+            ['tipo'=>'texto','valor'=>$request->input('pricing__titulo_seccion'),'orden'=>++$orden]
+        );
+        Contenido::updateOrCreate(
+            ['pagina'=>$pagina,'seccion'=>'pricing','clave'=>'subtitulo_seccion','idioma'=>$idioma],
+            ['tipo'=>'texto','valor'=>$request->input('pricing__subtitulo_seccion'),'orden'=>++$orden]
         );
 
-        Contenido::updateOrCreate(
-            ['pagina' => $pagina, 'seccion' => 'pricing', 'clave' => 'subtitulo_seccion', 'idioma' => $idioma],
-            ['tipo' => 'texto', 'valor' => $request->input('pricing__subtitulo_seccion'), 'orden' => ++$orden]
-        );
-
+        // 3 planes
         for ($i = 1; $i <= 3; $i++) {
             Contenido::updateOrCreate(
-                ['pagina' => $pagina, 'seccion' => 'pricing', 'clave' => "plan_{$i}_nombre", 'idioma' => $idioma],
-                ['tipo' => 'texto', 'valor' => $request->input("pricing__plan_{$i}_nombre"), 'orden' => ++$orden]
+                ['pagina'=>$pagina,'seccion'=>'pricing','clave'=>"plan_{$i}_nombre",'idioma'=>$idioma],
+                ['tipo'=>'texto','valor'=>$request->input("pricing__plan_{$i}_nombre"),'orden'=>++$orden]
+            );
+            Contenido::updateOrCreate(
+                ['pagina'=>$pagina,'seccion'=>'pricing','clave'=>"plan_{$i}_precio",'idioma'=>$idioma],
+                ['tipo'=>'texto','valor'=>$request->input("pricing__plan_{$i}_precio"),'orden'=>++$orden]
+            );
+            Contenido::updateOrCreate(
+                ['pagina'=>$pagina,'seccion'=>'pricing','clave'=>"plan_{$i}_periodo",'idioma'=>$idioma],
+                ['tipo'=>'texto','valor'=>$request->input("pricing__plan_{$i}_periodo"),'orden'=>++$orden]
             );
 
+            // CTA
             Contenido::updateOrCreate(
-                ['pagina' => $pagina, 'seccion' => 'pricing', 'clave' => "plan_{$i}_precio", 'idioma' => $idioma],
-                ['tipo' => 'texto', 'valor' => $request->input("pricing__plan_{$i}_precio"), 'orden' => ++$orden]
+                ['pagina'=>$pagina,'seccion'=>'pricing','clave'=>"plan_{$i}_cta_texto",'idioma'=>$idioma],
+                ['tipo'=>'texto','valor'=>$request->input("pricing__plan_{$i}_cta_texto"),'orden'=>++$orden]
+            );
+            Contenido::updateOrCreate(
+                ['pagina'=>$pagina,'seccion'=>'pricing','clave'=>"plan_{$i}_cta_url",'idioma'=>$idioma],
+                ['tipo'=>'url','valor'=>$request->input("pricing__plan_{$i}_cta_url"),'orden'=>++$orden]
             );
 
+            // Featured (checkbox)
+            $isFeatured = $request->boolean("pricing__plan_{$i}_featured") ? '1' : '0';
             Contenido::updateOrCreate(
-                ['pagina' => $pagina, 'seccion' => 'pricing', 'clave' => "plan_{$i}_periodo", 'idioma' => $idioma],
-                ['tipo' => 'texto', 'valor' => $request->input("pricing__plan_{$i}_periodo"), 'orden' => ++$orden]
+                ['pagina'=>$pagina,'seccion'=>'pricing','clave'=>"plan_{$i}_featured",'idioma'=>$idioma],
+                ['tipo'=>'bool','valor'=>$isFeatured,'orden'=>++$orden]
             );
+
+            // Features 1..7
+            for ($j = 1; $j <= 7; $j++) {
+                Contenido::updateOrCreate(
+                    ['pagina'=>$pagina,'seccion'=>'pricing','clave'=>"plan_{$i}_feature_{$j}",'idioma'=>$idioma],
+                    ['tipo'=>'texto','valor'=>$request->input("pricing__plan_{$i}_feature_{$j}"),'orden'=>++$orden]
+                );
+            }
         }
 
-        return redirect()->back()->with('success', '✅ Sección Precios actualizada correctamente');
+        return redirect()->back()->with('success','✅ Sección Precios actualizada correctamente');
     }
 
     /**

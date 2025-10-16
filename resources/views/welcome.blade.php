@@ -1070,99 +1070,119 @@
 </section>
 
 <!-- Features Section -->
+@php
+    // Colección indexada por 'clave' si existe la sección; si no, colección vacía
+    $features = $contenidos['features'] ?? collect();
+
+    // Helper para leer valor de una clave con fallback
+    $fv = function (string $key, $default = null) use ($features) {
+        return optional($features->get($key))->valor ?? $default;
+    };
+@endphp
+
 <section id="servicios" class="features-section">
     <div class="container">
         <div class="section-header">
-            <h2 class="section-title">¿Qué incluye el Move Challenge?</h2>
-            <p class="section-subtitle">Todo lo que necesitas para crear hábitos sostenibles y transformar tu bienestar</p>
+            <h2 class="section-title">
+                {{ $fv('titulo_seccion', '¿Qué incluye el Move Challenge?') }}
+            </h2>
+            <p class="section-subtitle">
+                {{ $fv('subtitulo_seccion', 'Todo lo que necesitas para crear hábitos sostenibles y transformar tu bienestar') }}
+            </p>
         </div>
+
         <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-dumbbell"></i>
+            @for ($i = 1; $i <= 6; $i++)
+                @php
+                    // Fallbacks por cada ítem (puedes ajustarlos)
+                    $defaults = [
+                        1 => ['fas fa-dumbbell',  'Plan de entrenamiento semipersonalizado', 'Rutinas adaptadas para casa o gimnasio, diseñadas según tu nivel y objetivos específicos.'],
+                        2 => ['fas fa-apple-alt', 'Plan de alimentación nutritivo',          'Menús balanceados adaptados a tus requerimientos y gustos, sin restricciones extremas.'],
+                        3 => ['fas fa-utensils',  'Recetas fáciles y deliciosas',            'Preparaciones simples y nutritivas que se adaptan a tu rutina diaria.'],
+                        4 => ['fas fa-spa',       'Meditación y respiración',                'Técnicas guiadas para conectar cuerpo y mente, reducir estrés y mejorar tu bienestar.'],
+                        5 => ['fas fa-lightbulb', 'Tips de conexión interior',               'Herramientas prácticas para desarrollar consciencia y mantener la motivación.'],
+                        6 => ['fas fa-users',     'Comunidad de apoyo',                      'Acompañamiento constante de profesionales y compañeros en tu journey.'],
+                    ];
+                    [$defIcon, $defTitle, $defDesc] = $defaults[$i];
+
+                    $icono = $fv("feature_{$i}_icono", $defIcon);
+                    $titulo = $fv("feature_{$i}_titulo", $defTitle);
+                    $descripcion = $fv("feature_{$i}_descripcion", $defDesc);
+                @endphp
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="{{ $icono }}"></i>
+                    </div>
+                    <h3 class="feature-title">{{ $titulo }}</h3>
+                    <p class="feature-description">{{ $descripcion }}</p>
                 </div>
-                <h3 class="feature-title">Plan de entrenamiento semipersonalizado</h3>
-                <p class="feature-description">Rutinas adaptadas para casa o gimnasio, diseñadas según tu nivel y objetivos específicos.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-apple-alt"></i>
-                </div>
-                <h3 class="feature-title">Plan de alimentación nutritivo</h3>
-                <p class="feature-description">Menús balanceados adaptados a tus requerimientos y gustos, sin restricciones extremas.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-utensils"></i>
-                </div>
-                <h3 class="feature-title">Recetas fáciles y deliciosas</h3>
-                <p class="feature-description">Preparaciones simples y nutritivas que se adaptan a tu rutina diaria.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-spa"></i>
-                </div>
-                <h3 class="feature-title">Meditación y respiración</h3>
-                <p class="feature-description">Técnicas guiadas para conectar cuerpo y mente, reducir estrés y mejorar tu bienestar.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-lightbulb"></i>
-                </div>
-                <h3 class="feature-title">Tips de conexión interior</h3>
-                <p class="feature-description">Herramientas prácticas para desarrollar consciencia y mantener la motivación.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-users"></i>
-                </div>
-                <h3 class="feature-title">Comunidad de apoyo</h3>
-                <p class="feature-description">Acompañamiento constante de profesionales y compañeros en tu journey.</p>
-            </div>
+            @endfor
         </div>
     </div>
 </section>
 
 <!-- About Section with Video -->
+<!-- About Section with Video -->
+@php
+    $about = $contenidos['about'] ?? collect();
+    $av = function (string $key, $default = null) use ($about) {
+        return optional($about->firstWhere('clave', $key))->valor ?? $default;
+    };
+
+    // Fallbacks (respetando tu estructura actual)
+    $titulo       = $av('titulo', '¿Qué es el Move Challenge?');
+    $desc1        = $av('descripcion_1', 'El Move Challenge es un programa integral de 30 días diseñado para transformar tu vida a través del movimiento consciente y hábitos saludables sostenibles.');
+    $desc2        = $av('descripcion_2', 'No es solo un reto fitness, es una experiencia completa que integra entrenamiento físico, nutrición balanceada, mindfulness y el poder de una comunidad comprometida.');
+    $poster       = $av('poster', 'images/banner3.jpeg');              // <-- NUEVO en BD
+    $videoWebm    = $av('video_url', 'video/video-promocional.webm');  // solo webm
+    $btnTexto     = $av('boton_texto', 'Conoce más detalles');
+    $btnUrl       = $av('boton_url', 'https://wa.link/nq2ezt');
+
+    $aboutFeaturesDefaults = [
+        1 => ['fas fa-check', 'Guía de movilidad y estiramientos diarios'],
+        2 => ['fas fa-check', 'Seguimiento personalizado de tu progreso'],
+        3 => ['fas fa-check', 'Premios para los mejores resultados'],
+    ];
+@endphp
+
 <section id="nosotros" class="about-section">
     <div class="container">
         <div class="about-container">
             <div class="video-container">
                 <div class="video-shape-bg"></div>
-                <video controls preload="metadata" playsinline poster="{{ asset('images/banner3.jpeg') }}">
-                    <source src="{{ asset('video/video-promocional.mp4') }}" type="video/mp4">
-                    <source src="{{ asset('video/video-promocional.webm') }}" type="video/webm">
+                <video controls preload="metadata" playsinline poster="{{ asset($poster) }}">
+                    @if($videoWebm)
+                        <source src="{{ asset($videoWebm) }}" type="video/webm">
+                    @endif
                     Tu navegador no soporta reproducción de video.
                 </video>
             </div>
             <div class="about-content">
-                <h2>¿Qué es el Move Challenge?</h2>
-                <p>El Move Challenge es un programa integral de 30 días diseñado para transformar tu vida a través del movimiento consciente y hábitos saludables sostenibles.</p>
-                <p>No es solo un reto fitness, es una experiencia completa que integra entrenamiento físico, nutrición balanceada, mindfulness y el poder de una comunidad comprometida.</p>
+                <h2>{{ $titulo }}</h2>
+                <p>{{ $desc1 }}</p>
+                @if(!empty($desc2))
+                    <p>{{ $desc2 }}</p>
+                @endif
                 
                 <div class="about-features">
-                    <div class="about-feature">
-                        <div class="about-feature-icon">
-                            <i class="fas fa-check"></i>
+                    @for ($i = 1; $i <= 3; $i++)
+                        @php
+                            [$defIcon, $defText] = $aboutFeaturesDefaults[$i];
+                            $icono = $av("feature_{$i}_icono", $defIcon);
+                            $texto = $av("feature_{$i}_texto", $defText);
+                        @endphp
+                        <div class="about-feature">
+                            <div class="about-feature-icon">
+                                <i class="{{ $icono }}"></i>
+                            </div>
+                            <span>{{ $texto }}</span>
                         </div>
-                        <span>Guía de movilidad y estiramientos diarios</span>
-                    </div>
-                    <div class="about-feature">
-                        <div class="about-feature-icon">
-                            <i class="fas fa-check"></i>
-                        </div>
-                        <span>Seguimiento personalizado de tu progreso</span>
-                    </div>
-                    <div class="about-feature">
-                        <div class="about-feature-icon">
-                            <i class="fas fa-check"></i>
-                        </div>
-                        <span>Premios para los mejores resultados</span>
-                    </div>
+                    @endfor
                 </div>
 
-                <a href="https://wa.link/nq2ezt" target="_blank" class="btn-primary btn-pink">
-                    Conoce más detalles
+                <a href="{{ $btnUrl }}" target="_blank" class="btn-primary btn-pink">
+                    {{ $btnTexto }}
                 </a>
             </div>
         </div>
@@ -1175,97 +1195,171 @@
 </section>
 
 <!-- Gallery Section -->
+@php
+    $gallery = $contenidos['gallery'] ?? collect();
+    $gv = function (string $key, $default = null) use ($gallery) {
+        return optional($gallery->firstWhere('clave', $key))->valor ?? $default;
+    };
+
+    $titulo     = $gv('titulo_seccion', 'Momentos del Move Challenge');
+    $subtitulo  = $gv('subtitulo_seccion', 'Historias reales de transformación y superación personal');
+
+    // defaults (por si la BD está vacía)
+    $defaults = [
+        1 => ['images/move-1.png', 'Entrenamientos MOVE'],
+        2 => ['images/move-2.png', 'Comunidad en acción'],
+        3 => ['images/move-3.png', 'Hábitos y nutrición'],
+        4 => ['images/move-4.png', 'Rutinas en casa'],
+    ];
+@endphp
 <section id="portafolio" class="gallery-section">
     <div class="container">
         <div class="section-header">
-            <h2 class="section-title">Momentos del Move Challenge</h2>
-            <p class="section-subtitle">Historias reales de transformación y superación personal</p>
+            <h2 class="section-title">{{ $titulo }}</h2>
+            <p class="section-subtitle">{{ $subtitulo }}</p>
         </div>
         <div class="gallery-grid">
-            <div class="gallery-item">
-                <div class="gallery-shape-bg"></div>
-                <img src="{{ asset('images/move-1.png') }}" alt="Entrenamientos MOVE">
-            </div>
-            <div class="gallery-item">
-                <div class="gallery-shape-bg"></div>
-                <img src="{{ asset('images/move-2.png') }}" alt="Comunidad en acción">
-            </div>
-            <div class="gallery-item">
-                <div class="gallery-shape-bg"></div>
-                <img src="{{ asset('images/move-3.png') }}" alt="Hábitos y nutrición">
-            </div>
-            <div class="gallery-item">
-                <div class="gallery-shape-bg"></div>
-                <img src="{{ asset('images/move-4.png') }}" alt="Rutinas en casa">
-            </div>
+            @for ($i = 1; $i <= 4; $i++)
+                @php
+                    [$defSrc, $defAlt] = $defaults[$i];
+                    $src = $gv("imagen_{$i}", $defSrc);
+                    $alt = $gv("imagen_{$i}_alt", $defAlt);
+                @endphp
+                <div class="gallery-item">
+                    <div class="gallery-shape-bg"></div>
+                    <img src="{{ asset($src) }}" alt="{{ $alt }}">
+                </div>
+            @endfor
         </div>
     </div>
 </section>
 
 <!-- Inspirational Quote -->
+@php
+    $quote = $contenidos['quote'] ?? collect();
+    $qv = function (string $key, $default = null) use ($quote) {
+        return optional($quote->firstWhere('clave', $key))->valor ?? $default;
+    };
+
+    $texto = $qv('texto', 'El movimiento es medicina. Cuando mueves tu cuerpo, transformas tu mente y elevas tu espíritu.');
+    $autor = $qv('autor', 'Anabelle Ibalu');
+@endphp
+
 <section class="quote-section">
     <div class="container">
         <div class="quote-container">
-            <p class="quote-text">El movimiento es medicina. Cuando mueves tu cuerpo, transformas tu mente y elevas tu espíritu.</p>
-            <p class="quote-author">- Anabelle Ibalu</p>
+            <p class="quote-text">{{ $texto }}</p>
+            @if(!empty($autor))
+                <p class="quote-author">- {{ $autor }}</p>
+            @endif
         </div>
     </div>
 </section>
 
+
 <!-- Pricing Section -->
+@php
+    $pricing = $contenidos['pricing'] ?? collect();
+    $pv = function (string $key, $default = null) use ($pricing) {
+        return optional($pricing->firstWhere('clave', $key))->valor ?? $default;
+    };
+
+    $titulo    = $pv('titulo_seccion', 'Elige tu plan de transformación');
+    $subtitulo = $pv('subtitulo_seccion', 'Inversión en tu bienestar con resultados garantizados');
+
+    // Fallbacks iniciales (coinciden con tu HTML actual)
+    $defaults = [
+        1 => [
+            'nombre' => 'Starter', 'precio' => '$49', 'periodo' => 'Plan de 30 días',
+            'cta_texto' => 'Comenzar ahora', 'cta_url' => '#contact', 'featured' => '0',
+            'features' => [
+                'Plan de entrenamiento básico',
+                'Guía nutricional general',
+                'Acceso a la comunidad',
+                '3 recetas semanales',
+                'Videos de técnica',
+            ],
+        ],
+        2 => [
+            'nombre' => 'Premium', 'precio' => '$99', 'periodo' => 'Plan de 30 días',
+            'cta_texto' => 'Más elegido', 'cta_url' => '#contact', 'featured' => '1',
+            'features' => [
+                'Plan personalizado completo',
+                'Nutrición adaptada a tus metas',
+                'Sesiones grupales en vivo',
+                'Recetario completo',
+                'Meditaciones guiadas',
+                'Seguimiento semanal',
+                'Acceso a challenges exclusivos',
+            ],
+        ],
+        3 => [
+            'nombre' => 'Elite', 'precio' => '$199', 'periodo' => 'Plan de 90 días',
+            'cta_texto' => 'Aplicar ahora', 'cta_url' => '#contact', 'featured' => '0',
+            'features' => [
+                'Todo lo de Premium',
+                'Coaching 1:1 semanal',
+                'Plan 100% personalizado',
+                'WhatsApp directo',
+                'Análisis de progreso mensual',
+                'Programa extendido',
+            ],
+        ],
+    ];
+
+    $planes = [];
+    for ($i = 1; $i <= 3; $i++) {
+        $nombre  = $pv("plan_{$i}_nombre",  $defaults[$i]['nombre']);
+        $precio  = $pv("plan_{$i}_precio",  $defaults[$i]['precio']);
+        $periodo = $pv("plan_{$i}_periodo", $defaults[$i]['periodo']);
+        $ctaTxt  = $pv("plan_{$i}_cta_texto", $defaults[$i]['cta_texto']);
+        $ctaUrl  = $pv("plan_{$i}_cta_url",   $defaults[$i]['cta_url']);
+        $featured= $pv("plan_{$i}_featured",  $defaults[$i]['featured']) == '1';
+
+        // Hasta 7 features por plan (muestra los que existan)
+        $feat = [];
+        for ($j = 1; $j <= 7; $j++) {
+            $val = $pv("plan_{$i}_feature_{$j}");
+            if (!empty($val)) $feat[] = $val;
+        }
+        if (empty($feat)) $feat = $defaults[$i]['features'];
+
+        $planes[$i] = compact('nombre','precio','periodo','ctaTxt','ctaUrl','featured','feat');
+    }
+@endphp
+
 <section class="pricing-section">
     <div class="container">
         <div class="section-header">
-            <h2 class="section-title">Elige tu plan de transformación</h2>
-            <p class="section-subtitle">Inversión en tu bienestar con resultados garantizados</p>
+            <h2 class="section-title">{{ $titulo }}</h2>
+            <p class="section-subtitle">{{ $subtitulo }}</p>
         </div>
+
         <div class="pricing-grid">
-            <div class="pricing-card">
-                <h3 class="plan-name">Starter</h3>
-                <div class="plan-price">$49</div>
-                <p class="plan-period">Plan de 30 días</p>
-                <ul class="plan-features">
-                    <li>Plan de entrenamiento básico</li>
-                    <li>Guía nutricional general</li>
-                    <li>Acceso a la comunidad</li>
-                    <li>3 recetas semanales</li>
-                    <li>Videos de técnica</li>
-                </ul>
-                <a href="#contact" class="btn-secondary">Comenzar ahora</a>
-            </div>
-            
-            <div class="pricing-card featured">
-                <h3 class="plan-name">Premium</h3>
-                <div class="plan-price">$99</div>
-                <p class="plan-period">Plan de 30 días</p>
-                <ul class="plan-features">
-                    <li>Plan personalizado completo</li>
-                    <li>Nutrición adaptada a tus metas</li>
-                    <li>Sesiones grupales en vivo</li>
-                    <li>Recetario completo</li>
-                    <li>Meditaciones guiadas</li>
-                    <li>Seguimiento semanal</li>
-                    <li>Acceso a challenges exclusivos</li>
-                </ul>
-                <a href="#contact" class="btn-primary btn-pink">Más elegido</a>
-            </div>
-            
-            <div class="pricing-card">
-                <h3 class="plan-name">Elite</h3>
-                <div class="plan-price">$199</div>
-                <p class="plan-period">Plan de 90 días</p>
-                <ul class="plan-features">
-                    <li>Todo lo de Premium</li>
-                    <li>Coaching 1:1 semanal</li>
-                    <li>Plan 100% personalizado</li>
-                    <li>WhatsApp directo</li>
-                    <li>Análisis de progreso mensual</li>
-                    <li>Programa extendido</li>
-                </ul>
-                <a href="#contact" class="btn-secondary">Aplicar ahora</a>
-            </div>
+            @foreach ($planes as $i => $p)
+                <div class="pricing-card {{ $p['featured'] ? 'featured' : '' }}">
+                    <h3 class="plan-name">{{ $p['nombre'] }}</h3>
+                    <div class="plan-price">{{ $p['precio'] }}</div>
+                    @if(!empty($p['periodo']))
+                        <p class="plan-period">{{ $p['periodo'] }}</p>
+                    @endif
+
+                    <ul class="plan-features">
+                        @foreach ($p['feat'] as $f)
+                            <li>{{ $f }}</li>
+                        @endforeach
+                    </ul>
+
+                    @php
+                        // Mantener estilos pedidos por defecto según featured
+                        $btnClass = $p['featured'] ? 'btn-primary btn-pink' : 'btn-secondary';
+                    @endphp
+                    <a href="{{ $p['ctaUrl'] }}" class="{{ $btnClass }}">{{ $p['ctaTxt'] }}</a>
+                </div>
+            @endforeach
         </div>
     </div>
+
     <div class="wave-divider-bottom">
         <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
             <path d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z" fill="var(--neutral-white)"></path>
@@ -1275,13 +1369,27 @@
 
 
 
+
 <!-- Contact Section -->
+@php
+    $contact = $contenidos['contact'] ?? collect();
+    $cv = function (string $key, $default = null) use ($contact) {
+        return optional($contact->firstWhere('clave', $key))->valor ?? $default;
+    };
+
+    $titulo         = $cv('titulo', '¿Lista/o para empezar tu transformación?');
+    $descripcion    = $cv('descripcion', 'Escríbeme y te comparto todos los detalles del programa, próximas fechas de inicio y cómo puedes reservar tu cupo.');
+    $email          = $cv('email', 'hola@anabelleibalu.com');
+    $instagram      = $cv('instagram', '@anabelleibalu');
+    $whatsappUrl    = $cv('whatsapp_url', 'https://wa.link/nq2ezt');
+    $whatsappTexto  = $cv('whatsapp_texto', 'Habla conmigo por WhatsApp');
+@endphp
 <section id="contacto" class="contact-section">
     <div class="container">
         <div class="contact-container">
             <div class="contact-info">
-                <h3>¿Lista/o para empezar tu transformación?</h3>
-                <p>Escríbeme y te comparto todos los detalles del programa, próximas fechas de inicio y cómo puedes reservar tu cupo.</p>
+                <h3>{{ $titulo }}</h3>
+                <p>{{ $descripcion }}</p>
                 
                 <div class="contact-details">
                     <div class="contact-item">
@@ -1290,7 +1398,7 @@
                         </div>
                         <div>
                             <strong>Email</strong><br>
-                            hola@anabelleibalu.com
+                            {{ $email }}
                         </div>
                     </div>
                     <div class="contact-item">
@@ -1299,17 +1407,18 @@
                         </div>
                         <div>
                             <strong>Instagram</strong><br>
-                            @anabelleibalu
+                            {{ $instagram }}
                         </div>
                     </div>
                 </div>
 
-                <a href="https://wa.link/nq2ezt" target="_blank" class="whatsapp-btn">
+                <a href="{{ $whatsappUrl }}" target="_blank" class="whatsapp-btn">
                     <i class="fab fa-whatsapp"></i>
-                    Habla conmigo por WhatsApp
+                    {{ $whatsappTexto }}
                 </a>
             </div>
             
+            <!-- Form público (no dinámico en BD; puedes cambiar action a tu ruta de contacto) -->
             <form class="contact-form" method="POST" action="">
                 @csrf
                 <div class="form-group">

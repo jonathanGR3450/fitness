@@ -243,7 +243,7 @@
                             información de contacto, logo y colores del sitio
                         </p>
                     </div>
-                    <a href="{{ url('/admin/configuracion') }}" class="btn-edit">
+                    <a href="{{ route('admin.configuracion') }}" class="btn-edit">
                         <i class="fas fa-cog me-2"></i>Configurar Sitio
                     </a>
                 </div>

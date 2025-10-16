@@ -603,289 +603,144 @@
     }
 </style>
 
+@php
+  $sec = fn($s)=> $contenidos[$s] ?? collect();
+  $v = fn($s,$k,$d=null)=> optional($sec($s)->firstWhere('clave',$k))->valor ?? $d;
+
+  // HERO
+  $badge = $v('blog_hero','badge','Blog');
+  $t1 = $v('blog_hero','titulo_1','Historias de');
+  $t2 = $v('blog_hero','titulo_2','Transformación');
+  $sub = $v('blog_hero','subtitulo','Consejos, guías y motivación para tu viaje hacia un estilo de vida más saludable y consciente.');
+  $cats = [];
+  for($i=1;$i<=5;$i++){ $cats[$i] = $v('blog_hero',"cat_{$i}", match($i){1=>'Todos',2=>'Fitness',3=>'Nutrición',4=>'Mindfulness',5=>'Wellness'}); }
+
+  // FEATURED
+  $fImg = $v('blog_posts','featured_imagen','images/blog-featured.jpg');
+  $fFecha = $v('blog_posts','featured_fecha','15 Enero 2025');
+  $fAutor = $v('blog_posts','featured_autor','Anabelle Ibalu');
+  $fLect = $v('blog_posts','featured_lectura','5');
+  $fTit  = $v('blog_posts','featured_titulo','Cómo el Move Challenge transformó mi relación con el ejercicio');
+  $fExc  = $v('blog_posts','featured_extracto','Descubre cómo 30 días de movimiento consciente...');
+  $fUrl  = $v('blog_posts','featured_url','#');
+@endphp
+
 <!-- Blog Hero Section -->
 <section class="blog-hero">
-    <div class="container">
-        <div class="blog-hero-content">
-            <span class="hero-badge-blog">
-                <i class="fas fa-pen-fancy me-2"></i>
-                Blog
-            </span>
-            <h1>
-                Historias de
-                <span class="highlight d-block">Transformación</span>
-            </h1>
-            <p>
-                Consejos, guías y motivación para tu viaje hacia un estilo de vida más saludable y consciente.
-            </p>
+  <div class="container">
+    <div class="blog-hero-content">
+      <span class="hero-badge-blog"><i class="fas fa-pen-fancy me-2"></i>{{ $badge }}</span>
+      <h1>{{ $t1 }} <span class="highlight d-block">{{ $t2 }}</span></h1>
+      <p>{{ $sub }}</p>
 
-            <!-- Categories Filter -->
-            <div class="categories-filter">
-                <a href="#" class="category-btn active">Todos</a>
-                <a href="#" class="category-btn">Fitness</a>
-                <a href="#" class="category-btn">Nutrición</a>
-                <a href="#" class="category-btn">Mindfulness</a>
-                <a href="#" class="category-btn">Wellness</a>
-            </div>
-        </div>
+      <div class="categories-filter">
+        @foreach($cats as $idx=>$label)
+          <a href="#" class="category-btn {{ $idx===1?'active':'' }}">{{ $label }}</a>
+        @endforeach
+      </div>
     </div>
+  </div>
 </section>
 
 <!-- Blog Posts Section -->
 <section class="blog-posts-section">
-    <div class="container">
-        <!-- Featured Post -->
-        <div class="featured-post">
-            <div class="featured-card">
-                <div class="featured-image">
-                    <span class="featured-badge">Destacado</span>
-                    <img src="{{ asset('images/blog-featured.jpg') }}" alt="Post destacado" 
-                         onerror="this.src='{{ asset('images/banner3.jpeg') }}'">
-                </div>
-                <div class="featured-content">
-                    <div class="featured-meta">
-                        <span>
-                            <i class="fas fa-calendar-alt"></i>
-                            15 Enero 2025
-                        </span>
-                        <span>
-                            <i class="fas fa-user"></i>
-                            Anabelle Ibalu
-                        </span>
-                        <span>
-                            <i class="fas fa-clock"></i>
-                            5 min
-                        </span>
-                    </div>
-                    <h2>Cómo el Move Challenge transformó mi relación con el ejercicio</h2>
-                    <p class="featured-excerpt">
-                        Descubre cómo 30 días de movimiento consciente pueden cambiar completamente tu perspectiva 
-                        sobre el fitness y crear hábitos sostenibles que duran toda la vida.
-                    </p>
-                    <a href="#" class="btn-read-more">
-                        Leer más
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
+  <div class="container">
+    <!-- Featured Post -->
+    <div class="featured-post">
+      <div class="featured-card">
+        <div class="featured-image">
+          <span class="featured-badge">Destacado</span>
+          <img src="{{ asset($fImg) }}" alt="Post destacado" onerror="this.src='{{ asset('images/banner3.jpeg') }}'">
+        </div>
+        <div class="featured-content">
+          <div class="featured-meta">
+            <span><i class="fas fa-calendar-alt"></i> {{ $fFecha }}</span>
+            <span><i class="fas fa-user"></i> {{ $fAutor }}</span>
+            <span><i class="fas fa-clock"></i> {{ $fLect }} min</span>
+          </div>
+          <h2>{{ $fTit }}</h2>
+          <p class="featured-excerpt">{{ $fExc }}</p>
+          <a href="{{ $fUrl ?: '#' }}" class="btn-read-more">Leer más <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Posts Grid -->
+    <div class="posts-grid">
+      @for($i=1;$i<=6;$i++)
+        @php
+          $img  = $v('blog_posts',"post_{$i}_imagen","images/blog-{$i}.jpg");
+          $cat  = $v('blog_posts',"post_{$i}_categoria", match($i%4){1=>'Fitness',2=>'Nutrición',3=>'Mindfulness',0=>'Wellness'});
+          $fecha= $v('blog_posts',"post_{$i}_fecha", ['10 Enero 2025','8 Enero 2025','5 Enero 2025','3 Enero 2025','1 Enero 2025','28 Diciembre 2024'][$i-1]);
+          $lect = $v('blog_posts',"post_{$i}_lectura", ['4','6','5','7','5','8'][$i-1]);
+          $tit  = $v('blog_posts',"post_{$i}_titulo", [
+                  '5 ejercicios para empezar tu día con energía',
+                  'Alimentación consciente: qué es y cómo practicarla',
+                  'Meditación para principiantes: guía práctica',
+                  'Hábitos que transformarán tu vida en 30 días',
+                  'Entrenamiento en casa: equipamiento básico',
+                  'Recetas saludables para después del entrenamiento'][$i-1]);
+          $exc  = $v('blog_posts',"post_{$i}_extracto", [
+                  'Rutina matutina de 10 minutos...',
+                  'Aprende a conectar con tu comida...',
+                  'Los primeros pasos para meditar....',
+                  'Pequeños cambios diarios...',
+                  'Todo lo que necesitas para tu gym en casa...',
+                  'Nutrición post-workout para maximizar resultados'][$i-1]);
+          $url  = $v('blog_posts',"post_{$i}_url","#");
+          $catClass = strtolower($cat);
+        @endphp
+
+        <article class="post-card" data-index="{{ $i-1 }}">
+          <div class="post-image">
+            <span class="post-category category-{{ $catClass }}">{{ $cat }}</span>
+            <img src="{{ asset($img) }}" alt="Post {{ $i }}" onerror="this.src='{{ asset("images/ana{$i}.png") }}'">
+          </div>
+          <div class="post-content">
+            <div class="post-meta">
+              <span><i class="fas fa-calendar-alt"></i> {{ $fecha }}</span>
+              <span><i class="fas fa-clock"></i> {{ $lect }} min</span>
             </div>
-        </div>
+            <h3><a href="{{ $url }}">{{ $tit }}</a></h3>
+            <p class="post-excerpt">{{ $exc }}</p>
+            <a href="{{ $url }}" class="post-read-more">Leer artículo <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </article>
+      @endfor
+    </div>
 
-        <!-- Posts Grid -->
-        <div class="posts-grid">
-            <!-- Post 1 -->
-            <article class="post-card" data-index="0">
-                <div class="post-image">
-                    <span class="post-category category-fitness">Fitness</span>
-                    <img src="{{ asset('images/blog-1.jpg') }}" alt="Post 1" 
-                         onerror="this.src='{{ asset('images/ana1.png') }}'">
-                </div>
-                <div class="post-content">
-                    <div class="post-meta">
-                        <span>
-                            <i class="fas fa-calendar-alt"></i>
-                            10 Enero 2025
-                        </span>
-                        <span>
-                            <i class="fas fa-clock"></i>
-                            4 min
-                        </span>
-                    </div>
-                    <h3>
-                        <a href="#">5 ejercicios para empezar tu día con energía</a>
-                    </h3>
-                    <p class="post-excerpt">
-                        Rutina matutina de 10 minutos que activará tu cuerpo y mente para un día productivo.
-                    </p>
-                    <a href="#" class="post-read-more">
-                        Leer artículo
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-            </article>
+    {{-- Puedes dejar la paginación y newsletter estáticas o hacerlas dinámicas después --}}
+    {{-- @include('partials.blog-pagination-newsletter') --}}
+    <!-- Newsletter CTA --> 
+    {{-- <div class="newsletter-cta"> <h3>Recibe contenido exclusivo</h3> <p>Suscríbete a nuestro newsletter y recibe tips semanales de wellness</p> <form class="newsletter-form"> <input type="email" class="newsletter-input" placeholder="tu@email.com" required> <button type="submit" class="newsletter-btn"> Suscribirme </button> </form> </div> --}}
+  </div>
+</section>
 
-            <!-- Post 2 -->
-            <article class="post-card" data-index="1">
-                <div class="post-image">
-                    <span class="post-category category-nutricion">Nutrición</span>
-                    <img src="{{ asset('images/blog-2.jpg') }}" alt="Post 2" 
-                         onerror="this.src='{{ asset('images/ana2.png') }}'">
-                </div>
-                <div class="post-content">
-                    <div class="post-meta">
-                        <span>
-                            <i class="fas fa-calendar-alt"></i>
-                            8 Enero 2025
-                        </span>
-                        <span>
-                            <i class="fas fa-clock"></i>
-                            6 min
-                        </span>
-                    </div>
-                    <h3>
-                        <a href="#">Alimentación consciente: qué es y cómo practicarla</a>
-                    </h3>
-                    <p class="post-excerpt">
-                        Aprende a conectar con tu comida y transformar tu relación con la alimentación.
-                    </p>
-                    <a href="#" class="post-read-more">
-                        Leer artículo
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-            </article>
+@php
+    $news = $contenidos['newsletter_cta'] ?? collect();
+    $nv = fn($k,$d=null)=> optional($news->firstWhere('clave',$k))->valor ?? $d;
 
-            <!-- Post 3 -->
-            <article class="post-card" data-index="2">
-                <div class="post-image">
-                    <span class="post-category category-mindfulness">Mindfulness</span>
-                    <img src="{{ asset('images/blog-3.jpg') }}" alt="Post 3" 
-                         onerror="this.src='{{ asset('images/ana3.png') }}'">
-                </div>
-                <div class="post-content">
-                    <div class="post-meta">
-                        <span>
-                            <i class="fas fa-calendar-alt"></i>
-                            5 Enero 2025
-                        </span>
-                        <span>
-                            <i class="fas fa-clock"></i>
-                            5 min
-                        </span>
-                    </div>
-                    <h3>
-                        <a href="#">Meditación para principiantes: guía práctica</a>
-                    </h3>
-                    <p class="post-excerpt">
-                        Los primeros pasos para incorporar la meditación a tu rutina diaria.
-                    </p>
-                    <a href="#" class="post-read-more">
-                        Leer artículo
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-            </article>
+    $nTitulo     = $nv('titulo','Recibe contenido exclusivo');
+    $nSubtitulo  = $nv('subtitulo','Suscríbete a nuestro newsletter y recibe tips semanales de wellness');
+    $nPlaceholder= $nv('placeholder','tu@email.com');
+    $nBtnTexto   = $nv('boton_texto','Suscribirme');
+    $nAction     = $nv('form_action', route('paginas.blog.update.newsletter') ?? '#'); // opcional
+@endphp
 
-            <!-- Post 4 -->
-            <article class="post-card" data-index="3">
-                <div class="post-image">
-                    <span class="post-category category-wellness">Wellness</span>
-                    <img src="{{ asset('images/blog-4.jpg') }}" alt="Post 4" 
-                         onerror="this.src='{{ asset('images/ana4.png') }}'">
-                </div>
-                <div class="post-content">
-                    <div class="post-meta">
-                        <span>
-                            <i class="fas fa-calendar-alt"></i>
-                            3 Enero 2025
-                        </span>
-                        <span>
-                            <i class="fas fa-clock"></i>
-                            7 min
-                        </span>
-                    </div>
-                    <h3>
-                        <a href="#">Hábitos que transformarán tu vida en 30 días</a>
-                    </h3>
-                    <p class="post-excerpt">
-                        Pequeños cambios diarios que generan grandes resultados a largo plazo.
-                    </p>
-                    <a href="#" class="post-read-more">
-                        Leer artículo
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-            </article>
-
-            <!-- Post 5 -->
-            <article class="post-card" data-index="4">
-                <div class="post-image">
-                    <span class="post-category category-fitness">Fitness</span>
-                    <img src="{{ asset('images/blog-5.jpg') }}" alt="Post 5" 
-                         onerror="this.src='{{ asset('images/ana5.png') }}'">
-                </div>
-                <div class="post-content">
-                    <div class="post-meta">
-                        <span>
-                            <i class="fas fa-calendar-alt"></i>
-                            1 Enero 2025
-                        </span>
-                        <span>
-                            <i class="fas fa-clock"></i>
-                            5 min
-                        </span>
-                    </div>
-                    <h3>
-                        <a href="#">Entrenamiento en casa: equipamiento básico</a>
-                    </h3>
-                    <p class="post-excerpt">
-                        Todo lo que necesitas para crear tu gym en casa sin gastar una fortuna.
-                    </p>
-                    <a href="#" class="post-read-more">
-                        Leer artículo
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-            </article>
-
-            <!-- Post 6 -->
-            <article class="post-card" data-index="5">
-                <div class="post-image">
-                    <span class="post-category category-nutricion">Nutrición</span>
-                    <img src="{{ asset('images/blog-6.jpg') }}" alt="Post 6" 
-                         onerror="this.src='{{ asset('images/ana6.png') }}'">
-                </div>
-                <div class="post-content">
-                    <div class="post-meta">
-                        <span>
-                            <i class="fas fa-calendar-alt"></i>
-                            28 Diciembre 2024
-                        </span>
-                        <span>
-                            <i class="fas fa-clock"></i>
-                            8 min
-                        </span>
-                    </div>
-                    <h3>
-                        <a href="#">Recetas saludables para después del entrenamiento</a>
-                    </h3>
-                    <p class="post-excerpt">
-                        Nutrición post-workout para maximizar tus resultados y recuperación.
-                    </p>
-                    <a href="#" class="post-read-more">
-                        Leer artículo
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-            </article>
-        </div>
-
-        <!-- Pagination -->
-        <div class="pagination-container">
-            <a href="#" class="pagination-btn disabled">
-                <i class="fas fa-chevron-left"></i>
-            </a>
-            <a href="#" class="pagination-btn active">1</a>
-            <a href="#" class="pagination-btn">2</a>
-            <a href="#" class="pagination-btn">3</a>
-            <a href="#" class="pagination-btn">4</a>
-            <a href="#" class="pagination-btn">
-                <i class="fas fa-chevron-right"></i>
-            </a>
-        </div>
-
-        <!-- Newsletter CTA -->
-        <div class="newsletter-cta">
-            <h3>Recibe contenido exclusivo</h3>
-            <p>Suscríbete a nuestro newsletter y recibe tips semanales de wellness</p>
-            <form class="newsletter-form">
-                <input type="email" class="newsletter-input" placeholder="tu@email.com" required>
-                <button type="submit" class="newsletter-btn">
-                    Suscribirme
-                </button>
-            </form>
-        </div>
+<section class="newsletter-cta">
+    <div class="container">
+        <h3>{{ $nTitulo }}</h3>
+        <p>{{ $nSubtitulo }}</p>
+        <form class="newsletter-form" method="POST" action="{{ $nAction }}">
+            @csrf
+            <input type="email" name="email" class="newsletter-input" placeholder="{{ $nPlaceholder }}" required>
+            <button type="submit" class="newsletter-btn">
+                {{ $nBtnTexto }}
+            </button>
+        </form>
     </div>
 </section>
+
 
 <!-- Font Awesome Icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
