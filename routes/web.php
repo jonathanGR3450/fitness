@@ -13,6 +13,7 @@ use App\Http\Controllers\ConfiguracionController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\InicioController;
 use App\Http\Controllers\MoveController;
+use App\Http\Controllers\SeoController;
 
 // ========================================
 // RUTAS PÚBLICAS
@@ -129,6 +130,11 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         Route::get('/configuracion', [ConfiguracionController::class, 'edit'])->name('admin.configuracion');
         Route::put('/configuracion/header', [ConfiguracionController::class,'updateHeader'])->name('layout.update.header');
         Route::put('/configuracion/footer', [ConfiguracionController::class,'updateFooter'])->name('layout.update.footer');
+
+        Route::prefix('admin/seo')->middleware(['auth'])->group(function () {
+            Route::get('/{slug}', [SeoController::class, 'edit'])->name('admin.seo.edit');
+            Route::put('/{slug}', [SeoController::class, 'update'])->name('admin.seo.update');
+        });
 
 
     });

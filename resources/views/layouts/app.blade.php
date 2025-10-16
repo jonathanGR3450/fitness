@@ -522,6 +522,7 @@
             }
         }
     </style>
+    @yield('seo')
 </head>
 
 <body>

@@ -140,6 +140,9 @@
                     <a href="{{ url('/admin/paginas/inicio') }}" class="btn-edit">
                         <i class="fas fa-edit me-2"></i>Editar Página
                     </a>
+                    <a href="{{ route('admin.seo.edit', 'inicio') }}" class="btn-edit mt-2">
+                        <i class="fas fa-search me-2"></i>SEO
+                    </a>
                 </div>
             </div>
 
@@ -155,6 +158,9 @@
                     </div>
                     <a href="{{ url('/admin/paginas/sobre-mi') }}" class="btn-edit">
                         <i class="fas fa-edit me-2"></i>Editar Página
+                    </a>
+                    <a href="{{ route('admin.seo.edit', 'sobre-mi') }}" class="btn-edit mt-2">
+                        <i class="fas fa-search me-2"></i>SEO
                     </a>
                 </div>
             </div>
@@ -172,6 +178,9 @@
                     <a href="{{ url('/admin/paginas/move-challenge') }}" class="btn-edit">
                         <i class="fas fa-edit me-2"></i>Editar Página
                     </a>
+                    <a href="{{ route('admin.seo.edit', 'move') }}" class="btn-edit mt-2">
+                        <i class="fas fa-search me-2"></i>SEO
+                    </a>
                 </div>
             </div>
 
@@ -187,6 +196,9 @@
                     </div>
                     <a href="{{ url('/admin/paginas/programas') }}" class="btn-edit">
                         <i class="fas fa-edit me-2"></i>Editar Página
+                    </a>
+                    <a href="{{ route('admin.seo.edit', 'community') }}" class="btn-edit mt-2">
+                        <i class="fas fa-search me-2"></i>SEO
                     </a>
                 </div>
             </div>
@@ -204,6 +216,9 @@
                     <a href="{{ url('/admin/paginas/blog') }}" class="btn-edit">
                         <i class="fas fa-edit me-2"></i>Editar Página
                     </a>
+                    <a href="{{ route('admin.seo.edit', 'blog') }}" class="btn-edit mt-2">
+                        <i class="fas fa-search me-2"></i>SEO
+                    </a>
                 </div>
             </div>
 
@@ -219,6 +234,9 @@
                     </div>
                     <a href="{{ url('/admin/paginas/contacto') }}" class="btn-edit">
                         <i class="fas fa-edit me-2"></i>Editar Página
+                    </a>
+                    <a href="{{ route('admin.seo.edit', 'contact') }}" class="btn-edit mt-2">
+                        <i class="fas fa-search me-2"></i>SEO
                     </a>
                 </div>
             </div>

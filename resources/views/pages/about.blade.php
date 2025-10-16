@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('seo')
+  @include('partials.seo', ['slug' => 'sobre-mi'])
+@endsection
 @section('content')
 
 <style>

@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('seo')
+  @include('partials.seo', ['slug' => 'community'])
+@endsection
 @section('content')
 
 <style>
