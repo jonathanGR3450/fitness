@@ -25,7 +25,7 @@
         
         body {
             position: relative;
-            background-image: url('/images/2.png');
+            background-image: url('/images/3.png');
             background-repeat: no-repeat;
             background-size: cover;
             background-position: center;
@@ -39,7 +39,6 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(255, 255, 255, 0.38);
             z-index: -1;
             pointer-events: none;
         }
@@ -63,7 +62,6 @@
         
         .nav-link {
             font-weight: 600;
-            color: var(--text-color);
             margin: 0 0.5rem;
             padding: 0.85rem 1rem;
             transition: color 0.3s ease;
@@ -318,148 +316,278 @@
         }
 
         /* Hero Section */
-        .hero {
-            background-size: cover;
-            background-position: center;
-            min-height: 80vh;
-            display: flex;
-            align-items: center;
-            position: relative;
-        }
-        
-        .hero-overlay {
-            background: rgba(0,0,0,0.5);
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-        
-        .hero-content {
-            position: relative;
-            z-index: 10;
-            color: white;
-        }
-        
-        h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-        }
-        
-        .section-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 2rem;
-            color: var(--secondary-color);
-            position: relative;
-            display: inline-block;
-        }
-        
-        .section-title:after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 60px;
-            height: 4px;
-            background-color: var(--primary-color);
-        }
-        
-        .service-card {
-            text-align: center;
-            padding: 2rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            border-radius: 10px;
-            transition: transform 0.3s ease;
-            height: 100%;
-            background: white;
-        }
-        
-        .service-card:hover {
-            transform: translateY(-10px);
-        }
-        
-        .service-icon {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-            color: var(--primary-color);
-        }
-        
-        .video-wrapper {
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 8px 20px rgba(240, 85, 165, 0.2);
-            border: 3px solid #F055A5;
-            background: #000;
-            width: 350px;
-            height: 600px;
-            margin: 0 auto;
-        }
+       /* ===================================
+   ESTILOS AJUSTADOS CON PALETA DEL CLIENTE
+   ================================== */
 
-        .custom-video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+:root {
+    --purple-dark: #410445;      /* Púrpura oscuro - fondo */
+    --purple-medium: #A5158C;    /* Púrpura medio/magenta */
+    --pink-bright: #FF2DF1;      /* Fucsia brillante - resaltados */
+    --yellow: #F6DC43;           /* Amarillo */
+    --text-color: #ffeac5;       /* Color crema/beige - TIPOGRAFÍA */
+}
 
-        /* Hero carousel styles */
-        .hero-slide {
-            height: 100vh;
-            min-height: 100vh;
-            background-size: cover;
-            background-position: center;
-            position: relative;
-            display: flex;
-            align-items: center;
-            overflow: hidden;
-        }
+/* HERO SECTION */
+.hero {
+    background-size: cover;
+    background-position: center;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
 
-        .hero-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, 
-                rgba(240, 85, 165, 0.3) 0%, 
-                rgba(0, 0, 0, 0.5) 100%);
-        }
+.hero-overlay {
+    background: linear-gradient(135deg, 
+        rgba(65, 4, 69, 0.7) 0%,    /* Púrpura oscuro */
+        rgba(165, 21, 140, 0.5) 100%); /* Púrpura medio */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
 
-        .hero-content {
-            position: relative;
-            z-index: 10;
-            color: white;
-            animation: slideInLeft 0.8s ease-out;
-        }
+.hero-content {
+    position: relative;
+    z-index: 10;
+    color: var(--text-color); /* Color crema */
+}
 
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
+h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--text-color); /* Color crema */
+}
 
-        .hero-content h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-            line-height: 1.2;
-        }
+/* SECTION TITLE */
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: var(--text-color); /* Color crema */
+    position: relative;
+    display: inline-block;
+}
 
-        .hero-content .lead {
-            font-size: 1.3rem;
-            font-weight: 400;
-            margin-bottom: 2rem;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
-            max-width: 500px;
-        }
+.section-title:after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background-color: var(--pink-bright); /* Fucsia brillante para resaltar */
+}
+
+/* SERVICE CARD */
+.service-card {
+    text-align: center;
+    padding: 2rem;
+    box-shadow: 0 5px 15px rgba(255, 45, 241, 0.2);
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+    height: 100%;
+    background: rgba(65, 4, 69, 0.8); /* Fondo púrpura oscuro semi-transparente */
+    border: 1px solid rgba(255, 45, 241, 0.2); /* Borde fucsia sutil */
+    color: var(--text-color); /* Texto crema */
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 25px rgba(255, 45, 241, 0.4);
+    border-color: var(--pink-bright);
+}
+
+.service-card h3 {
+    color: var(--text-color);
+}
+
+.service-card p {
+    color: rgba(255, 234, 197, 0.85);
+}
+
+.service-icon {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    color: var(--pink-bright); /* Fucsia brillante para iconos */
+}
+
+/* VIDEO WRAPPER */
+.video-wrapper {
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(255, 45, 241, 0.3);
+    border: 3px solid var(--pink-bright); /* Borde fucsia */
+    background: #000;
+    width: 350px;
+    height: 600px;
+    margin: 0 auto;
+}
+
+.custom-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* HERO CAROUSEL STYLES */
+.hero-slide {
+    height: 100vh;
+    min-height: 100vh;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, 
+        rgba(65, 4, 69, 0.7) 0%,     /* Púrpura oscuro */
+        rgba(165, 21, 140, 0.6) 50%,  /* Púrpura medio */
+        rgba(0, 0, 0, 0.5) 100%);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 10;
+    color: var(--text-color); /* Color crema */
+    animation: slideInLeft 0.8s ease-out;
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    line-height: 1.2;
+    color: var(--text-color); /* Color crema */
+}
+
+/* Resaltar palabras clave en fucsia */
+.hero-content h1 span.highlight {
+    color: var(--pink-bright); /* Fucsia brillante para resaltar */
+}
+
+.hero-content .lead {
+    font-size: 1.3rem;
+    font-weight: 400;
+    margin-bottom: 2rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+    max-width: 500px;
+    color: var(--text-color); /* Color crema */
+}
+
+/* BOTONES CON FUCSIA */
+.btn-primary {
+    background: var(--pink-bright); /* Fucsia brillante */
+    color: var(--purple-dark); /* Texto púrpura oscuro para contraste */
+    border: none;
+    padding: 16px 40px;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 45, 241, 0.4);
+}
+
+.btn-primary:hover {
+    background: var(--purple-medium); /* Púrpura medio al hover */
+    color: var(--text-color); /* Texto crema */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 45, 241, 0.6);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--text-color); /* Texto crema */
+    border: 2px solid var(--pink-bright); /* Borde fucsia */
+    padding: 16px 40px;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background: var(--pink-bright); /* Fucsia al hover */
+    color: var(--purple-dark); /* Texto oscuro */
+}
+
+/* ENLACES Y ACENTOS */
+a {
+    color: var(--pink-bright); /* Enlaces en fucsia */
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--purple-medium); /* Púrpura medio al hover */
+}
+
+/* SECCIONES GENERALES */
+section {
+    color: var(--text-color); /* Texto crema */
+}
+
+section h2, 
+section h3, 
+section h4 {
+    color: var(--text-color); /* Títulos en crema */
+}
+
+/* Para resaltar palabras importantes */
+.highlight-text {
+    color: var(--pink-bright); /* Fucsia brillante */
+    font-weight: 600;
+}
+
+/* Backgrounds de secciones */
+.section-dark {
+    background: rgba(65, 4, 69, 0.9); /* Fondo púrpura oscuro */
+}
+
+.section-medium {
+    background: rgba(165, 21, 140, 0.3); /* Fondo púrpura medio sutil */
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.5rem;
+    }
+    
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    .video-wrapper {
+        width: 280px;
+        height: 480px;
+    }
+}
 
         /* Controles del carrusel mejorados con verde */
         .carousel-control-prev,

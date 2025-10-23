@@ -13,6 +13,7 @@
         --pink-bright: #FF2DF1;      /* Fucsia brillante */
         --yellow: #F6DC43;           /* Amarillo */
         --green: #CCD537;            /* Verde */
+        --cream-text: #ffeac5;       /* Texto crema - NUEVO */
         --neutral-light: #FAF9F7;
         --neutral-cream: #F5F2ED;
         --neutral-sand: #E8E2D5;
@@ -38,7 +39,7 @@
         padding: 0 20px;
     }
 
-    /* Wave Divider */
+    /* Wave Divider - ACTUALIZADO CON COLOR CORRECTO */
     .wave-divider-bottom {
         position: absolute;
         bottom: 0;
@@ -56,18 +57,18 @@
         height: 80px;
     }
 
-    /* Move Hero Section - DISEÑO ASIMÉTRICO */
+    /* Move Hero Section - FONDO TRANSPARENTE */
     .move-hero {
         min-height: 100vh;
         display: flex;
         align-items: center;
         position: relative;
-        background: rgba(65, 4, 69, 0.03);
+        background: transparent; /* Cambiado para ver el fondo púrpura */
         padding: 160px 0 100px;
         overflow: hidden;
     }
 
-    /* Formas orgánicas de fondo */
+    /* Formas orgánicas de fondo - MÁS SUTILES */
     .move-hero::before {
         content: '';
         position: absolute;
@@ -77,7 +78,7 @@
         height: 500px;
         background: var(--green);
         border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-        opacity: 0.08;
+        opacity: 0.05; /* Más sutil */
         animation: morph 12s ease-in-out infinite;
         z-index: 1;
     }
@@ -91,7 +92,7 @@
         height: 400px;
         background: var(--pink-bright);
         border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-        opacity: 0.06;
+        opacity: 0.04; /* Más sutil */
         animation: morph 15s ease-in-out infinite reverse;
         z-index: 1;
     }
@@ -116,16 +117,17 @@
         z-index: 2;
     }
 
+    /* TEXTO EN CREMA */
     .move-hero-content h1 {
         font-size: clamp(2.5rem, 5vw, 4rem);
         font-weight: 700;
-        color: var(--dark-text);
+        color: var(--cream-text); /* Cambiado a crema */
         margin-bottom: 24px;
         line-height: 1.1;
     }
 
     .move-hero-content .highlight {
-        color: var(--purple-dark);
+        color: var(--yellow); /* Color de acento */
         position: relative;
     }
 
@@ -144,9 +146,10 @@
 
     .move-hero-content p {
         font-size: 1.3rem;
-        color: var(--medium-text);
+        color: var(--cream-text); /* Cambiado a crema */
         margin-bottom: 32px;
         line-height: 1.7;
+        opacity: 0.95;
     }
 
     /* Stats inline */
@@ -169,33 +172,38 @@
         margin-bottom: 8px;
     }
 
+    /* Patrón de colores para stats */
     .stat-inline-item:nth-child(1) .stat-inline-number {
-        color: var(--purple-dark);
-    }
-
-    .stat-inline-item:nth-child(2) .stat-inline-number {
         color: var(--pink-bright);
     }
 
-    .stat-inline-item:nth-child(3) .stat-inline-number {
+    .stat-inline-item:nth-child(2) .stat-inline-number {
         color: var(--green);
+    }
+
+    .stat-inline-item:nth-child(3) .stat-inline-number {
+        color: var(--yellow);
     }
 
     .stat-inline-label {
         font-size: 0.95rem;
-        color: var(--medium-text);
+        color: var(--cream-text); /* Cambiado a crema */
         font-weight: 500;
         text-transform: uppercase;
         letter-spacing: 0.5px;
+        opacity: 0.9;
     }
 
-    /* Tarjeta flotante lateral */
+    /* Card con glassmorphism */
     .floating-info-card {
         position: relative;
-        background: var(--neutral-white);
+        background: rgba(45, 27, 61, 0.5); /* Glassmorphism como las otras páginas */
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 234, 197, 0.1);
         padding: 40px;
         border-radius: 30px;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
         animation: floatCard 6s ease-in-out infinite;
     }
 
@@ -218,7 +226,7 @@
     .floating-info-card h3 {
         font-size: 1.5rem;
         font-weight: 600;
-        color: var(--dark-text);
+        color: var(--cream-text); /* Cambiado a crema */
         margin-bottom: 20px;
     }
 
@@ -232,9 +240,10 @@
         display: flex;
         align-items: center;
         padding: 12px 0;
-        color: var(--medium-text);
+        color: var(--cream-text); /* Cambiado a crema */
         font-size: 0.95rem;
-        border-bottom: 1px solid var(--neutral-sand);
+        border-bottom: 1px solid rgba(255, 234, 197, 0.15);
+        opacity: 0.9;
     }
 
     .floating-info-card ul li:last-child {
@@ -250,37 +259,86 @@
     .btn-primary-move {
         display: block;
         width: 100%;
-        padding: 16px;
-        background: var(--purple-dark);
+        padding: 16px 32px;
+        background: var(--pink-bright);
         color: white;
-        text-align: center;
         text-decoration: none;
-        border-radius: 15px;
+        border-radius: 50px;
         font-weight: 600;
         font-size: 1rem;
+        text-align: center;
         transition: all 0.3s ease;
         border: none;
-        box-shadow: 0 4px 15px rgba(65, 4, 69, 0.3);
     }
 
     .btn-primary-move:hover {
         background: var(--purple-medium);
         transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(65, 4, 69, 0.4);
-        color: white;
+        box-shadow: 0 10px 25px rgba(255, 45, 241, 0.3);
     }
 
     .card-footer-text {
         text-align: center;
-        margin-top: 16px;
         font-size: 0.85rem;
-        color: var(--light-text);
+        color: var(--cream-text); /* Cambiado a crema */
+        margin-top: 15px;
+        opacity: 0.8;
     }
 
-    /* About Section con video */
+    .card-footer-text i {
+        color: var(--yellow);
+    }
+
+    /* Buttons hero */
+    .buttons-hero {
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+
+    .btn-hero-primary {
+        padding: 16px 40px;
+        background: var(--pink-bright);
+        color: white;
+        text-decoration: none;
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        border: none;
+    }
+
+    .btn-hero-primary:hover {
+        background: var(--purple-medium);
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(255, 45, 241, 0.3);
+    }
+
+    .btn-hero-secondary {
+        padding: 16px 40px;
+        background: transparent;
+        color: var(--cream-text);
+        text-decoration: none;
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        border: 2px solid rgba(255, 234, 197, 0.3);
+    }
+
+    .btn-hero-secondary:hover {
+        background: rgba(255, 234, 197, 0.1);
+        border-color: var(--cream-text);
+    }
+
+    /* About Move Section - FONDO TRANSPARENTE */
     .about-move-section {
-        padding: 120px 0;
-        background: rgba(255, 255, 255, 0.75);
+        padding: 100px 0;
+        background: transparent; /* Cambiado */
         position: relative;
     }
 
@@ -291,95 +349,102 @@
         align-items: center;
     }
 
+    /* Video Container */
     .video-container-move {
         position: relative;
-        height: 500px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        width: 100%;
+        padding-top: 75%;
+        border-radius: 30px;
+        overflow: hidden;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
     }
 
     .video-organic-shape {
         position: absolute;
-        width: 100%;
-        height: 100%;
-        background: var(--neutral-sand);
-        border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-        z-index: 1;
-        animation: morphVideo 10s ease-in-out infinite;
-    }
-
-    @keyframes morphVideo {
-        0%, 100% {
-            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-        }
-        50% {
-            border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%;
-        }
+        top: -20px;
+        right: -20px;
+        width: 200px;
+        height: 200px;
+        background: var(--yellow);
+        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+        opacity: 0.15;
+        animation: morph 10s ease-in-out infinite;
     }
 
     .video-container-move video {
-        position: relative;
-        width: 85%;
-        height: 85%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
         object-fit: cover;
-        border-radius: 20px;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-        z-index: 2;
+        border-radius: 30px;
     }
 
-    .about-move-content .section-badge {
+    /* About Content */
+    .about-move-content {
+        padding: 0 20px;
+    }
+
+    .section-badge {
         display: inline-block;
-        padding: 8px 20px;
+        padding: 10px 24px;
         background: var(--pink-bright);
         color: white;
-        border-radius: 20px;
-        font-size: 0.85rem;
+        border-radius: 50px;
         font-weight: 600;
+        font-size: 0.85rem;
         margin-bottom: 20px;
         text-transform: uppercase;
         letter-spacing: 1px;
     }
 
     .about-move-content h2 {
-        font-size: 2.5rem;
-        font-weight: 600;
-        color: var(--dark-text);
-        margin-bottom: 24px;
+        font-size: clamp(2rem, 4vw, 3rem);
+        font-weight: 700;
+        color: var(--cream-text); /* Cambiado a crema */
+        margin-bottom: 25px;
+        line-height: 1.2;
     }
 
     .about-move-content p {
-        font-size: 1.125rem;
-        color: var(--medium-text);
+        font-size: 1.1rem;
+        color: var(--cream-text); /* Cambiado a crema */
         line-height: 1.8;
-        margin-bottom: 24px;
+        margin-bottom: 20px;
+        opacity: 0.9;
     }
 
+    /* Values Grid Small */
     .values-grid-small {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 16px;
-        margin-top: 32px;
+        gap: 20px;
+        margin-top: 30px;
     }
 
     .value-box-small {
         padding: 20px;
-        background: var(--neutral-light);
-        border-radius: 15px;
+        background: rgba(45, 27, 61, 0.4); /* Glassmorphism sutil */
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 234, 197, 0.1);
+        border-radius: 20px;
         text-align: center;
         transition: all 0.3s ease;
     }
 
     .value-box-small:hover {
+        background: rgba(45, 27, 61, 0.6);
         transform: translateY(-5px);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
     }
 
     .value-box-small i {
         font-size: 2rem;
-        margin-bottom: 12px;
+        margin-bottom: 10px;
+        display: block;
     }
 
+    /* Patrón de colores para íconos */
     .value-box-small:nth-child(1) i {
         color: var(--purple-dark);
     }
@@ -399,297 +464,330 @@
     .value-box-small h6 {
         font-size: 0.95rem;
         font-weight: 600;
-        color: var(--dark-text);
+        color: var(--cream-text); /* Cambiado a crema */
         margin: 0;
     }
 
-    /* What Includes Section */
+    /* Includes Section - FONDO TRANSPARENTE */
     .includes-section {
-        padding: 120px 0;
-        background: rgba(245, 242, 237, 0.1);
+        padding: 100px 0;
+        background: transparent;
         position: relative;
     }
 
     .section-title {
-        font-size: 2.5rem;
-        font-weight: 600;
-        color: var(--dark-text);
-        margin-bottom: 16px;
         text-align: center;
+        font-size: clamp(2rem, 4vw, 3rem);
+        font-weight: 700;
+        color: var(--cream-text); /* Cambiado a crema */
+        margin-bottom: 15px;
     }
 
     .section-subtitle {
-        font-size: 1.125rem;
-        color: var(--medium-text);
         text-align: center;
+        font-size: 1.2rem;
+        color: var(--cream-text); /* Cambiado a crema */
         margin-bottom: 60px;
-        max-width: 600px;
+        max-width: 700px;
         margin-left: auto;
         margin-right: auto;
+        opacity: 0.9;
     }
 
     .includes-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         gap: 30px;
-        margin-top: 60px;
     }
 
+    /* Cards con glassmorphism */
     .include-card {
-        position: relative;
         padding: 40px 30px;
-        background: var(--neutral-white);
+        background: rgba(45, 27, 61, 0.5); /* Glassmorphism */
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 234, 197, 0.1);
         border-radius: 25px;
         text-align: center;
         transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
     }
 
     .include-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        transform: translateY(-10px);
+        background: rgba(45, 27, 61, 0.7);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
     }
 
     .include-card-icon {
-        width: 70px;
-        height: 70px;
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 25px;
+        background: rgba(255, 234, 197, 0.1);
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
-        margin: 0 auto 24px;
-        font-size: 1.8rem;
-        color: white;
-                background: var(--purple-dark);
-
+        transition: all 0.3s ease;
     }
 
-   
+    .include-card-icon i {
+        font-size: 2rem;
+    }
+
+    /* Patrón de colores para los 6 íconos */
+    .include-card:nth-child(1) .include-card-icon {
+        background: rgba(65, 4, 69, 0.2);
+    }
+    .include-card:nth-child(1) .include-card-icon i {
+        color: var(--purple-dark);
+    }
+
+    .include-card:nth-child(2) .include-card-icon {
+        background: rgba(255, 45, 241, 0.2);
+    }
+    .include-card:nth-child(2) .include-card-icon i {
+        color: var(--pink-bright);
+    }
+
+    .include-card:nth-child(3) .include-card-icon {
+        background: rgba(204, 213, 55, 0.2);
+    }
+    .include-card:nth-child(3) .include-card-icon i {
+        color: var(--green);
+    }
+
+    .include-card:nth-child(4) .include-card-icon {
+        background: rgba(246, 220, 67, 0.2);
+    }
+    .include-card:nth-child(4) .include-card-icon i {
+        color: var(--yellow);
+    }
+
+    .include-card:nth-child(5) .include-card-icon {
+        background: rgba(65, 4, 69, 0.2);
+    }
+    .include-card:nth-child(5) .include-card-icon i {
+        color: var(--purple-dark);
+    }
+
+    .include-card:nth-child(6) .include-card-icon {
+        background: rgba(255, 45, 241, 0.2);
+    }
+    .include-card:nth-child(6) .include-card-icon i {
+        color: var(--pink-bright);
+    }
+
     .include-card h4 {
-        font-size: 1.25rem;
+        font-size: 1.3rem;
         font-weight: 600;
-        color: var(--dark-text);
-        margin-bottom: 12px;
+        color: var(--cream-text); /* Cambiado a crema */
+        margin-bottom: 15px;
     }
 
     .include-card p {
+        color: var(--cream-text); /* Cambiado a crema */
         font-size: 0.95rem;
-        color: var(--medium-text);
         line-height: 1.6;
-        margin: 0;
+        opacity: 0.85;
     }
 
-    /* How It Works Section */
+    /* How Works Section - FONDO TRANSPARENTE */
     .how-works-section {
-        padding: 120px 0;
-        background: rgba(255, 255, 255, 0.75);
-        position: relative;
+        padding: 100px 0;
+        background: transparent;
     }
 
     .steps-container {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         gap: 40px;
         margin-top: 60px;
     }
 
     .step-card {
-        position: relative;
         text-align: center;
         padding: 40px 30px;
-        background: var(--neutral-white);
+        background: rgba(45, 27, 61, 0.5); /* Glassmorphism */
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 234, 197, 0.1);
         border-radius: 25px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
         transition: all 0.3s ease;
+        position: relative;
     }
 
     .step-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        transform: translateY(-10px);
+        background: rgba(45, 27, 61, 0.7);
     }
 
     .step-number {
-        width: 80px;
-        height: 80px;
+        width: 70px;
+        height: 70px;
+        margin: 0 auto 25px;
+        background: linear-gradient(135deg, var(--pink-bright), var(--purple-medium));
+        color: white;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
-        margin: 0 auto 24px;
         font-size: 2rem;
         font-weight: 700;
-        color: white;
-    }
-
-    .step-card:nth-child(1) .step-number {
-        background: var(--purple-dark);
-    }
-
-    .step-card:nth-child(2) .step-number {
-        background: var(--pink-bright);
-    }
-
-    .step-card:nth-child(3) .step-number {
-        background: var(--green);
-        color: #333;
     }
 
     .step-card h4 {
-        font-size: 1.5rem;
+        font-size: 1.4rem;
         font-weight: 600;
-        color: var(--dark-text);
-        margin-bottom: 16px;
+        color: var(--cream-text); /* Cambiado a crema */
+        margin-bottom: 15px;
     }
 
     .step-card p {
-        font-size: 1rem;
-        color: var(--medium-text);
+        color: var(--cream-text); /* Cambiado a crema */
+        font-size: 0.95rem;
         line-height: 1.6;
-        margin: 0;
+        opacity: 0.85;
     }
 
     /* Benefits Section */
     .benefits-section {
-        padding: 120px 0;
-        background: rgba(245, 242, 237, 0.1);
-        position: relative;
+        padding: 100px 0;
+        background: rgba(255, 234, 197, 0.03); /* Fondo muy sutil */
     }
 
     .benefits-container {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 80px;
+        gap: 60px;
         align-items: center;
     }
 
     .benefits-list {
         display: flex;
         flex-direction: column;
-        gap: 24px;
+        gap: 30px;
     }
 
     .benefit-item {
         display: flex;
-        align-items: flex-start;
         gap: 20px;
-        padding: 24px;
-        background: var(--neutral-white);
-        border-radius: 20px;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-    }
-
-    .benefit-item:hover {
-        transform: translateX(10px);
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        align-items: flex-start;
     }
 
     .benefit-icon {
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        border-radius: 15px;
         display: flex;
         align-items: center;
         justify-content: center;
         flex-shrink: 0;
-        color: white;
-        font-size: 1.3rem;
+        transition: all 0.3s ease;
     }
 
+    /* Patrón de colores para benefits */
     .benefit-item:nth-child(1) .benefit-icon {
-        background: var(--purple-dark);
+        background: rgba(255, 45, 241, 0.15);
+    }
+    .benefit-item:nth-child(1) .benefit-icon i {
+        color: var(--pink-bright);
+        font-size: 1.5rem;
     }
 
     .benefit-item:nth-child(2) .benefit-icon {
-        background: var(--pink-bright);
+        background: rgba(204, 213, 55, 0.15);
+    }
+    .benefit-item:nth-child(2) .benefit-icon i {
+        color: var(--green);
+        font-size: 1.5rem;
     }
 
     .benefit-item:nth-child(3) .benefit-icon {
-        background: var(--yellow);
-        color: #333;
+        background: rgba(246, 220, 67, 0.15);
+    }
+    .benefit-item:nth-child(3) .benefit-icon i {
+        color: var(--yellow);
+        font-size: 1.5rem;
     }
 
     .benefit-text h5 {
-        font-size: 1.125rem;
+        font-size: 1.2rem;
         font-weight: 600;
-        color: var(--dark-text);
+        color: var(--cream-text); /* Cambiado a crema */
         margin-bottom: 8px;
     }
 
     .benefit-text p {
+        color: var(--cream-text); /* Cambiado a crema */
         font-size: 0.95rem;
-        color: var(--medium-text);
         line-height: 1.6;
-        margin: 0;
+        opacity: 0.85;
     }
 
+    /* Testimonial Card con glassmorphism */
     .testimonial-card-move {
-        position: relative;
-        padding: 40px;
-        background: var(--purple-dark);
+        padding: 50px;
+        background: rgba(45, 27, 61, 0.6); /* Glassmorphism */
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 234, 197, 0.1);
         border-radius: 30px;
-        color: white;
-        box-shadow: 0 8px 30px rgba(65, 4, 69, 0.25);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+        position: relative;
     }
 
-    .testimonial-card-move i {
+    .testimonial-card-move i.fa-quote-left {
         font-size: 3rem;
+        color: var(--pink-bright);
         opacity: 0.3;
         margin-bottom: 20px;
     }
 
     .testimonial-card-move p {
-        font-size: 1.125rem;
-        line-height: 1.7;
-        margin-bottom: 24px;
+        font-size: 1.15rem;
+        color: var(--cream-text); /* Cambiado a crema */
+        line-height: 1.8;
+        margin-bottom: 30px;
         font-style: italic;
     }
 
     .testimonial-author {
         display: flex;
         align-items: center;
-        gap: 16px;
-    }
-
-    .testimonial-avatar {
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.2);
+        gap: 20px;
     }
 
     .testimonial-author-info h6 {
-        font-size: 1rem;
+        font-size: 1.1rem;
         font-weight: 600;
-        margin-bottom: 4px;
+        color: var(--cream-text); /* Cambiado a crema */
+        margin-bottom: 5px;
     }
 
     .testimonial-author-info small {
+        color: var(--cream-text); /* Cambiado a crema */
         font-size: 0.85rem;
-        opacity: 0.8;
+        opacity: 0.7;
     }
 
     /* CTA Section */
     .cta-move-section {
-        padding: 100px 0;
-        background: #410445;
-        position: relative;
+        padding: 120px 0;
+        background: linear-gradient(135deg, rgba(65, 4, 69, 0.9), rgba(165, 21, 140, 0.8));
         text-align: center;
-        color: white;
+        position: relative;
         overflow: hidden;
     }
 
     .cta-move-section::before {
         content: '';
         position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 600px;
-        height: 600px;
-        background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
-        border-radius: 50%;
-        opacity: 0.3;
+        top: -50%;
+        right: -10%;
+        width: 500px;
+        height: 500px;
+        background: var(--yellow);
+        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+        opacity: 0.1;
+        animation: morph 15s ease-in-out infinite;
     }
 
     .cta-move-content {
@@ -698,41 +796,42 @@
     }
 
     .cta-move-content h2 {
-        font-size: 2.5rem;
-        font-weight: 600;
-        margin-bottom: 24px;
+        font-size: clamp(2rem, 4vw, 3.5rem);
+        font-weight: 700;
+        color: white;
+        margin-bottom: 20px;
     }
 
     .cta-move-content p {
-        font-size: 1.25rem;
+        font-size: 1.3rem;
+        color: rgba(255, 255, 255, 0.9);
         margin-bottom: 40px;
-        opacity: 0.95;
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .btn-white-cta {
-        display: inline-block;
-        padding: 18px 48px;
+        display: inline-flex;
+        align-items: center;
+        padding: 18px 50px;
         background: white;
         color: var(--purple-dark);
         text-decoration: none;
         border-radius: 50px;
-        font-weight: 600;
+        font-weight: 700;
         font-size: 1.1rem;
         transition: all 0.3s ease;
-        border: none;
-        cursor: pointer;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     }
 
     .btn-white-cta:hover {
-        background: var(--green);
-        color: #333;
+        background: var(--yellow);
         transform: translateY(-3px);
-        box-shadow: 0 10px 30px rgba(204, 213, 55, 0.4);
+        box-shadow: 0 15px 40px rgba(255, 255, 255, 0.3);
     }
 
-    /* Responsive */
-    @media (max-width: 968px) {
+    /* RESPONSIVE */
+    @media (max-width: 992px) {
         .move-hero-container,
         .about-move-container,
         .benefits-container {
@@ -740,122 +839,114 @@
             gap: 40px;
         }
 
-        .video-container-move {
-            height: 400px;
-        }
-
-        .steps-container {
-            grid-template-columns: 1fr;
-        }
-
-        .includes-grid {
-            grid-template-columns: 1fr;
-        }
-
-        .stats-inline {
-            justify-content: center;
-        }
-    }
-
-    @media (max-width: 640px) {
         .move-hero {
-            padding-top: 140px;
-        }
-
-        .section-title {
-            font-size: 2rem;
+            padding: 120px 0 80px;
         }
 
         .values-grid-small {
             grid-template-columns: 1fr;
         }
 
-        .stat-inline-number {
-            font-size: 2.2rem;
+        .includes-grid,
+        .steps-container {
+            grid-template-columns: 1fr;
         }
+    }
 
-        .cta-move-content h2 {
+    @media (max-width: 768px) {
+        .move-hero-content h1 {
             font-size: 2rem;
         }
 
-        .cta-move-content p {
+        .move-hero-content p {
             font-size: 1.1rem;
+        }
+
+        .stats-inline {
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .floating-info-card {
+            padding: 30px;
+        }
+
+        .buttons-hero {
+            flex-direction: column;
+        }
+
+        .btn-hero-primary,
+        .btn-hero-secondary {
+            width: 100%;
+            justify-content: center;
         }
     }
 </style>
 
-@php
-    // Helpers rápidos
-    $getSec = fn($sec) => $contenidos[$sec] ?? collect();
-    $cv = function($sec, $key, $default = null) use ($getSec) {
-        $secCol = $getSec($sec);
-        if ($secCol instanceof \Illuminate\Support\Collection) {
-            return optional($secCol->get($key))->valor ?? $default;
-        }
-        return $default;
-    };
-@endphp
 <!-- Move Hero Section -->
 @php
-    $sec = 'move_hero';
-    $badge        = $cv($sec, 'badge', '30 Días de Transformación');
-    $badgeIcon    = $cv($sec, 'badge_icono', 'fas fa-fire');
+    $moveHero = $contenidos['move_hero'] ?? collect();
+    $cv = fn($key, $default=null) => optional($moveHero->get($key))->valor ?? $default;
 
-    $titulo1      = $cv($sec, 'titulo_1', 'Descubre el poder del');
-    $titulo2      = $cv($sec, 'titulo_2', 'Move Challenge');
+    $badgeTxt = $cv('badge_texto', '🔥 Nuevo Reto 2025');
+    $titulo   = $cv('titulo', 'Descubre tu <span class="highlight">mejor versión</span>');
+    $parrafo  = $cv('parrafo', 'Un reto de 30 días que combina entrenamiento funcional, alimentación consciente y mentalidad positiva');
+    
+    $stat1Val = $cv('stat_1_numero', '30');
+    $stat1Lab = $cv('stat_1_label', 'Días de transformación');
+    $stat2Val = $cv('stat_2_numero', '500+');
+    $stat2Lab = $cv('stat_2_label', 'Personas transformadas');
+    $stat3Val = $cv('stat_3_numero', '100%');
+    $stat3Lab = $cv('stat_3_label', 'Resultados garantizados');
 
-    $descripcion  = $cv($sec, 'descripcion', 'Un programa integral diseñado para transformar tu vida a través del movimiento consciente, nutrición balanceada y conexión interior.');
+    $btnTxt = $cv('boton_principal_texto', 'Únete Ahora');
+    $btnUrl = $cv('boton_principal_url', (Route::has('contact') ? route('contact') : '#contact'));
+    $btnSecTxt = $cv('boton_secundario_texto', 'Conoce más');
+    $btnSecUrl = $cv('boton_secundario_url', '#nosotros');
 
-    $s1n = $cv($sec, 'stat_1_num', '500+');   $s1l = $cv($sec, 'stat_1_lbl', 'Participantes');
-    $s2n = $cv($sec, 'stat_2_num', '30');     $s2l = $cv($sec, 'stat_2_lbl', 'Días de Reto');
-    $s3n = $cv($sec, 'stat_3_num', '100%');   $s3l = $cv($sec, 'stat_3_lbl', 'Resultados');
-
-    $btnTxt      = $cv($sec, 'boton_texto', 'Conoce Más Detalles');
-    $btnUrl      = $cv($sec, 'boton_url', '#nosotros');
-
-    $cardBadge   = $cv($sec, 'card_badge', 'Próximo Reto');
-    $cardBadgeIc = $cv($sec, 'card_badge_icono', 'fas fa-star');
-    $cardTitulo  = $cv($sec, 'card_titulo', '¿Lista/o para el cambio?');
-    $item1 = $cv($sec, 'card_item_1', 'Rutinas personalizadas');
-    $item2 = $cv($sec, 'card_item_2', 'Plan de nutrición completo');
-    $item3 = $cv($sec, 'card_item_3', 'Comunidad de apoyo');
-    $item4 = $cv($sec, 'card_item_4', 'Premios y reconocimientos');
-    $cardBtnTxt  = $cv($sec, 'card_boton_texto', 'Inscríbete Ahora');
-    $cardBtnUrl  = $cv($sec, 'card_boton_url', (Route::has('contact') ? route('contact') : '#contact'));
-    $cardFooter  = $cv($sec, 'card_footer', '12 personas se inscribieron hoy');
+    $cardBadge   = $cv('card_badge', 'Próximo Inicio');
+    $cardBadgeIc = $cv('card_badge_icono', 'fas fa-calendar-alt');
+    $cardTitulo  = $cv('card_titulo', 'Febrero 2025');
+    $item1       = $cv('card_item_1', '4 semanas de entrenamiento');
+    $item2       = $cv('card_item_2', 'Plan nutricional personalizado');
+    $item3       = $cv('card_item_3', 'Sesiones de mindfulness');
+    $item4       = $cv('card_item_4', 'Comunidad exclusiva');
+    $cardBtnTxt  = $cv('card_boton_texto', 'Reserva tu cupo');
+    $cardBtnUrl  = $cv('card_boton_url', (Route::has('contact') ? route('contact') : '#contact'));
+    $cardFooter  = $cv('card_footer_texto', 'Cupos limitados disponibles');
 @endphp
 
 <section class="move-hero">
     <div class="container">
         <div class="move-hero-container">
             <div class="move-hero-content">
-                <span class="badge-tag">
-                    <i class="{{ $badgeIcon }} me-2"></i>{{ $badge }}
-                </span>
-                <h1>
-                    {{ $titulo1 }}
-                    <span class="highlight d-block">{{ $titulo2 }}</span>
-                </h1>
-                <p>{{ $descripcion }}</p>
+                <span class="badge-tag">{{ $badgeTxt }}</span>
+                <h1>{!! $titulo !!}</h1>
+                <p>{{ $parrafo }}</p>
 
                 <div class="stats-inline">
                     <div class="stat-inline-item">
-                        <span class="stat-inline-number">{{ $s1n }}</span>
-                        <span class="stat-inline-label">{{ $s1l }}</span>
+                        <span class="stat-inline-number">{{ $stat1Val }}</span>
+                        <span class="stat-inline-label">{{ $stat1Lab }}</span>
                     </div>
                     <div class="stat-inline-item">
-                        <span class="stat-inline-number">{{ $s2n }}</span>
-                        <span class="stat-inline-label">{{ $s2l }}</span>
+                        <span class="stat-inline-number">{{ $stat2Val }}</span>
+                        <span class="stat-inline-label">{{ $stat2Lab }}</span>
                     </div>
                     <div class="stat-inline-item">
-                        <span class="stat-inline-number">{{ $s3n }}</span>
-                        <span class="stat-inline-label">{{ $s3l }}</span>
+                        <span class="stat-inline-number">{{ $stat3Val }}</span>
+                        <span class="stat-inline-label">{{ $stat3Lab }}</span>
                     </div>
                 </div>
 
-                <a href="{{ $btnUrl }}" class="btn-primary-move" style="max-width: 250px;">
-                    {{ $btnTxt }} <i class="fas fa-arrow-down ms-2"></i>
-                </a>
+                <div class="buttons-hero">
+                    <a href="{{ $btnUrl }}" class="btn-hero-primary">
+                        {{ $btnTxt }} <i class="fas fa-arrow-right ms-2"></i>
+                    </a>
+                    <a href="{{ $btnSecUrl }}" class="btn-hero-secondary">
+                        {{ $btnSecTxt }} <i class="fas fa-arrow-down ms-2"></i>
+                    </a>
+                </div>
             </div>
 
             <div class="floating-info-card">
@@ -877,11 +968,7 @@
             </div>
         </div>
     </div>
-    <div class="wave-divider-bottom">
-        <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="var(--neutral-white)"></path>
-        </svg>
-    </div>
+   
 </section>
 
 <!-- About Move Section -->

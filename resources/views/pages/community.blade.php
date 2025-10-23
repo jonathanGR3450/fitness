@@ -13,6 +13,7 @@
         --tropical-indigo: #A5158C;
         --pear: #CCD537;
         --dark-purple: #410445;
+        --cream-text: #ffeac5;        /* NUEVO - Texto crema */
         --neutral-light: #FAF9F7;
         --neutral-cream: #F5F2ED;
         --neutral-sand: #E8E2D5;
@@ -34,20 +35,20 @@
         padding: 0 20px;
     }
 
-    /* Programs Hero Section */
+    /* Programs Hero Section - FONDO TRANSPARENTE */
     .programs-hero {
         min-height: 70vh;
         display: flex;
         align-items: center;
         justify-content: center;
         position: relative;
-        background: rgba(165, 21, 140, 0.05);
+        background: transparent; /* Cambiado para ver el fondo púrpura */
         padding: 180px 0 80px;
         text-align: center;
         overflow: hidden;
     }
 
-    /* Formas orgánicas de fondo */
+    /* Formas orgánicas de fondo - MÁS SUTILES */
     .programs-hero::before {
         content: '';
         position: absolute;
@@ -57,7 +58,7 @@
         height: 400px;
         background: var(--pear);
         border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-        opacity: 0.08;
+        opacity: 0.05; /* Más sutil */
         animation: morph 15s ease-in-out infinite;
         z-index: 1;
     }
@@ -71,7 +72,7 @@
         height: 350px;
         background: var(--steel-pink);
         border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-        opacity: 0.06;
+        opacity: 0.04; /* Más sutil */
         animation: morph 12s ease-in-out infinite reverse;
         z-index: 1;
     }
@@ -119,10 +120,11 @@
         }
     }
 
+    /* TÍTULO EN CREMA */
     .programs-hero h1 {
         font-size: clamp(2.5rem, 5vw, 4rem);
         font-weight: 700;
-        color: var(--dark-text);
+        color: var(--cream-text); /* Cambiado a crema */
         margin-bottom: 24px;
         line-height: 1.2;
         animation: fadeInUp 0.8s ease-out 0.2s both;
@@ -140,21 +142,23 @@
     }
 
     .programs-hero .highlight {
-        color: var(--steel-pink);
+        color: var(--princeton-orange); /* Color de acento amarillo */
     }
 
+    /* PÁRRAFO EN CREMA */
     .programs-hero p {
         font-size: 1.25rem;
-        color: var(--medium-text);
+        color: var(--cream-text); /* Cambiado a crema */
         line-height: 1.7;
         margin-bottom: 40px;
+        opacity: 0.95;
         animation: fadeInUp 0.8s ease-out 0.4s both;
     }
 
-    /* Programs Grid Section */
+    /* Programs Grid Section - FONDO TRANSPARENTE */
     .programs-section {
         padding: 120px 0;
-        background: rgba(250, 249, 247, 0.1);
+        background: transparent; /* Cambiado */
         position: relative;
     }
 
@@ -165,17 +169,18 @@
         margin-top: 60px;
     }
 
-    /* Program Card - Estilo Silvy */
+    /* Program Card - Con glassmorphism sutil en hover */
     .program-card {
         position: relative;
         height: 500px;
         border-radius: 20px;
         overflow: hidden;
         cursor: pointer;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
         transition: all 0.4s ease;
         opacity: 0;
         transform: translateY(50px);
+        border: 1px solid rgba(255, 234, 197, 0.1); /* Borde sutil */
     }
 
     /* Animación de aparición */
@@ -192,7 +197,8 @@
 
     .program-card:hover {
         transform: translateY(-10px);
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        border-color: rgba(255, 234, 197, 0.2);
     }
 
     /* Imagen de fondo */
@@ -210,23 +216,25 @@
         transform: scale(1.1);
     }
 
-    /* Overlay oscuro */
+    /* Overlay oscuro con glassmorphism en hover */
     .program-card-overlay {
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background: linear-gradient(to bottom, rgba(65, 4, 69, 0.2) 0%, rgba(65, 4, 69, 0.6) 100%);
+        background: linear-gradient(to bottom, rgba(65, 4, 69, 0.3) 0%, rgba(65, 4, 69, 0.7) 100%);
         z-index: 1;
         transition: all 0.4s ease;
     }
 
     .program-card:hover .program-card-overlay {
-        background: linear-gradient(to bottom, rgba(65, 4, 69, 0.3) 0%, rgba(65, 4, 69, 0.1) 100%);
+        background: linear-gradient(to bottom, rgba(45, 27, 61, 0.4) 0%, rgba(45, 27, 61, 0.8) 100%);
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
     }
 
-    /* Contenido superpuesto */
+    /* Contenido superpuesto - TEXTO EN CREMA */
     .program-card-content {
         position: absolute;
         bottom: 0;
@@ -240,7 +248,7 @@
     .program-card-title {
         font-size: 2.5rem;
         font-weight: 700;
-        color: white;
+        color: var(--cream-text); /* Cambiado a crema */
         margin-bottom: 20px;
         text-transform: uppercase;
         letter-spacing: 1px;
@@ -250,12 +258,12 @@
 
     .program-card-description {
         font-size: 1rem;
-        color: rgba(255, 255, 255, 0.9);
+        color: var(--cream-text); /* Cambiado a crema */
+        opacity: 0.95;
         margin-bottom: 24px;
         line-height: 1.6;
         max-height: 0;
         overflow: hidden;
-        opacity: 0;
         transition: all 0.4s ease;
     }
 
@@ -287,33 +295,33 @@
         box-shadow: 0 8px 20px rgba(204, 213, 55, 0.5);
     }
 
-    /* Variantes de color para cada card */
+    /* Variantes de color para cada card - PATRÓN DE COLORES */
     .program-card:nth-child(1) .btn-discover {
-        background: var(--pear);
-        border-color: var(--pear);
-        color: var(--dark-purple);
+        background: var(--dark-purple);
+        border-color: var(--dark-purple);
+        color: white;
     }
 
     .program-card:nth-child(1) .btn-discover:hover {
         background: white;
-        color: var(--pear);
+        color: var(--dark-purple);
     }
 
     .program-card:nth-child(2) .btn-discover {
-        background: var(--tropical-indigo);
-        border-color: var(--tropical-indigo);
+        background: var(--steel-pink);
+        border-color: var(--steel-pink);
         color: white;
     }
 
     .program-card:nth-child(2) .btn-discover:hover {
         background: white;
-        color: var(--tropical-indigo);
+        color: var(--steel-pink);
     }
 
     .program-card:nth-child(3) .btn-discover {
         background: var(--pear);
         border-color: var(--pear);
-        color: var(--dark-text);
+        color: var(--dark-purple);
     }
 
     .program-card:nth-child(3) .btn-discover:hover {
@@ -333,31 +341,31 @@
     }
 
     .program-card:nth-child(5) .btn-discover {
-        background: var(--steel-pink);
-        border-color: var(--steel-pink);
+        background: var(--dark-purple);
+        border-color: var(--dark-purple);
         color: white;
     }
 
     .program-card:nth-child(5) .btn-discover:hover {
         background: white;
-        color: var(--steel-pink);
+        color: var(--dark-purple);
     }
 
     .program-card:nth-child(6) .btn-discover {
-        background: var(--pear);
-        border-color: var(--pear);
-        color: var(--dark-purple);
+        background: var(--steel-pink);
+        border-color: var(--steel-pink);
+        color: white;
     }
 
     .program-card:nth-child(6) .btn-discover:hover {
         background: white;
-        color: var(--pear);
+        color: var(--steel-pink);
     }
 
-    /* CTA Section */
+    /* CTA Section - FONDO TRANSPARENTE Y TEXTO EN CREMA */
     .cta-programs-section {
         padding: 100px 0;
-        background: rgba(245, 242, 237, 0.1);
+        background: rgba(255, 234, 197, 0.03); /* Fondo muy sutil */
         position: relative;
         text-align: center;
         overflow: hidden;
@@ -373,15 +381,16 @@
     .cta-programs-content h2 {
         font-size: 2.5rem;
         font-weight: 600;
-        color: var(--dark-text);
+        color: var(--cream-text); /* Cambiado a crema */
         margin-bottom: 24px;
     }
 
     .cta-programs-content p {
         font-size: 1.25rem;
-        color: var(--medium-text);
+        color: var(--cream-text); /* Cambiado a crema */
         margin-bottom: 40px;
         line-height: 1.7;
+        opacity: 0.95;
     }
 
     .btn-cta-primary {

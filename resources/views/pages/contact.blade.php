@@ -13,6 +13,7 @@
         --tropical-indigo: #A5158C;
         --pear: #CCD537;
         --dark-purple: #410445;
+        --cream-text: #ffeac5;        /* NUEVO - Texto crema */
         --neutral-light: #FAF9F7;
         --neutral-cream: #F5F2ED;
         --neutral-sand: #E8E2D5;
@@ -34,20 +35,20 @@
         padding: 0 20px;
     }
 
-    /* Contact Hero Section - COMPACTO */
+    /* Contact Hero Section - FONDO TRANSPARENTE */
     .contact-hero-minimal {
         min-height: 50vh;
         display: flex;
         align-items: center;
         justify-content: center;
         position: relative;
-        background: rgba(255, 45, 241, 0.06);
+        background: transparent; /* Cambiado para ver el fondo púrpura */
         padding: 160px 0 60px;
         text-align: center;
         overflow: hidden;
     }
 
-    /* Círculos decorativos flotantes */
+    /* Círculos decorativos flotantes - MÁS SUTILES */
     .contact-hero-minimal::before {
         content: '';
         position: absolute;
@@ -57,7 +58,7 @@
         height: 300px;
         background: var(--pear);
         border-radius: 50%;
-        opacity: 0.08;
+        opacity: 0.05; /* Más sutil */
         animation: float 20s ease-in-out infinite;
         z-index: 1;
     }
@@ -71,7 +72,7 @@
         height: 250px;
         background: var(--tropical-indigo);
         border-radius: 50%;
-        opacity: 0.06;
+        opacity: 0.04; /* Más sutil */
         animation: float 25s ease-in-out infinite reverse;
         z-index: 1;
     }
@@ -88,26 +89,29 @@
         margin: 0 auto;
     }
 
+    /* TÍTULO EN CREMA */
     .hero-content-minimal h1 {
         font-size: clamp(2.5rem, 5vw, 3.5rem);
         font-weight: 700;
-        color: var(--dark-text);
+        color: var(--cream-text); /* Cambiado a crema */
         margin-bottom: 20px;
         line-height: 1.2;
     }
 
     .hero-content-minimal .highlight {
-        color: var(--steel-pink);
+        color: var(--princeton-orange); /* Acento amarillo */
     }
 
+    /* PÁRRAFO EN CREMA */
     .hero-content-minimal p {
         font-size: 1.125rem;
-        color: var(--medium-text);
+        color: var(--cream-text); /* Cambiado a crema */
         line-height: 1.6;
         margin-bottom: 32px;
+        opacity: 0.95;
     }
 
-    /* Social Icons Inline */
+    /* Social Icons Inline - Con glassmorphism */
     .social-inline {
         display: flex;
         justify-content: center;
@@ -117,51 +121,57 @@
     .social-btn {
         width: 44px;
         height: 44px;
-        background: var(--neutral-white);
+        background: rgba(45, 27, 61, 0.5); /* Glassmorphism */
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 234, 197, 0.15);
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
-        color: var(--dark-text);
+        color: var(--cream-text); /* Texto crema */
         font-size: 1.2rem;
         text-decoration: none;
         transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
     }
 
     .social-btn:hover {
         transform: translateY(-5px);
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
     }
 
     .social-btn:nth-child(1):hover {
         background: var(--steel-pink);
         color: white;
+        border-color: var(--steel-pink);
     }
 
     .social-btn:nth-child(2):hover {
         background: var(--dark-text);
         color: white;
+        border-color: var(--dark-text);
     }
 
     .social-btn:nth-child(3):hover {
         background: var(--tropical-indigo);
         color: white;
+        border-color: var(--tropical-indigo);
     }
 
     .social-btn:nth-child(4):hover {
         background: var(--pear);
         color: var(--dark-text);
+        border-color: var(--pear);
     }
 
-    /* Form Section - CENTRADO */
+    /* Form Section - FONDO TRANSPARENTE */
     .form-section-centered {
         padding: 80px 0 120px;
-        background: rgba(250, 249, 247, 0.7);
+        background: transparent; /* Cambiado */
         position: relative;
     }
 
-    /* Formas orgánicas de fondo */
+    /* Formas orgánicas de fondo - MÁS SUTILES */
     .form-section-centered::before {
         content: '';
         position: absolute;
@@ -171,7 +181,7 @@
         height: 400px;
         background: var(--steel-pink);
         border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-        opacity: 0.04;
+        opacity: 0.03; /* Más sutil */
         animation: morph 18s ease-in-out infinite;
         z-index: 1;
     }
@@ -192,12 +202,15 @@
         z-index: 2;
     }
 
-    /* Form Card Flotante */
+    /* Form Card con glassmorphism */
     .form-card-floating {
-        background: var(--neutral-white);
+        background: rgba(45, 27, 61, 0.5); /* Glassmorphism */
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 234, 197, 0.1);
         padding: 60px 50px;
         border-radius: 30px;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
         margin-bottom: 60px;
         position: relative;
     }
@@ -219,19 +232,21 @@
         box-shadow: 0 8px 20px rgba(65, 4, 69, 0.4);
     }
 
+    /* TÍTULO EN CREMA */
     .form-card-floating h2 {
         font-size: 1.75rem;
         font-weight: 600;
-        color: var(--dark-text);
+        color: var(--cream-text); /* Cambiado a crema */
         margin-bottom: 12px;
         text-align: center;
     }
 
     .form-card-floating .subtitle {
         font-size: 1rem;
-        color: var(--medium-text);
+        color: var(--cream-text); /* Cambiado a crema */
         text-align: center;
         margin-bottom: 40px;
+        opacity: 0.9;
     }
 
     /* Form Groups */
@@ -242,7 +257,7 @@
     .form-group label {
         display: block;
         font-weight: 600;
-        color: var(--dark-text);
+        color: var(--cream-text); /* Cambiado a crema */
         margin-bottom: 10px;
         font-size: 0.95rem;
     }
@@ -250,112 +265,89 @@
     .form-input {
         width: 100%;
         padding: 16px 20px;
-        border: 2px solid var(--neutral-sand);
+        border: 2px solid rgba(255, 234, 197, 0.2);
         border-radius: 12px;
-        background: var(--neutral-light);
+        background: rgba(255, 234, 197, 0.05); /* Fondo muy sutil */
+        color: var(--cream-text); /* Texto crema */
         font-family: 'Open Sans', sans-serif;
         font-size: 1rem;
         transition: all 0.3s ease;
-        color: var(--dark-text);
+    }
+
+    .form-input::placeholder {
+        color: rgba(255, 234, 197, 0.5);
     }
 
     .form-input:focus {
         outline: none;
         border-color: var(--pear);
-        background: var(--neutral-white);
-        box-shadow: 0 0 0 4px rgba(204, 213, 55, 0.15);
-    }
-
-    .form-input::placeholder {
-        color: var(--light-text);
+        background: rgba(255, 234, 197, 0.08);
+        box-shadow: 0 0 0 4px rgba(204, 213, 55, 0.1);
     }
 
     textarea.form-input {
+        min-height: 140px;
         resize: vertical;
-        min-height: 120px;
     }
 
+    /* Form Row Split */
     .form-row-split {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 20px;
     }
 
-    /* Checkboxes modernos */
-    .checkbox-container {
-        display: flex;
-        gap: 20px;
-        flex-wrap: wrap;
-        margin-top: 12px;
-    }
-
-    .checkbox-option {
+    /* WhatsApp Button */
+    .btn-whatsapp-main {
         display: flex;
         align-items: center;
-    }
-
-    .checkbox-option input[type="checkbox"] {
-        width: 20px;
-        height: 20px;
-        margin-right: 8px;
-        border: 2px solid var(--neutral-sand);
-        border-radius: 4px;
-        cursor: pointer;
-        accent-color: var(--pear);
-    }
-
-    .checkbox-option label {
-        margin: 0;
-        cursor: pointer;
-        font-weight: 500;
-        color: var(--medium-text);
-    }
-
-    /* Botón WhatsApp */
-    .btn-whatsapp-main {
+        justify-content: center;
+        gap: 12px;
         width: 100%;
         padding: 18px;
         background: #25D366;
         color: white;
-        border: none;
         border-radius: 12px;
         font-weight: 600;
-        font-size: 1.1rem;
-        cursor: pointer;
-        transition: all 0.3s ease;
+        font-size: 1.05rem;
         text-decoration: none;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        margin-bottom: 16px;
+        transition: all 0.3s ease;
+        margin-bottom: 30px;
     }
 
     .btn-whatsapp-main:hover {
         background: #20BA5A;
         transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(37, 211, 102, 0.3);
-        color: white;
+        box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
     }
 
+    /* Form Divider */
     .form-divider {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-        margin: 24px 0;
-        color: var(--light-text);
-        font-size: 0.9rem;
+        position: relative;
+        text-align: center;
+        margin: 30px 0;
     }
 
-    .form-divider::before,
-    .form-divider::after {
+    .form-divider::before {
         content: '';
-        flex: 1;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
         height: 1px;
-        background: var(--neutral-sand);
+        background: rgba(255, 234, 197, 0.2);
     }
 
-    /* Botón Submit */
+    .form-divider span {
+        position: relative;
+        background: rgba(45, 27, 61, 0.5);
+        padding: 0 20px;
+        color: var(--cream-text); /* Cambiado a crema */
+        font-size: 0.9rem;
+        opacity: 0.7;
+    }
+
+    /* Submit Button */
     .btn-submit-form {
         width: 100%;
         padding: 18px;
@@ -377,7 +369,7 @@
         box-shadow: 0 8px 25px rgba(204, 213, 55, 0.4);
     }
 
-    /* Info Cards Horizontales */
+    /* Info Cards con glassmorphism */
     .info-cards-horizontal {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -387,17 +379,21 @@
     }
 
     .info-card-h {
-        background: var(--neutral-white);
+        background: rgba(45, 27, 61, 0.5); /* Glassmorphism */
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 234, 197, 0.1);
         padding: 32px 24px;
         border-radius: 20px;
         text-align: center;
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
         transition: all 0.3s ease;
     }
 
     .info-card-h:hover {
         transform: translateY(-8px);
-        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+        background: rgba(45, 27, 61, 0.6);
     }
 
     .info-icon-h {
@@ -411,38 +407,42 @@
         font-size: 1.5rem;
     }
 
+    /* Patrón de colores para íconos */
     .info-card-h:nth-child(1) .info-icon-h {
-        background: rgba(204, 213, 55, 0.15);
+        background: rgba(204, 213, 55, 0.2);
         color: var(--pear);
     }
 
     .info-card-h:nth-child(2) .info-icon-h {
-        background: rgba(255, 45, 241, 0.15);
+        background: rgba(255, 45, 241, 0.2);
         color: var(--steel-pink);
     }
 
     .info-card-h:nth-child(3) .info-icon-h {
-        background: rgba(165, 21, 140, 0.15);
+        background: rgba(165, 21, 140, 0.2);
         color: var(--tropical-indigo);
     }
 
+    /* TEXTO EN CREMA */
     .info-card-h h6 {
         font-size: 1rem;
         font-weight: 600;
-        color: var(--dark-text);
+        color: var(--cream-text); /* Cambiado a crema */
         margin-bottom: 8px;
     }
 
     .info-card-h a,
     .info-card-h p {
         font-size: 0.95rem;
-        color: var(--medium-text);
+        color: var(--cream-text); /* Cambiado a crema */
         text-decoration: none;
         margin: 0;
+        opacity: 0.9;
     }
 
     .info-card-h a:hover {
-        color: var(--steel-pink);
+        color: var(--pear);
+        opacity: 1;
     }
 
     /* Responsive */
@@ -472,11 +472,6 @@
 
         .hero-content-minimal h1 {
             font-size: 2.2rem;
-        }
-
-        .checkbox-container {
-            flex-direction: column;
-            gap: 12px;
         }
 
         .social-btn {

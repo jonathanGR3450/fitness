@@ -8,18 +8,15 @@
     @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap');
     
     :root {
-        --purple-dark: #410445;      /* Púrpura oscuro - COLOR PROMINENTE */
+        --purple-dark: #410445;      /* Púrpura oscuro */
         --purple-medium: #A5158C;    /* Púrpura medio */
         --pink-bright: #FF2DF1;      /* Fucsia brillante */
         --yellow: #F6DC43;           /* Amarillo */
         --green: #CCD537;            /* Verde */
-        --neutral-light: #FAF9F7;
-        --neutral-cream: #F5F2ED;
-        --neutral-sand: #E8E2D5;
+        --text-color: #ffeac5;       /* Color crema - TIPOGRAFÍA PRINCIPAL */
+        --text-secondary: rgba(255, 234, 197, 0.85); /* Semi-transparente */
+        --text-muted: rgba(255, 234, 197, 0.7);      /* Muy suave */
         --neutral-white: #FFFFFF;
-        --dark-text: #2C3E50;
-        --medium-text: #6C757D;
-        --light-text: #9CA3AF;
     }
 
     * {
@@ -30,6 +27,7 @@
 
     body {
         font-family: 'Open Sans', sans-serif;
+        color: var(--text-color);
     }
 
     .container {
@@ -38,7 +36,20 @@
         padding: 0 20px;
     }
 
-    /* Wave Divider */
+    /* ===================================
+       WAVE DIVIDERS
+       ================================== */
+    .wave-divider-top {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        overflow: hidden;
+        line-height: 0;
+        z-index: 3;
+        transform: rotate(180deg);
+    }
+
     .wave-divider-bottom {
         position: absolute;
         bottom: 0;
@@ -46,9 +57,10 @@
         width: 100%;
         overflow: hidden;
         line-height: 0;
-        transform: rotate(180deg);
+        z-index: 3;
     }
 
+    .wave-divider-top svg,
     .wave-divider-bottom svg {
         position: relative;
         display: block;
@@ -56,21 +68,26 @@
         height: 80px;
     }
 
-    /* About Hero Section - DISEÑO CENTRADO */
+    /* ===================================
+       ABOUT HERO SECTION - TRANSPARENTE
+       ================================== */
     .about-hero {
         min-height: 95vh;
         display: flex;
         align-items: center;
         justify-content: center;
         position: relative;
-        background: rgba(250, 249, 247, 0.1);
-        padding: 160px 0 100px;
+        background: transparent; /* SIN FONDO */
+        padding: 160px 0 140px;
         text-align: center;
+        overflow: hidden;
     }
 
     .about-hero-wrapper {
         max-width: 900px;
         margin: 0 auto;
+        position: relative;
+        z-index: 2;
     }
 
     .about-title-section {
@@ -80,24 +97,26 @@
     .about-hero-wrapper h1 {
         font-size: clamp(2.5rem, 5vw, 4rem);
         font-weight: 700;
-        color: var(--dark-text);
+        color: var(--text-color); /* Crema */
         margin-bottom: 20px;
         line-height: 1.2;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
     }
 
     .about-hero-wrapper .highlight {
-        color: var(--purple-dark);
+        color: var(--pink-bright); /* Fucsia para resaltar */
         position: relative;
         display: inline-block;
     }
 
     .about-hero-wrapper .subtitle {
         font-size: 1.3rem;
-        color: var(--medium-text);
+        color: var(--text-secondary); /* Crema semi-transparente */
         max-width: 600px;
         margin: 0 auto 16px;
         line-height: 1.6;
         font-weight: 400;
+        text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
     }
 
     /* Imagen circular orgánica centrada */
@@ -112,21 +131,27 @@
         position: absolute;
         width: 100%;
         height: 100%;
-        background: var(--neutral-sand);
+        background: linear-gradient(135deg, 
+            rgba(165, 21, 140, 0.3) 0%, 
+            rgba(255, 45, 241, 0.2) 100%);
         border-radius: 50% 45% 48% 52% / 48% 50% 50% 52%;
         animation: morphCircle 10s ease-in-out infinite;
         z-index: 1;
+        box-shadow: 0 10px 40px rgba(255, 45, 241, 0.3);
     }
 
     @keyframes morphCircle {
         0%, 100% {
             border-radius: 50% 45% 48% 52% / 48% 50% 50% 52%;
+            transform: rotate(0deg);
         }
         33% {
             border-radius: 45% 55% 50% 50% / 52% 48% 52% 48%;
+            transform: rotate(2deg);
         }
         66% {
             border-radius: 52% 48% 45% 55% / 50% 52% 48% 50%;
+            transform: rotate(-2deg);
         }
     }
 
@@ -140,8 +165,8 @@
         object-fit: cover;
         border-radius: 50%;
         z-index: 2;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-        border: 6px solid var(--neutral-white);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        border: 6px solid rgba(255, 234, 197, 0.2);
     }
 
     /* Estadísticas horizontales centradas */
@@ -181,73 +206,72 @@
     .stat-number {
         font-size: 3rem;
         font-weight: 700;
-        color: var(--dark-text);
+        color: var(--text-color); /* Crema */
         display: block;
         line-height: 1;
         margin-bottom: 8px;
+        text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
     }
 
     .stat-label {
         font-size: 0.95rem;
-        color: var(--medium-text);
+        color: var(--text-secondary); /* Crema semi-transparente */
         text-transform: uppercase;
         letter-spacing: 0.8px;
         font-weight: 500;
     }
 
-    /* Story Section */
+    /* ===================================
+       STORY SECTION - TRANSPARENTE
+       ================================== */
     .story-section {
-        padding: 120px 0;
-        background: rgba(255, 255, 255, 0.75);
+        padding: 140px 0;
+        background: transparent; /* SIN FONDO */
         position: relative;
         overflow: hidden;
-    }
-
-    .story-section::before {
-        content: '';
-        position: absolute;
-        top: 10%;
-        right: -10%;
-        width: 300px;
-        height: 300px;
-        background: radial-gradient(circle, var(--neutral-cream) 0%, transparent 70%);
-        border-radius: 50%;
-        opacity: 0.5;
-        animation: float 15s ease-in-out infinite;
-    }
-
-    @keyframes float {
-        0%, 100% { transform: translateY(0) translateX(0); }
-        25% { transform: translateY(-20px) translateX(10px); }
-        50% { transform: translateY(10px) translateX(-10px); }
-        75% { transform: translateY(-10px) translateX(20px); }
     }
 
     .story-content {
         max-width: 800px;
         margin: 0 auto;
         text-align: center;
+        position: relative;
+        z-index: 2;
     }
 
     .section-title {
         font-size: 2.5rem;
         font-weight: 600;
-        color: var(--dark-text);
+        color: var(--text-color); /* Crema */
         margin-bottom: 32px;
+        text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+    }
+
+    .section-title::after {
+        content: '';
+        display: block;
+        width: 60px;
+        height: 4px;
+        background: var(--pink-bright);
+        margin: 20px auto 0;
+        border-radius: 2px;
     }
 
     .story-text {
         font-size: 1.125rem;
-        color: var(--medium-text);
+        color: var(--text-secondary); /* Crema semi-transparente */
         line-height: 1.8;
         margin-bottom: 24px;
     }
 
-    /* Values Section */
+    /* ===================================
+       VALUES SECTION - TRANSPARENTE
+       ================================== */
     .values-section {
-        padding: 120px 0;
-        background: rgba(245, 242, 237, 0.1);
+        padding: 140px 0;
+        background: transparent; /* SIN FONDO */
         position: relative;
+        overflow: hidden;
     }
 
     .values-grid {
@@ -263,69 +287,86 @@
         padding: 48px 32px;
         border-radius: 30px;
         isolation: isolate;
-    }
-
-    .value-card::before {
-        content: '';
-        position: absolute;
-        top: -8px;
-        left: -8px;
-        right: -8px;
-        bottom: -8px;
-        background: var(--neutral-light);
-        border-radius: 40px 20px 40px 20px;
-        z-index: -1;
+        background: rgba(45, 27, 61, 0.5); /* Fondo sutil */
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 45, 241, 0.15);
         transition: all 0.3s ease;
     }
 
-    .value-card:nth-child(2n)::before {
-        border-radius: 20px 40px 20px 40px;
-        background: var(--neutral-cream);
+    .value-card:hover {
+        transform: translateY(-8px);
+        border-color: var(--pink-bright);
+        box-shadow: 0 15px 40px rgba(255, 45, 241, 0.3);
+        background: rgba(45, 27, 61, 0.7);
     }
 
-    .value-card:nth-child(3n)::before {
-        border-radius: 30px 50px 30px 50px;
-    }
-
-    .value-card:hover::before {
-        transform: rotate(-2deg) scale(1.03);
-    }
-
-    /* Value Icons con los 5 colores correctos */
+    /* Value Icons con colores específicos */
     .value-icon {
         width: 80px;
         height: 80px;
-        background: var(--purple-dark);
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
         margin: 0 auto 24px;
         font-size: 2rem;
-        color: white;
+        transition: all 0.3s ease;
     }
 
-   
+    /* Value 1: Púrpura oscuro */
+    .value-card:nth-child(1) .value-icon {
+        background: #410445;
+        color: #FFFFFF;
+        box-shadow: 0 4px 15px rgba(65, 4, 69, 0.4);
+    }
+
+    /* Value 2: Fucsia */
+    .value-card:nth-child(2) .value-icon {
+        background: #FF2DF1;
+        color: #FFFFFF;
+        box-shadow: 0 4px 15px rgba(255, 45, 241, 0.4);
+    }
+
+    /* Value 3: Verde */
+    .value-card:nth-child(3) .value-icon {
+        background: #CCD537;
+        color: #2D1B3D;
+        box-shadow: 0 4px 15px rgba(204, 213, 55, 0.4);
+    }
+
+    /* Value 4: Amarillo */
+    .value-card:nth-child(4) .value-icon {
+        background: #F6DC43;
+        color: #2D1B3D;
+        box-shadow: 0 4px 15px rgba(246, 220, 67, 0.4);
+    }
+
+    .value-card:hover .value-icon {
+        transform: scale(1.1) rotate(5deg);
+    }
 
     .value-title {
         font-size: 1.5rem;
         font-weight: 600;
-        color: var(--dark-text);
+        color: var(--text-color); /* Crema */
         margin-bottom: 16px;
     }
 
     .value-description {
         font-size: 1rem;
-        color: var(--medium-text);
+        color: var(--text-secondary); /* Crema semi-transparente */
         line-height: 1.6;
     }
 
-    /* Credentials Section */
+    /* ===================================
+       CREDENTIALS SECTION - TRANSPARENTE
+       ================================== */
     .credentials-section {
-        padding: 120px 0;
-        background: rgba(255, 255, 255, 0.75);
+        padding: 140px 0;
+        background: transparent; /* SIN FONDO */
         position: relative;
         text-align: center;
+        overflow: hidden;
     }
 
     .credentials-list {
@@ -339,109 +380,123 @@
         align-items: center;
         padding: 24px;
         margin-bottom: 20px;
-        background: var(--neutral-white);
+        background: rgba(45, 27, 61, 0.5); /* Fondo sutil */
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 45, 241, 0.15);
         border-radius: 20px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
         transition: all 0.3s ease;
     }
 
     .credential-item:hover {
         transform: translateX(10px);
-        box-shadow: 0 6px 20px rgba(65, 4, 69, 0.15);
+        border-color: var(--pink-bright);
+        box-shadow: 0 10px 30px rgba(255, 45, 241, 0.3);
+        background: rgba(45, 27, 61, 0.7);
     }
 
-    /* Credential Icons con los colores correctos */
+    /* Credential Icons con colores específicos */
     .credential-icon {
         width: 60px;
         height: 60px;
-        background: var(--purple-dark);
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
         margin-right: 24px;
-        color: white;
         font-size: 1.5rem;
         flex-shrink: 0;
+        transition: all 0.3s ease;
     }
 
+    /* Credential 1: Púrpura oscuro */
+    .credential-item:nth-child(1) .credential-icon {
+        background: #410445;
+        color: #FFFFFF;
+        box-shadow: 0 4px 15px rgba(65, 4, 69, 0.4);
+    }
+
+    /* Credential 2: Fucsia */
     .credential-item:nth-child(2) .credential-icon {
-        background: var(--pink-bright);
+        background: #FF2DF1;
+        color: #FFFFFF;
+        box-shadow: 0 4px 15px rgba(255, 45, 241, 0.4);
     }
 
+    /* Credential 3: Verde */
     .credential-item:nth-child(3) .credential-icon {
-        background: var(--green);
-        color: #333;
+        background: #CCD537;
+        color: #2D1B3D;
+        box-shadow: 0 4px 15px rgba(204, 213, 55, 0.4);
     }
 
+    /* Credential 4: Amarillo */
     .credential-item:nth-child(4) .credential-icon {
-        background: var(--yellow);
-        color: #333;
+        background: #F6DC43;
+        color: #2D1B3D;
+        box-shadow: 0 4px 15px rgba(246, 220, 67, 0.4);
     }
 
-    .credential-item:nth-child(5) .credential-icon {
-        background: var(--purple-medium);
+    .credential-item:hover .credential-icon {
+        transform: scale(1.1) rotate(5deg);
     }
 
     .credential-text h4 {
         font-size: 1.125rem;
         font-weight: 600;
-        color: var(--dark-text);
+        color: var(--text-color); /* Crema */
         margin-bottom: 4px;
     }
 
     .credential-text p {
         font-size: 0.95rem;
-        color: var(--medium-text);
+        color: var(--text-secondary); /* Crema semi-transparente */
         margin: 0;
     }
 
-    /* CTA Section - Color sólido púrpura prominente */
+    /* ===================================
+       CTA SECTION - Púrpura prominente
+       ================================== */
     .cta-about-section {
-        padding: 100px 0;
-        background: var(--purple-dark);
+        padding: 140px 0 120px;
+        background: transparent; /* SIN FONDO */
         position: relative;
         text-align: center;
-        color: white;
         overflow: hidden;
-    }
-
-    .cta-about-section::before {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 600px;
-        height: 600px;
-        background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
-        border-radius: 50%;
-        opacity: 0.3;
     }
 
     .cta-about-content {
         position: relative;
         z-index: 2;
+        padding: 80px 40px;
+        background: rgba(65, 4, 69, 0.7); /* Púrpura con transparencia */
+        backdrop-filter: blur(15px);
+        border-radius: 40px;
+        border: 2px solid rgba(255, 45, 241, 0.3);
+        max-width: 900px;
+        margin: 0 auto;
+        box-shadow: 0 20px 60px rgba(65, 4, 69, 0.5);
     }
 
     .cta-about-content h2 {
         font-size: 2.5rem;
         font-weight: 600;
         margin-bottom: 24px;
+        color: var(--text-color); /* Crema */
+        text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
     }
 
     .cta-about-content p {
         font-size: 1.25rem;
         margin-bottom: 40px;
-        opacity: 0.95;
+        color: var(--text-secondary); /* Crema semi-transparente */
     }
 
-    /* Botón blanco con hover al verde */
+    /* Botón fucsia con hover */
     .btn-white {
         display: inline-block;
         padding: 18px 48px;
-        background: white;
-        color: var(--purple-dark);
+        background: var(--pink-bright); /* Fucsia */
+        color: var(--purple-dark); /* Texto oscuro */
         text-decoration: none;
         border-radius: 50px;
         font-weight: 600;
@@ -449,17 +504,21 @@
         transition: all 0.3s ease;
         border: none;
         cursor: pointer;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 4px 15px rgba(255, 45, 241, 0.4);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
 
     .btn-white:hover {
-        background: var(--green);
-        color: #333;
+        background: var(--green); /* Verde al hover */
+        color: #2D1B3D;
         transform: translateY(-3px);
-        box-shadow: 0 10px 30px rgba(204, 213, 55, 0.4);
+        box-shadow: 0 10px 30px rgba(204, 213, 55, 0.5);
     }
 
-    /* Responsive */
+    /* ===================================
+       RESPONSIVE
+       ================================== */
     @media (max-width: 968px) {
         .about-image-wrapper {
             width: 320px;
@@ -477,11 +536,20 @@
         .credentials-list {
             padding: 0 20px;
         }
+
+        .about-hero,
+        .story-section,
+        .values-section,
+        .credentials-section,
+        .cta-about-section {
+            padding: 100px 0;
+        }
     }
 
     @media (max-width: 640px) {
         .about-hero {
             padding-top: 140px;
+            padding-bottom: 100px;
         }
 
         .about-image-wrapper {
@@ -509,10 +577,19 @@
         .cta-about-content p {
             font-size: 1.1rem;
         }
+
+        .cta-about-content {
+            padding: 60px 30px;
+        }
+
+        .wave-divider-top svg,
+        .wave-divider-bottom svg {
+            height: 50px;
+        }
     }
 </style>
 
-<!-- About Hero Section - DISEÑO CENTRADO VERTICAL -->
+<!-- About Hero Section -->
 @php
     $aboutHero = $contenidos->get('about_hero', collect());
 
@@ -567,17 +644,15 @@
             </div>
         </div>
     </div>
+    
+    <!-- Wave ABAJO del Hero -->
     <div class="wave-divider-bottom">
-        <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="var(--neutral-white)"></path>
-        </svg>
+      
     </div>
 </section>
 
-
 <!-- Story Section -->
 @php
-    // Página: sobre-mi | Sección: story
     $storyTitle = data_get($contenidos, 'story.titulo.valor', 'Mi historia');
     $p1 = data_get($contenidos, 'story.parrafo_1.valor', 'Mi viaje en el mundo del fitness comenzó como una búsqueda personal de bienestar. Después de años luchando con dietas restrictivas y entrenamientos agotadores, descubrí que el verdadero cambio viene del equilibrio.');
     $p2 = data_get($contenidos, 'story.parrafo_2.valor', 'Decidí convertirme en entrenadora personal certificada para ayudar a otras personas a evitar los errores que yo cometí. Mi enfoque combina el movimiento consciente con la nutrición balanceada y el mindfulness.');
@@ -585,6 +660,11 @@
 @endphp
 
 <section class="story-section">
+    <!-- Wave ARRIBA del Story -->
+    <div class="wave-divider-top">
+        
+    </div>
+
     <div class="container">
         <div class="story-content">
             <h2 class="section-title">{{ $storyTitle }}</h2>
@@ -596,11 +676,15 @@
             @endforeach
         </div>
     </div>
+
+    <!-- Wave ABAJO del Story -->
+    <div class="wave-divider-bottom">
+        
+    </div>
 </section>
 
 <!-- Values Section -->
 @php
-    // Sección: values (sobre-mi)
     $valuesSec = $contenidos['values'] ?? collect();
     $val = function ($key, $default = null) use ($valuesSec) {
         return optional($valuesSec->firstWhere('clave', $key))->valor ?? $default;
@@ -609,7 +693,6 @@
     $valoresTitulo   = $val('titulo_seccion', 'Mis valores');
     $valoresSubtitulo= $val('subtitulo_seccion', 'Estos son los principios que guían mi trabajo y mi filosofía de vida');
 
-    // Items (4)
     $items = [];
     for ($i=1; $i<=4; $i++) {
         $items[] = [
@@ -642,6 +725,11 @@
 @endphp
 
 <section class="values-section">
+    <!-- Wave ARRIBA del Values -->
+    <div class="wave-divider-top">
+        
+    </div>
+
     <div class="container">
         <div class="story-content">
             <h2 class="section-title">{{ $valoresTitulo }}</h2>
@@ -662,11 +750,15 @@
             @endforeach
         </div>
     </div>
+
+    <!-- Wave ABAJO del Values -->
+    <div class="wave-divider-bottom">
+        
+    </div>
 </section>
 
 <!-- Credentials Section -->
 @php
-    // Sección: credentials (sobre-mi)
     $credSec = $contenidos['credentials'] ?? collect();
     $cv = function ($key, $default = null) use ($credSec) {
         return optional($credSec->firstWhere('clave',$key))->valor ?? $default;
@@ -701,6 +793,11 @@
 @endphp
 
 <section class="credentials-section">
+    <!-- Wave ARRIBA del Credentials -->
+    <div class="wave-divider-top">
+      
+    </div>
+
     <div class="container">
         <h2 class="section-title">{{ $credTitle }}</h2>
         <p class="story-text">{{ $credSubtitle }}</p>
@@ -719,12 +816,15 @@
             @endforeach
         </div>
     </div>
-</section>
 
+    <!-- Wave ABAJO del Credentials -->
+    <div class="wave-divider-bottom">
+     
+    </div>
+</section>
 
 <!-- CTA Section -->
 @php
-    // Sección: cta_about (sobre-mi)
     $cta = $contenidos['cta_about'] ?? collect();
     $cv = function ($key, $default = null) use ($cta) {
         return optional($cta->firstWhere('clave', $key))->valor ?? $default;
@@ -733,11 +833,15 @@
     $ctaTitle   = $cv('titulo', '¿Lista/o para comenzar tu transformación?');
     $ctaText    = $cv('subtitulo', 'Únete al próximo Move Challenge y descubre todo lo que puedes lograr');
     $ctaBtnTxt  = $cv('boton_texto', 'Hablemos');
-    // Si no hay URL en BD, caemos al route('contact') o a un #contacto
     $ctaBtnUrl  = $cv('boton_url', null) ?? (Route::has('contact') ? route('contact') : '#contacto');
 @endphp
 
 <section class="cta-about-section">
+    <!-- Wave ARRIBA del CTA -->
+    <div class="wave-divider-top">
+     
+    </div>
+
     <div class="container">
         <div class="cta-about-content">
             <h2>{{ $ctaTitle }}</h2>
@@ -746,7 +850,6 @@
         </div>
     </div>
 </section>
-
 
 <!-- Font Awesome Icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
