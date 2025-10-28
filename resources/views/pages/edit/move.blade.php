@@ -26,9 +26,18 @@
         <div class="col-md-9">
             <!-- Header -->
             <div class="card mb-4">
-                <div class="card-body d-flex justify-content-between align-items-center">
-                    <h2 class="mb-0">✏️ Editar “Move Challenge”</h2>
-                    <a href="{{ route('move') }}" class="btn btn-outline-primary" target="_blank">👁️ Ver Página</a>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h2 class="mb-1">✏️ Editar “Move Challenge”</h2>
+                        </div>
+                        <div>
+                            <a href="{{ route('move') }}" class="btn btn-outline-primary" target="_blank">
+                                👁️ Ver Página
+                            </a>
+                            <a href="{{ route('dashboard') }}" class="btn btn-secondary">← Volver al Dashboard</a>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -587,7 +596,7 @@
 
 <style>
 .list-group-item{border-left:3px solid transparent;transition:all .3s ease;cursor:pointer}
-.list-group-item:hover,.list-group-item.active{border-left-color:#0d6efd;background-color:#f8f9fa;font-weight:600}
+.list-group-item:hover,.list-group-item.active{border-left-color:#0d6efd;background-color: #0d6efd;font-weight:600}
 .card{box-shadow:0 2px 4px rgba(0,0,0,.1)}
 .form-control:focus{border-color:#0d6efd;box-shadow:0 0 0 .25rem rgba(13,110,253,.25)}
 textarea.form-control{resize:vertical}

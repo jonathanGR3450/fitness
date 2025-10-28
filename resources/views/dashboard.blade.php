@@ -11,12 +11,12 @@
     .dashboard-title {
         font-size: 2.5rem;
         font-weight: 700;
-        color: #333;
+        color: white;
         margin-bottom: 1rem;
     }
 
     .dashboard-subtitle {
-        color: #666;
+        color: #ddd;
         font-size: 1.1rem;
         margin-bottom: 3rem;
     }

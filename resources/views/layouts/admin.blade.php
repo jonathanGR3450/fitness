@@ -524,6 +524,25 @@ body::before {
     </style>
 </head>
 
+@php
+    $idioma = 'es';
+    $pagina = 'configuracion';
+    $layoutContents = App\Models\Contenido::where('pagina',$pagina)
+        ->where('idioma',$idioma)
+        ->orderBy('seccion')->orderBy('orden')
+        ->get()
+        ->groupBy('seccion');
+    // Contenidos cargados por el layout o por el controlador que comparta a layouts:
+    // $layoutContents: collection agrupada por seccion -> clave (opcional)
+    $get = function($sec,$key,$def=null) use ($layoutContents) {
+        return optional(($layoutContents[$sec] ?? collect())->firstWhere('clave',$key))->valor ?? $def;
+    };
+
+    $logo     = $get('header','logo','images/logo.png');             // imagen
+    $ctaTxt   = $get('header','cta_texto','ÚNETE AL CHALLENGE');     // texto
+    $ctaUrl   = $get('header','cta_url', route('contact'));          // url
+@endphp
+
 <body>
     <!-- NAVBAR LINEAL: Logo izquierda, Menú centro, Botón derecha -->
     <header class="site-header sticky-top">
@@ -531,7 +550,7 @@ body::before {
             <div class="container">
                 <!-- Logo a la izquierda -->
                 <a class="navbar-brand" href="{{ route('welcome') }}">
-                    <img src="{{ asset('images/logo.png') }}" alt="{{ env('APP_NAME') }}">
+                    <img src="{{ asset($logo) }}" alt="{{ config('app.name') }}">
                 </a>
 
                 <!-- Botón hamburguesa para móviles -->
@@ -571,9 +590,30 @@ body::before {
                     </ul>
 
                     <!-- Botón CTA VERDE a la derecha -->
-                    <a href="{{ route('contact') }}" class="btn btn-primaryy ms-lg-3">
-                        ÚNETE AL CHALLENGE
-                    </a>
+                    <a href="{{ $ctaUrl }}" class="btn btn-primaryy ms-lg-3">{{ $ctaTxt }}</a>
+
+                    @auth
+                        <div class="dropdown ms-3">
+                            <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-user"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="userDropdown">
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('dashboard') }}">
+                                        <i class="bi bi-speedometer2 me-2"></i> Ir al Dashboard
+                                    </a>
+                                </li>
+                                <li>
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                        <button type="submit" class="dropdown-item text-danger">
+                                            <i class="bi bi-box-arrow-right me-2"></i> Cerrar sesión
+                                        </button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                    @endauth
                 </div>
             </div>
         </nav>

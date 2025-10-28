@@ -21,7 +21,10 @@
       <div class="card mb-4">
         <div class="card-body d-flex justify-content-between align-items-center">
           <h2 class="mb-1">✏️ Editar “Contacto”</h2>
-          <a href="{{ route('contact') }}" class="btn btn-outline-primary" target="_blank">👁️ Ver Página</a>
+          <div>
+            <a href="{{ route('contact') }}" class="btn btn-outline-primary" target="_blank">👁️ Ver Página</a>
+            <a href="{{ route('dashboard') }}" class="btn btn-secondary">← Volver al Dashboard</a>
+          </div>
         </div>
       </div>
 
@@ -195,7 +198,7 @@
       </form>
 
       <div class="card">
-        <div class="card-body"><a href="{{ route('dashboard') }}" class="btn btn-secondary">← Volver</a></div>
+        <div class="card-body"><a href="{{ route('dashboard') }}" class="btn btn-secondary">← Volver al Dashboard</a></div>
       </div>
     </div>
   </div>

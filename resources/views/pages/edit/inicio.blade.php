@@ -51,6 +51,7 @@
                             <a href="{{ route('welcome') }}" class="btn btn-outline-primary" target="_blank">
                                 👁️ Ver Página
                             </a>
+                            <a href="{{ route('dashboard') }}" class="btn btn-secondary">← Volver al Dashboard</a>
                         </div>
                     </div>
                 </div>
@@ -934,8 +935,8 @@
     .list-group-item:hover,
     .list-group-item.active {
         border-left-color: #0d6efd;
-        background-color: #f8f9fa;
         font-weight: 600;
+        background-color: #0d6efd
     }
 
     .card {

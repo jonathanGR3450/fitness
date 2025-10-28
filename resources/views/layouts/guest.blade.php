@@ -83,11 +83,30 @@
         }
     </style>
 </head>
+
+@php
+    $idioma = 'es';
+    $pagina = 'configuracion';
+    $layoutContents = App\Models\Contenido::where('pagina',$pagina)
+        ->where('idioma',$idioma)
+        ->orderBy('seccion')->orderBy('orden')
+        ->get()
+        ->groupBy('seccion');
+    // Contenidos cargados por el layout o por el controlador que comparta a layouts:
+    // $layoutContents: collection agrupada por seccion -> clave (opcional)
+    $get = function($sec,$key,$def=null) use ($layoutContents) {
+        return optional(($layoutContents[$sec] ?? collect())->firstWhere('clave',$key))->valor ?? $def;
+    };
+
+    $logo     = $get('header','logo','images/logo.png');             // imagen
+    $ctaTxt   = $get('header','cta_texto','ÚNETE AL CHALLENGE');     // texto
+    $ctaUrl   = $get('header','cta_url', route('contact'));          // url
+@endphp
 <body>
     <nav class="navbar navbar-expand-lg">
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">
-                <img src="{{ asset('images/logo.png') }}" alt="{{ env('APP_NAME') }}">
+                <img src="{{ asset($logo) }}" alt="{{ env('APP_NAME') }}">
             </a>
             
             <!-- Language Selector -->
@@ -99,7 +118,7 @@
             <div class="col-md-6">
                 <div class="auth-card">
                     <div class="auth-header">
-                        <img src="{{ asset('images/logo.png') }}" alt="{{ env('APP_NAME') }}" height="80">
+                        <img src="{{ asset($logo) }}" alt="{{ env('APP_NAME') }}" height="80">
                         <h2 class="mt-3">{{ __('Iniciar Sesión') }}</h2>
                     </div>
                     

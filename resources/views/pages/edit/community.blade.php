@@ -33,8 +33,11 @@
       <!-- Header -->
       <div class="card mb-4">
         <div class="card-body d-flex justify-content-between align-items-center">
-          <h2 class="mb-0">✏️ Editar “Community”</h2>
-          <a href="{{ route('community') }}" class="btn btn-outline-primary" target="_blank">👁️ Ver Página</a>
+          <h2 class="mb-1">✏️ Editar “Community”</h2>
+          <div>
+            <a href="{{ route('community') }}" class="btn btn-outline-primary" target="_blank">👁️ Ver Página</a>
+            <a href="{{ route('dashboard') }}" class="btn btn-secondary">← Volver al Dashboard</a>
+          </div>
         </div>
       </div>
 
@@ -205,7 +208,7 @@
 
       <div class="card">
         <div class="card-body">
-          <a href="{{ route('dashboard') }}" class="btn btn-secondary">← Volver</a>
+          <a href="{{ route('dashboard') }}" class="btn btn-secondary">← Volver al Dashboard</a>
         </div>
       </div>
     </div>
@@ -215,7 +218,7 @@
 {{-- Estilos y JS iguales a tus páginas previas (tabs/scroll) --}}
 <style>
   .list-group-item{border-left:3px solid transparent;transition:.3s;cursor:pointer}
-  .list-group-item:hover,.list-group-item.active{border-left-color:#0d6efd;background:#f8f9fa;font-weight:600}
+  .list-group-item:hover,.list-group-item.active{border-left-color:#0d6efd;background-color: #0d6efd;font-weight:600}
   .section-tabs{flex-wrap:wrap}
   .section-tabs .btn{flex:1 1 auto;min-width:100px;margin-bottom:5px}
   .section-tabs .btn.active{background:#0d6efd;color:#fff;font-weight:700}

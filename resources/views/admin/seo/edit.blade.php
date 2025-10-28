@@ -57,7 +57,7 @@
                         </div>
                         <div class="d-flex gap-2">
                             <a href="{{ $publicUrl }}" class="btn btn-outline-primary" target="_blank">👁️ Ver página</a>
-                            <a href="{{ route('dashboard') }}" class="btn btn-outline-secondary">↩️ Volver</a>
+                            <a href="{{ route('dashboard') }}" class="btn btn-secondary">← Volver al Dashboard</a>
                         </div>
                     </div>
                 </div>
@@ -375,7 +375,7 @@
     .list-group-item:hover,
     .list-group-item.active {
         border-left-color: #0d6efd;
-        background-color: #f8f9fa;
+        background-color: #0d6efd
         font-weight: 600;
     }
     .card { box-shadow: 0 2px 4px rgba(0,0,0,.06); }
