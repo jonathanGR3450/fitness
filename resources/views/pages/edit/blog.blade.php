@@ -1,6 +1,8 @@
 @extends('layouts.admin')
 @section('title','Editar Página - Blog')
 
+
+
 @section('content')
 @php
   // $contenidos llega agrupado por seccion->clave desde el controlador
@@ -162,7 +164,13 @@
                 <textarea name="blog_posts__featured_extracto" rows="3" class="form-control">{{ $cv($sec,'featured_extracto','Descubre cómo 30 días de movimiento consciente pueden cambiar completamente tu perspectiva sobre el fitness y crear hábitos sostenibles que duran toda la vida.') }}</textarea>
               </div>
               <div class="col-md-12">
-                <label class="form-label"><strong>URL “Leer más”</strong></label>
+                <label class="form-label d-flex align-items-center"><strong>Contenido Completo del Post</strong><span class="badge bg-info ms-2">EDITOR RICO</span></label>
+                <div id="editor-featured" style="min-height: 300px; background: white;">{!! $cv($sec,'featured_contenido','') !!}</div>
+                <textarea name="blog_posts__featured_contenido" id="featured_contenido_hidden" style="display:none;">{{ $cv($sec,'featured_contenido','') }}</textarea>
+                <small class="text-muted">Editor con formato: negrita, cursiva, listas, enlaces, encabezados, etc.</small>
+              </div>
+              <div class="col-md-12">
+                <label class="form-label"><strong>URL "Leer más"</strong></label>
                 <input type="text" name="blog_posts__featured_url" class="form-control" value="{{ $cv($sec,'featured_url','#') }}">
               </div>
 
@@ -240,12 +248,19 @@
                   <input type="text" name="blog_posts__post_{{ $i }}_url" class="form-control" value="{{ $url }}">
                 </div>
 
+                <div class="col-12">
+                  <label class="form-label d-flex align-items-center"><strong>Contenido Completo del Post {{ $i }}</strong><span class="badge bg-info ms-2">EDITOR RICO</span></label>
+                  <div id="editor-post-{{ $i }}" style="min-height: 250px; background: white;">{!! $cv($sec,"post_{$i}_contenido",'') !!}</div>
+                  <textarea name="blog_posts__post_{{ $i }}_contenido" id="post_{{ $i }}_contenido_hidden" style="display:none;">{{ $cv($sec,"post_{$i}_contenido",'') }}</textarea>
+                  <small class="text-muted">Editor con formato: negrita, cursiva, listas, enlaces, encabezados, etc.</small>
+                </div>
+
                 @if($i<6)<div class="col-12"><hr></div>@endif
               @endfor
 
             </div>
           </div>
-          <div class="card-footer bg-light d-flex justify-content-end">
+          <div class="card-footer bg-light d-flex justify-content-end" style="margin-top: 3rem; padding: 1.5rem;">
             <button class="btn btn-primary btn-lg">💾 Guardar Posts</button>
           </div>
         </div>
@@ -352,9 +367,15 @@
   .section-tabs .btn.active{background:#0d6efd;color:#fff;font-weight:700}
   .section-form{animation:fadeIn .3s ease-in}
   @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+  .ql-editor{min-height:200px;font-size:15px;line-height:1.6;max-height:500px;overflow-y:auto}
+  .ql-toolbar{background:#f8f9fa;border-radius:5px 5px 0 0;position:sticky;top:0;z-index:10}
+  .ql-container{border-radius:0 0 5px 5px;border:1px solid #dee2e6;margin-bottom:1rem}
+  .card-footer{box-shadow:0 -2px 10px rgba(0,0,0,0.05);position:sticky;bottom:0;z-index:100;background:#f8f9fa !important}
 </style>
+
 <script>
   document.addEventListener('DOMContentLoaded',function(){
+    // === Navegación entre secciones ===
     const links=document.querySelectorAll('.list-group-item[data-section]');
     const tabs=document.querySelectorAll('.section-tabs .btn');
     const forms=document.querySelectorAll('.section-form');
@@ -367,6 +388,64 @@
     links.forEach(l=>l.addEventListener('click',e=>{e.preventDefault();show('seccion-'+l.dataset.section)}));
     tabs.forEach(b=>b.addEventListener('click',()=>show(b.dataset.target)));
     show('seccion-blog-hero');
+
+    // === Configuración de Quill.js ===
+    const toolbarOptions = [
+      [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+      ['bold', 'italic', 'underline', 'strike'],
+      [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+      [{ 'align': [] }],
+      ['blockquote', 'code-block'],
+      ['link', 'image', 'video'],
+      [{ 'color': [] }, { 'background': [] }],
+      ['clean']
+    ];
+
+    // Array para almacenar todas las instancias de Quill
+    const quillEditors = [];
+
+    // Editor del post destacado
+    const editorFeatured = new Quill('#editor-featured', {
+      theme: 'snow',
+      modules: { toolbar: toolbarOptions },
+      placeholder: 'Escribe aquí el contenido completo del post destacado...'
+    });
+    quillEditors.push({
+      editor: editorFeatured,
+      hiddenInput: document.getElementById('featured_contenido_hidden')
+    });
+
+    // Editores para los 6 posts del grid
+    for(let i = 1; i <= 6; i++) {
+      const editor = new Quill(`#editor-post-${i}`, {
+        theme: 'snow',
+        modules: { toolbar: toolbarOptions },
+        placeholder: `Escribe aquí el contenido completo del post ${i}...`
+      });
+      quillEditors.push({
+        editor: editor,
+        hiddenInput: document.getElementById(`post_${i}_contenido_hidden`)
+      });
+    }
+
+    // === Sincronizar contenido de Quill con los inputs hidden antes de enviar ===
+    const formPosts = document.querySelector('#seccion-blog-posts');
+    if(formPosts) {
+      formPosts.addEventListener('submit', function(e) {
+        // Sincronizar todos los editores
+        quillEditors.forEach(item => {
+          const htmlContent = item.editor.root.innerHTML;
+          item.hiddenInput.value = htmlContent;
+        });
+      });
+    }
+
+    // === Sincronización en tiempo real (opcional, para depuración) ===
+    quillEditors.forEach(item => {
+      item.editor.on('text-change', function() {
+        item.hiddenInput.value = item.editor.root.innerHTML;
+      });
+    });
   });
 </script>
 @endsection

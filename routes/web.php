@@ -25,6 +25,7 @@ Route::get('/move-challenge', [PageController::class, 'move'])->name('move');
 Route::get('/comunidad',      [PageController::class, 'community'])->name('community');
 Route::get('/contacto',       [PageController::class, 'contact'])->name('contact');
 Route::get('/blog',           [PageController::class, 'blog'])->name('blog');
+Route::get('/blog/{tipo}/{id}', [BlogController::class, 'show'])->name('blog.show');
 
 // Rutas de idioma
 Route::get('/showEnglish', [PageController::class, 'showEnglish'])->name('home');

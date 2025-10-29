@@ -79,6 +79,7 @@ class BlogController extends Controller
             'blog_posts__featured_lectura'     => 'nullable|string|max:10',
             'blog_posts__featured_titulo'      => 'required|string|max:255',
             'blog_posts__featured_extracto'    => 'nullable|string',
+            'blog_posts__featured_contenido'   => 'nullable|string',
             'blog_posts__featured_url'         => 'nullable|string|max:255',
             // posts 1..6 imágenes
             'idioma' => 'required|string',
@@ -118,6 +119,8 @@ class BlogController extends Controller
             ['tipo'=>'texto','valor'=>$request->blog_posts__featured_titulo,'orden'=>++$orden]);
         Contenido::updateOrCreate(['pagina'=>$pagina,'seccion'=>'blog_posts','clave'=>'featured_extracto','idioma'=>$idioma],
             ['tipo'=>'texto','valor'=>$request->blog_posts__featured_extracto,'orden'=>++$orden]);
+        Contenido::updateOrCreate(['pagina'=>$pagina,'seccion'=>'blog_posts','clave'=>'featured_contenido','idioma'=>$idioma],
+            ['tipo'=>'texto','valor'=>$request->blog_posts__featured_contenido,'orden'=>++$orden]);
         Contenido::updateOrCreate(['pagina'=>$pagina,'seccion'=>'blog_posts','clave'=>'featured_url','idioma'=>$idioma],
             ['tipo'=>'url','valor'=>$request->blog_posts__featured_url,'orden'=>++$orden]);
 
@@ -149,7 +152,7 @@ class BlogController extends Controller
             Contenido::updateOrCreate(['pagina'=>$pagina,'seccion'=>'blog_posts','clave'=>$claveImg,'idioma'=>$idioma],
                 ['tipo'=>'imagen','valor'=>$imgVal,'orden'=>++$orden]);
 
-            foreach (['categoria','fecha','lectura','titulo','extracto','url'] as $campo){
+            foreach (['categoria','fecha','lectura','titulo','extracto','contenido','url'] as $campo){
                 Contenido::updateOrCreate(
                     ['pagina'=>$pagina,'seccion'=>'blog_posts','clave'=>"post_{$i}_{$campo}",'idioma'=>$idioma],
                     ['tipo'=> ($campo==='url'?'url':'texto'), 'valor'=>$request->input("blog_posts__post_{$i}_{$campo}"), 'orden'=>++$orden]
@@ -198,6 +201,56 @@ class BlogController extends Controller
         );
 
         return back()->with('success','✅ Newsletter CTA actualizada correctamente');
+    }
+
+    /**
+     * Mostrar un post individual del blog
+     */
+    public function show($tipo, $id)
+    {
+        $pagina = 'blog';
+        $idioma = 'es'; // O usar: app()->getLocale()
+
+        // Obtener TODOS los contenidos de la página de blog
+        $contenidos = Contenido::where('pagina', $pagina)
+            ->where('idioma', $idioma)
+            ->orderBy('seccion')
+            ->orderBy('orden')
+            ->get()
+            ->groupBy('seccion');
+
+        // Determinar qué post mostrar (featured o post_1, post_2, etc.)
+        $postData = [];
+
+        if ($tipo === 'featured') {
+            // Post destacado
+            $sec = $contenidos['blog_posts'] ?? collect();
+            $postData = [
+                'titulo' => optional($sec->firstWhere('clave', 'featured_titulo'))->valor ?? 'Sin título',
+                'imagen' => optional($sec->firstWhere('clave', 'featured_imagen'))->valor ?? 'images/blog-featured.jpg',
+                'fecha' => optional($sec->firstWhere('clave', 'featured_fecha'))->valor ?? date('d F Y'),
+                'autor' => optional($sec->firstWhere('clave', 'featured_autor'))->valor ?? 'Anabelle Ibalu',
+                'lectura' => optional($sec->firstWhere('clave', 'featured_lectura'))->valor ?? '5',
+                'extracto' => optional($sec->firstWhere('clave', 'featured_extracto'))->valor ?? '',
+                'contenido' => optional($sec->firstWhere('clave', 'featured_contenido'))->valor ?? '<p>Contenido no disponible.</p>',
+                'categoria' => 'Destacado',
+            ];
+        } else {
+            // Posts del grid (post_1, post_2, etc.)
+            $postNum = $id;
+            $sec = $contenidos['blog_posts'] ?? collect();
+            $postData = [
+                'titulo' => optional($sec->firstWhere('clave', "post_{$postNum}_titulo"))->valor ?? 'Sin título',
+                'imagen' => optional($sec->firstWhere('clave', "post_{$postNum}_imagen"))->valor ?? "images/blog-{$postNum}.jpg",
+                'fecha' => optional($sec->firstWhere('clave', "post_{$postNum}_fecha"))->valor ?? date('d F Y'),
+                'lectura' => optional($sec->firstWhere('clave', "post_{$postNum}_lectura"))->valor ?? '5',
+                'extracto' => optional($sec->firstWhere('clave', "post_{$postNum}_extracto"))->valor ?? '',
+                'contenido' => optional($sec->firstWhere('clave', "post_{$postNum}_contenido"))->valor ?? '<p>Contenido no disponible.</p>',
+                'categoria' => optional($sec->firstWhere('clave', "post_{$postNum}_categoria"))->valor ?? 'Fitness',
+            ];
+        }
+
+        return view('pages.blog-single', compact('postData', 'contenidos', 'pagina', 'idioma'));
     }
 
 }

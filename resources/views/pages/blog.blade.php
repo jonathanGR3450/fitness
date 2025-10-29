@@ -613,7 +613,7 @@
   $fLect = $v('blog_posts','featured_lectura','5');
   $fTit  = $v('blog_posts','featured_titulo','Cómo el Move Challenge transformó mi relación con el ejercicio');
   $fExc  = $v('blog_posts','featured_extracto','Descubre cómo 30 días de movimiento consciente...');
-  $fUrl  = $v('blog_posts','featured_url','#');
+  $fUrl  = route('blog.show', ['tipo' => 'featured', 'id' => 0]);
 @endphp
 
 <!-- Blog Hero Section -->
@@ -678,7 +678,7 @@
                   'Pequeños cambios diarios...',
                   'Todo lo que necesitas para tu gym en casa...',
                   'Nutrición post-workout para maximizar resultados'][$i-1]);
-          $url  = $v('blog_posts',"post_{$i}_url","#");
+          $url  = route('blog.show', ['tipo' => 'post', 'id' => $i]);
           $catClass = strtolower($cat);
         @endphp
 
