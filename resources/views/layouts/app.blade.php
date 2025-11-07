@@ -295,7 +295,7 @@
             footer {
                 padding: 3rem 0 1.5rem;
             }
-            
+
             .social-links {
                 justify-content: center;
                 margin-top: 1rem;
@@ -314,6 +314,15 @@
 
             .btn-primary {
                 width: 100%;
+                text-align: center;
+            }
+
+            /* Centrar botón en móviles */
+            .btn-primaryy {
+                display: block;
+                width: 90%;
+                max-width: 280px;
+                margin: 1rem auto 0 auto !important;
                 text-align: center;
             }
         }
